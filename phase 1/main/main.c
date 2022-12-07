@@ -4,7 +4,7 @@
 int main()
 {
 
-    printWelcome();
+    printf("_____\015hello");
 
     return 0;
 }
