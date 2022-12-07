@@ -1,10 +1,10 @@
 #include <stdio.h>
+#include "welcome.h"
 
 int main()
 {
 
-    printf("mmd");
+    printWelcome();
 
     return 0;
 }
-mmd is bad
