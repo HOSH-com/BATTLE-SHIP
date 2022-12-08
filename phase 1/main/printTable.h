@@ -23,7 +23,7 @@ void printTable(char pName1, char pName2, int player1[][15], int player2[][15], 
             for (int i = 1; i <= n; i++) {      //section 2: col nom 1
                 printf ("%i ", i);
             }
-            printf ("\t|\t  ");                  //section 3: empty space 2
+            printf ("       |         ");                  //section 3: empty space 2
 
             for (int i = 1; i <= n; i++) {      //section 4: col nom 2
                 printf ("%i ", i);
@@ -48,7 +48,7 @@ void printTable(char pName1, char pName2, int player1[][15], int player2[][15], 
                             break;*/
                     }
                 }
-                printf("\t|\t");               //section 3: empty space
+                printf("       |       ");               //section 3: empty space
 
                 printf("%i ", i+1);               //section 4: row nom 1
 
