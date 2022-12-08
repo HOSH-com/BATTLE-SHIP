@@ -8,9 +8,9 @@ int player2[15][15] = {};
 int main()
 {
 
-    char pName1, pName2;
-    pName1 = 'a';
-    pName2 = 'b';
+    char pName1[21] = "reza";
+    char pName2[21] = "hesam";
+    
     
     printTable(pName1 , pName2, player1, player2, 5);
     
