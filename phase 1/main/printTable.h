@@ -15,7 +15,7 @@ void printTable(char pName1, char pName2, int player1[][15], int player2[][15], 
     /*  REZA code:  */
 
 
-    //printing:
+    //printing table:
 
         //first line:
             printf("  ");                        //section 1: empty space 1
@@ -23,7 +23,7 @@ void printTable(char pName1, char pName2, int player1[][15], int player2[][15], 
             for (int i = 1; i <= n; i++) {      //section 2: col nom 1
                 printf ("%i ", i);
             }
-            printf ("\b\t|\t  ");                  //section 3: empty space 2
+            printf ("\t|\t  ");                  //section 3: empty space 2
 
             for (int i = 1; i <= n; i++) {      //section 4: col nom 2
                 printf ("%i ", i);
@@ -48,9 +48,11 @@ void printTable(char pName1, char pName2, int player1[][15], int player2[][15], 
                             break;*/
                     }
                 }
-                printf("\b\t|\t");               //section 3: empty space
+                printf("\t|\t");               //section 3: empty space
 
-                for (int j = 0; j < n; j++){    //section 4: player 2
+                printf("%i ", i+1);               //section 4: row nom 1
+
+                for (int j = 0; j < n; j++){    //section 5: player 2
                    
                     switch (player2[i][j]) {
                         case NO_SHIP:
