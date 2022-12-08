@@ -34,7 +34,7 @@ void printTable(char pName1[], char pName2[], int player1[][15], int player2[][1
     printf("%s\n",pName2);
     for (int i = 0; i <4*n+2 ; i++)
     {
-         printf("-");
+         printf("_");
     }
     printf("\n");
 
