@@ -24,7 +24,7 @@ void pNames (char pName1[], char pName2[],int n )
          printf(" ");
     }
     printf("%s\n",pName2);
-    for (int i = 0; i <4*n+2 ; i++)
+    for (int i = 0; i <4*n+17 ; i++)
     {
          printf("-");
     }
