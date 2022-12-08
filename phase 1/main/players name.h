@@ -5,7 +5,7 @@ int tedad_char(char p1[])
     {
         if (p1[i]=='\0')
         {
-            return i;
+            return i+1;
         }
     }
 }
