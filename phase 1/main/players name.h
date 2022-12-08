@@ -28,5 +28,6 @@ void pNames (char pName1[], char pName2[],int n )
     {
          printf("-");
     }
+    printf("\n");
     
 }
