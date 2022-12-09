@@ -22,7 +22,7 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
          printf(" ");
     }
     printf("%s\n",pName2);
-    for (int i = 0; i <6*(n+1)+14 ; i++)
+    for (int i = 0; i <6*(n+1)+13 ; i++)
     {
          printf("=");
     }
