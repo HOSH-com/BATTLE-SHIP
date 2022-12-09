@@ -12,7 +12,7 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
     int L1=tedad_char(pName1);//tedad character pName1
     int L2=tedad_char(pName2);//tedad character pName2
     int e=15;//space between arrays
-    for (int i = 0; i <3+(3*n+L1)/2 - 6; i++)//print space befor pName1
+    for (int i = 0; i <(3+(3*n+L1)/2) - 6; i++)//print space befor pName1
     {
         printf(" ");
     }
@@ -22,9 +22,9 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
          printf(" ");
     }
     printf("%s\n",pName2);
-    for (int i = 0; i <4*n+18 ; i++)
+    for (int i = 0; i < (4*n+18) + 31 ; i++)
     {
-         printf("_");
+         printf("=");
     }
     printf("\n");
 
