@@ -12,7 +12,7 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
     int L1=tedad_char(pName1);//tedad character pName1
     int L2=tedad_char(pName2);//tedad character pName2
     int e=15;//space between arrays
-    for (int i = 0; i <3+(3*n+L1)/2; i++)//print space befor pName1
+    for (int i = 0; i <3+(3*n+L1)/2 - 6; i++)//print space befor pName1
     {
         printf(" ");
     }
@@ -51,14 +51,14 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
             } */
             //senario 2: 'n' ta 2 ragham
             printf("   ");                        //section 1: empty space 1
-            for (int i = 1; i <= 9; i++) {      //section 2: col nom 1
+            for (int i = 1; i <= 9 && i <= n; i++) {      //section 2: col nom 1
                 printf ("%i  ", i);
             }
             for (int i = 10; i <= n; i++) {      //section 2: col nom 1
                 printf ("%i ", i);
             }
             printf ("      |          ");                  //section 3: empty space 2
-            for (int i = 1; i <= 9; i++) {      //section 4: col nom 2
+            for (int i = 1; i <= 9 && i <= n; i++) {      //section 4: col nom 2
                 printf ("%i  ", i);
             }
             for (int i = 10; i <= n; i++) {      //section 4: col nom 2
@@ -106,7 +106,7 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
                 }
             }   */
             //senario 2: 'n' ta 2 ragham
-            for (int i = 0; i < 9; i++)              //main loop
+            for (int i = 0; i < 9 && i < n; i++)              //main loop
             {
                 printf("%i  ", i+1);               //section 1: row nom 1
                 for (int j = 0; j < n; j++)       //section 2: player 1
