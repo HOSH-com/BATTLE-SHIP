@@ -57,7 +57,7 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
             for (int i = 10; i <= n; i++) {      //section 2: col nom 1
                 printf ("%i ", i);
             }
-            printf ("       |          ");                  //section 3: empty space 2
+            printf ("      |          ");                  //section 3: empty space 2
             for (int i = 1; i <= 9; i++) {      //section 4: col nom 2
                 printf ("%i  ", i);
             }
@@ -123,7 +123,7 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
                             break;*/
                     }
                 }
-                printf("       |       ");               //section 3: empty space
+                printf("      |       ");               //section 3: empty space
                 printf("%i  ", i+1);                    //section 4: row nom 1
                 for (int j = 0; j < n; j++)            //section 5: player 2
                 {   
@@ -158,7 +158,7 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
                             break;*/
                     }
                 }
-                printf("       |       ");               //section 3: empty space
+                printf("      |       ");               //section 3: empty space
                 printf("%i ", i+1);                     //section 4: row nom 1
                 for (int j = 0; j < n; j++)            //section 5: player 2
                 {   
