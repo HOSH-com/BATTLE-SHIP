@@ -7,12 +7,16 @@ int player2[15][15] = {};
 
 int main()
 {
-    int nShip;
+    int nShip,x,y;
     char pName1[21] = "FOCP1";
     char pName2[21] = "FOCP2";
     
     scanf("%i", &nShip);
-    
+    for(int i =0;i<3;i++)
+    {
+        scanf("%d%d",&x,&y);
+        fire(x,y,player2);
+    }
     printTable(pName1 , pName2, player1, player2, nShip);
    // printWelcome();
     
