@@ -37,7 +37,8 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
     //printing table:
 
         //first line:
-            //senario 1:
+            
+            /*senario 1: 'n' 1 ragham
             if (n < 10) {
                 printf("  ");                        //section 1: empty space 1
                 for (int i = 1; i <= n; i++) {      //section 2: col nom 1
@@ -47,28 +48,26 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
                 for (int i = 1; i <= n; i++) {      //section 4: col nom 2
                     printf ("%i ", i);
                 }
+            } */
+            //senario 2: 'n' ta 2 ragham
+            printf("   ");                        //section 1: empty space 1
+            for (int i = 1; i <= 9; i++) {      //section 2: col nom 1
+                printf ("%i  ", i);
             }
-            //senario 2:
-            else if (n < 100) {
-                printf("   ");                        //section 1: empty space 1
-                for (int i = 1; i <= 9; i++) {      //section 2: col nom 1
-                    printf ("%i  ", i);
-                }
-                for (int i = 10; i <= n; i++) {      //section 2: col nom 1
-                    printf ("%i ", i);
-                }
-                printf ("       |          ");                  //section 3: empty space 2
-                for (int i = 1; i <= 9; i++) {      //section 4: col nom 2
-                    printf ("%i  ", i);
-                }
-                for (int i = 10; i <= n; i++) {      //section 4: col nom 2
-                    printf ("%i ", i);
-                }
+            for (int i = 10; i <= n; i++) {      //section 2: col nom 1
+                printf ("%i ", i);
             }
+            printf ("       |          ");                  //section 3: empty space 2
+            for (int i = 1; i <= 9; i++) {      //section 4: col nom 2
+                printf ("%i  ", i);
+            }
+            for (int i = 10; i <= n; i++) {      //section 4: col nom 2
+                printf ("%i ", i);
+            }    
             printf("\n");                        //next line
         
         //other lines:
-            //senario 1:
+            /*senario 1: 'n' 1 ragham
             if (n < 10)
             {
                 for (int i = 0; i < n; i++)     //main loop
@@ -84,8 +83,8 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
                             case DESTROYED:
                                 printf("X "); 
                                 break;
-                            /*default:
-                                break;*/
+                            //default:
+                                //break;
                         }
                     }
                     printf("       |       ");               //section 3: empty space
@@ -99,86 +98,83 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
                             case DESTROYED:
                                 printf("X "); 
                                 break;
-                            /*default:
-                                break;*/
+                            //default:
+                                //break;
                      }
                     }
                     printf("\n");       //next line
                 }
-            }   
-            //senario 2:
-            else if (n < 100)
+            }   */
+            //senario 2: 'n' ta 2 ragham
+            for (int i = 0; i < 9; i++)              //main loop
             {
-                for (int i = 0; i < 9; i++)     //main loop
+                printf("%i  ", i+1);               //section 1: row nom 1
+                for (int j = 0; j < n; j++)       //section 2: player 1
                 {
-                    printf("%i  ", i+1);               //section 1: row nom 1
-                    for (int j = 0; j < n; j++)    //section 2: player 1
+                    switch (player1[i][j]) 
                     {
-                        switch (player1[i][j]) 
-                        {
-                            case NO_SHIP:
-                                printf("~  "); 
-                                break;
-                            case DESTROYED:
-                                printf("X  "); 
-                                break;
-                            /*default:
-                                break;*/
-                        }
+                        case NO_SHIP:
+                            printf("~  "); 
+                            break;
+                        case DESTROYED:
+                            printf("X  "); 
+                            break;
+                        /*default:
+                            break;*/
                     }
-                    printf("       |       ");               //section 3: empty space
-                    printf("%i  ", i+1);               //section 4: row nom 1
-                    for (int j = 0; j < n; j++)    //section 5: player 2
-                    {   
-                        switch (player2[i][j]) {
-                            case NO_SHIP:
-                                printf("~  "); 
-                                break;
-                            case DESTROYED:
-                                printf("X  "); 
-                                break;
-                            /*default:
-                                break;*/
-                     }
-                    }
-                    printf("\n");       //next line
                 }
-                //resume:
-                for (int i = 9; i < n; i++)     //main loop with new condition
+                printf("       |       ");               //section 3: empty space
+                printf("%i  ", i+1);                    //section 4: row nom 1
+                for (int j = 0; j < n; j++)            //section 5: player 2
+                {   
+                    switch (player2[i][j]) {
+                        case NO_SHIP:
+                            printf("~  "); 
+                            break;
+                        case DESTROYED:
+                            printf("X  "); 
+                            break;
+                        /*default:
+                            break;*/
+                    }
+                }
+                printf("\n");       //next line
+            }
+            //resume:
+            for (int i = 9; i < n; i++)             //main loop with new condition
+            {
+                printf("%i ", i+1);               //section 1: row nom 1
+                for (int j = 0; j < n; j++)      //section 2: player 1
                 {
-                    printf("%i ", i+1);               //section 1: row nom 1
-                    for (int j = 0; j < n; j++)    //section 2: player 1
+                    switch (player1[i][j]) 
                     {
-                        switch (player1[i][j]) 
-                        {
-                            case NO_SHIP:
-                                printf("~  "); 
-                                break;
-                            case DESTROYED:
-                                printf("X  "); 
-                                break;
-                            /*default:
-                                break;*/
-                        }
+                        case NO_SHIP:
+                            printf("~  "); 
+                            break;
+                        case DESTROYED:
+                            printf("X  "); 
+                            break;
+                        /*default:
+                            break;*/
                     }
-                    printf("       |       ");               //section 3: empty space
-                    printf("%i ", i+1);               //section 4: row nom 1
-                    for (int j = 0; j < n; j++)    //section 5: player 2
-                    {   
-                        switch (player2[i][j]) {
-                            case NO_SHIP:
-                                printf("~  "); 
-                                break;
-                            case DESTROYED:
-                                printf("X  "); 
-                                break;
-                            /*default:
-                                break;*/
-                     }
-                    }
-                    printf("\n");       //next line
                 }
-            }   
+                printf("       |       ");               //section 3: empty space
+                printf("%i ", i+1);                     //section 4: row nom 1
+                for (int j = 0; j < n; j++)            //section 5: player 2
+                {   
+                    switch (player2[i][j]) {
+                        case NO_SHIP:
+                            printf("~  "); 
+                            break;
+                        case DESTROYED:
+                            printf("X  "); 
+                            break;
+                        /*default:
+                            break;*/
+                    }
+                }
+                printf("\n");       //next line
+            }  
 }
 
 int tedad_char(const char p1[])
