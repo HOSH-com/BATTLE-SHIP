@@ -19,7 +19,7 @@ void pNames (char pName1[], char pName2[],int n )
         printf(" ");
     }
     printf("%s",pName1);
-    for (int i = 0; i <(((2*n+1)+e)+2*n+1)/2-(L2/2); i++)//print space between pName1 and pName2
+    for (int i = 0; i <(((4*n+1)+e)+4*n+1)/2-(L2/2); i++)//print space between pName1 and pName2
     {
          printf(" ");
     }
