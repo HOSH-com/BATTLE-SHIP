@@ -3,19 +3,9 @@
 #define NO_SHIP 0
 #define DESTROYED -1
 
-int tedad_char(char p1[])
-{
-    for (int i = 0; i < 50; i++)
-    {
-        if (p1[i]=='\0')
-        {
-            return i;
-        }
-    }
-}
+int tedad_char(const char p1[]);
 
-
-void printTable(char pName1[], char pName2[], int player1[][15], int player2[][15], int n)
+void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n)
 {
     /*  HESAM   code:    */
 
@@ -189,4 +179,15 @@ void printTable(char pName1[], char pName2[], int player1[][15], int player2[][1
                     printf("\n");       //next line
                 }
             }   
+}
+
+int tedad_char(const char p1[])
+{
+    for (int i = 0; i < 50; i++)
+    {
+        if (p1[i]=='\0')
+        {
+            return i;
+        }
+    }
 }
