@@ -8,10 +8,11 @@ int player2[15][15] = {};
 
 int main()
 {
-    int nShip,x,y;
+    int areaSize, x, y, nShip;
     char pName1[21] = "FOCP1";
     char pName2[21] = "FOCP2";
     
+    scanf("%i", &areaSize);
     scanf("%i", &nShip);
     for(int i =0;i<3;i++)
     {
@@ -19,7 +20,9 @@ int main()
         fire(x,y,player2);
         fire(x,y,player1);
     }
-    printTable(pName1 , pName2, player1, player2, nShip);
+
+
+    printTable(pName1 , pName2, player1, player2, areaSize);
    // printWelcome();
     return 0;
 }
