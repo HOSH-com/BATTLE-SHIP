@@ -19,7 +19,7 @@ int main()
         scanf("%d%d",&x,&y);
         fire(x,y,player1);
     }
-    for(int i =0;i<3;i++)//DAMAGE AREA PLAYER 1
+    for(int i =0;i<3;i++)//DAMAGE AREA PLAYER 2
     {
         scanf("%d%d",&x,&y);
         fire(x,y,player2);
