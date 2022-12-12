@@ -24,8 +24,6 @@ int main()
         scanf("%d%d",&x,&y);
         fire(x,y,player2);
     }
-
-
     printTable(pName1 , pName2, player1, player2, areaSize);
    // printWelcome();
     return 0;
