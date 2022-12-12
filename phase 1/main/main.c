@@ -17,8 +17,12 @@ int main()
     for(int i =0;i<3;i++)
     {
         scanf("%d%d",&x,&y);
-        fire(x,y,player2);
         fire(x,y,player1);
+    }
+    for(int i =0;i<3;i++)
+    {
+        scanf("%d%d",&x,&y);
+        fire(x,y,player2);
     }
 
 
