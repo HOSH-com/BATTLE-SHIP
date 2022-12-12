@@ -124,12 +124,12 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
                 printf("\n");       //next line
             }
         {//REMAINING SHIPS
-            printf("remaining ships 3");
-             for (int i = 0; i <3*(n+1)+14-17; i++)
+            printf("remaining ships: 3");
+             for (int i = 0; i <3*(n+1)+14-18; i++)
             {
             printf(" ");
             }  
-            printf("remaining ships 3");
+            printf("remaining ships: 3");
         }
 }
 
