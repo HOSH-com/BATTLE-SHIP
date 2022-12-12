@@ -17,10 +17,9 @@ int main()
     {
         scanf("%d%d",&x,&y);
         fire(x,y,player2);
+        fire(x,y,player1);
     }
     printTable(pName1 , pName2, player1, player2, nShip);
    // printWelcome();
-    
     return 0;
-    
 }
