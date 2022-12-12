@@ -14,17 +14,16 @@ int main()
     
     scanf("%i", &areaSize);
     scanf("%i", &nShip);
-    for(int i =0;i<3;i++)
+    for(int i =0;i<3;i++)//DAMAGE AREA PLAYER 1
     {
         scanf("%d%d",&x,&y);
         fire(x,y,player1);
     }
-    for(int i =0;i<3;i++)
+    for(int i =0;i<3;i++)//DAMAGE AREA PLAYER 1
     {
         scanf("%d%d",&x,&y);
         fire(x,y,player2);
     }
     printTable(pName1 , pName2, player1, player2, areaSize);
-   // printWelcome();
     return 0;
 }
