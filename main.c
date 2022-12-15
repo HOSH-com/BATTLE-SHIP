@@ -6,6 +6,8 @@
 int player1[15][15] = {};   //maximum battle area table is 15*15
 int player2[15][15] = {};   
 
+// this is the beggining of fase2
+
 int main()
 {
     int areaSize, x, y, nShip;
