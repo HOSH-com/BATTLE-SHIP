@@ -6,11 +6,13 @@
 int player1[15][15] = {};   //maximum battle area table is 15*15
 int player2[15][15] = {};   
 
+// this is the beggining of fase2
+
 int main()
 {
     int areaSize, x, y, nShip;
-    char pName1[21] = "FOCP1";
-    char pName2[21] = "FOCP2";
+    char pName1[21] = "FOCP_1";
+    char pName2[21] = "FOCP_2";
     
     scanf("%i", &areaSize);
     scanf("%i", &nShip);
