@@ -12,8 +12,8 @@ int main()
 {
     int areaSize, x, y, nShip;
 
-    char pName1[21] = "FOCP_1";
-    char pName2[21] = "FOCP_2";    
+    char pName1[21] = "FOCP1";
+    char pName2[21] = "FOCP2";    
     scanf("%i", &areaSize);
     scanf("%i", &nShip);
     for(int i =0;i<3;i++)//DAMAGE AREA PLAYER 1

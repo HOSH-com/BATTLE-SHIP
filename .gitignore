@@ -1,4 +1,3 @@
-phase 1/main/main.exe
 .vscode
 .vs
-phase 1\test.exe
+main.exe
