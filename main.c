@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "headers/welcome.h"
 #include "headers/table.h"
-#include "headers/fire.h"
+#include "headers/ship.h"
 
 int player1[15][15] = {};   //maximum battle area table is 15*15
 int player2[15][15] = {};   
