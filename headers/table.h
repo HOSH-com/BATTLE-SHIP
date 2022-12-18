@@ -58,18 +58,18 @@ void printNames(const char pName1[], const char pName2[], int n)
 void printBattlefields(const int player1[][15], const int player2[][15], int n)
 {
     //first line:
-        printf("   ");                        //section 1: empty space 1
+        printf("   ");                                 //section 1: empty space 1
         for (int i = 1; i <= 9 && i <= n; i++) {      //section 2: col nom 1
             printf ("%i  ", i);
         }
-        for (int i = 10; i <= n; i++) {      //section 2: col nom 1
+        for (int i = 10; i <= n; i++) {      //...
             printf ("%i ", i);
         }
         printf ("      |          ");                  //section 3: empty space 2
         for (int i = 1; i <= 9 && i <= n; i++) {      //section 4: col nom 2
             printf ("%i  ", i);
         }
-        for (int i = 10; i <= n; i++) {      //section 4: col nom 2
+        for (int i = 10; i <= n; i++) {      //...
             printf ("%i ", i);
         }    
         printf("\n");                        //next line
@@ -88,8 +88,9 @@ void printBattlefields(const int player1[][15], const int player2[][15], int n)
                     case DESTROYED:
                         printf("X  "); 
                         break;
-                    /*default:
-                        break;*/
+                    default:
+                        if(player1[i][j] > 0) printf("■  ");
+                        break;
                 }
             }
             printf("      |       ");               //section 3: empty space
@@ -103,8 +104,9 @@ void printBattlefields(const int player1[][15], const int player2[][15], int n)
                     case DESTROYED:
                         printf("X  "); 
                         break;
-                    /*default:
-                        break;*/
+                    default:
+                        if(player2[i][j] > 0) printf("■  ");
+                        break;
                 }
             }
             printf("\n");       //next line
@@ -123,8 +125,9 @@ void printBattlefields(const int player1[][15], const int player2[][15], int n)
                     case DESTROYED:
                         printf("X  "); 
                         break;
-                    /*default:
-                        break;*/
+                    default:
+                        if(player1[i][j] > 0) printf("■  ");
+                        break;
                 }
             }
             printf("      |       ");               //section 3: empty space
@@ -138,8 +141,9 @@ void printBattlefields(const int player1[][15], const int player2[][15], int n)
                     case DESTROYED:
                         printf("X  "); 
                         break;
-                    /*default:
-                        break;*/
+                    default:
+                        if(player2[i][j] > 0) printf("■  ");
+                        break;
                 }
             }
             printf("\n");       //next line
