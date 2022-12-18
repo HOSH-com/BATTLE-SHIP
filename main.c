@@ -27,14 +27,14 @@ int main()
     {
         printf("Enter ship position %i", i+1);
         scanf("%d%d%c%c",&x,&y,&trash[0],&form);    //4- player1 ships position
-        if (put_ship(x,y,form,sizeofship,player1)==1)   //check for error
+        if (put_ship(x,y,form,sizeofship,player1,areaSize)==1)  //check for error
         {
             int sw=0;
             while (sw==0)
             {
                 printf("ship is exist in that area plz enter Coordinate %i again\n", i+1);
                 scanf("%d%d%c%c",&x,&y,&trash[0],&form);
-                if (put_ship(x,y,form,sizeofship,player1)==0) sw=1;
+                if (put_ship(x,y,form,sizeofship,player1,areaSize)==0) sw=1;
             }
         }
     }
@@ -50,14 +50,14 @@ int main()
     {
         printf("Enter ship position %i", i+1);
         scanf("%d%d%c%c",&x,&y,&trash[0],&form);        //7- player2 ships position
-        if (put_ship(x,y,form,sizeofship,player2)==1)   //check for error
+        if (put_ship(x,y,form,sizeofship,player2,areaSize)==1)  //check for error
         {
             int sw=0;
             while (sw==0)
             {
                 printf("ship is exist in that area plz enter Coordinate %i again\n", i+1);
                 scanf("%d%d%c%c",&x,&y,&trash[0],&form);
-                if (put_ship(x,y,form,sizeofship,player2)==0) sw=1;
+                if (put_ship(x,y,form,sizeofship,player2,areaSize)==0) sw=1;
             }
         }
     }
