@@ -2,10 +2,11 @@ void fire(int x,int y,int A[][15])
 {
     A[x-1][y-1]=-1;
 }
-int check_ship(int x,int y,char form,int sizeofship,int A[][15])
+int check_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize)
 {    
     if (form =='H' || form=='h')//check existence for horizontal ship in map
     { 
+        if(x+sizeofship>areaSize-1) return 1;
         for (int i = 0; i < sizeofship; i++)
         {
             if (A[x][y+i]!=0)
@@ -16,6 +17,7 @@ int check_ship(int x,int y,char form,int sizeofship,int A[][15])
     }
     if (form=='v' || form=='V')//check existence for vertical ship in map
     { 
+        if(y+sizeofship>areaSize-1) return 1;
         for (int i = 0; i < sizeofship; i++)
         {
             if (A[x+i][y]!=0)
@@ -26,11 +28,11 @@ int check_ship(int x,int y,char form,int sizeofship,int A[][15])
     }
     
 }
-int put_ship(int x,int y,char form,int sizeofship,int A[][15])
+int put_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize)
 {
     x = x-1;
     y = y-1;
-    if (check_ship(x,y,form,sizeofship,A)==1)
+    if (check_ship(x,y,form,sizeofship,A,areaSize)==1)
     {
         return 1;  
     }
