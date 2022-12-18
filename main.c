@@ -6,6 +6,55 @@
 
 int player1[15][15] = {};   //maximum battle area table is 15*15
 int player2[15][15] = {};   
+#include <stdio.h>
+#include "headers/welcome.h"
+#include "headers/table.h"
+#include "headers/ship.h"
+
+int player1[15][15] = {0};   //maximum battle area table is 15*15
+int player2[15][15] = {0};   
+
+int main()
+{
+    int areaSize, x, y, nShip,sizeofship=3;
+    char form;
+    char pName1[21] = "FOCP1";
+    char pName2[21] = "FOCP2";    
+    scanf("%d", &areaSize);
+    scanf("%d", &nShip);
+    for(int i =0;i<nShip;i++)
+    {
+        scanf("%d%d",&x,&y);
+        scanf("%c",&form);
+    if (put_ship(x,y,form,sizeofship,player1)==1)
+    {
+        int sw=0;
+        while (sw==0)
+        {
+            printf("ship is exist in that area plz write another Coordinates\n");
+            scanf("%d%d%c",&x,&y,&form);
+            if (put_ship(x,y,form,sizeofship,player1)==0) sw=1;
+        }
+    }
+    }
+    scanf("---");
+    for(int i =0;i<nShip;i++)//put && check ship in area for player 2
+    {
+        scanf("%d%d%c",&x,&y,&form);
+    if (put_ship(x,y,form,sizeofship,player2)==1)
+    {
+        int sw=0;
+        while (sw==0)
+        {
+            printf("ship is exist in that area plz write another Coordinates\n");
+            scanf("%d%d%c",&x,&y,&form);
+            if (put_ship(x,y,form,sizeofship,player2)==0) sw=1;
+        }
+    }
+    }
+    printTable(pName1 , pName2, player1, player2, areaSize);
+    return 0;
+}
 
 int main()
 {
