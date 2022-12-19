@@ -18,12 +18,12 @@ int main()
     printf("Please enter size of map (4-15):\n");
     scanf("%i", &areaSize);     //1- size
     printf("Enter number of ships:\n");
-    scanf("%i%c", &nShip, trash[0]);        //2- ship amounts
+    scanf("%i", &nShip);        //2- ship amounts
     printf("Enter player1 name:\n");
     scanf("%s", pName1);        //3- player1 name
     /*fgets(pName1, 21, stdin);
     pName1[0] = 0;
-    fgets(pName1, 21, stdin);*/       //'cuase previous "fgets" gets ignored 
+    fgets(pName1, 21, stdin);*/       //'cause previous "fgets" gets ignored 
 
     //put && check ship in area for player 1:
     for(int i =0;i<nShip;i++)     
@@ -56,7 +56,7 @@ int main()
     scanf("%s", pName2);        //6- player2 name
     /*fgets(pName2, 21, stdin);
     pName2[0] = 0;
-    fgets(pName2, 21, stdin);*/       //'cuase previous "fgets" gets ignored 
+    fgets(pName2, 21, stdin);*/       //'cause previous "fgets" gets ignored 
  
     //put && check ship in area for player 2:
     for(int i =0;i<nShip;i++)       
