@@ -5,10 +5,10 @@ void fire(int x,int y,int A[][15])
 
 int check_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize)
 {    
-    if (x+1>areaSize || y+1>areaSize) return 2;//ship out of rang
+    if (x+1>areaSize || y+1>areaSize) return 2;//ship out of range
     if (form =='H' || form=='h')//check existence for horizontal ship in map1
     {   
-        if(y+sizeofship-1>areaSize-1) return 2;//ship out of rang
+        if(y+sizeofship-1>areaSize-1) return 2;//ship out of range
         for (int i = 0; i < sizeofship; i++)
         {
             if (A[x][y+i]!=0)
@@ -20,7 +20,7 @@ int check_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize)
 
     if (form=='v' || form=='V')//check existence for vertical ship in map
     { 
-        if(x+sizeofship-1>areaSize-1) return 2;//ship out of rang
+        if(x+sizeofship-1>areaSize-1) return 2;//ship out of range
         for (int i = 0; i < sizeofship; i++)
         {
             if (A[x+i][y]!=0)
