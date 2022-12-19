@@ -15,17 +15,20 @@ int main()
     char pName1[21] = {};
     char pName2[21] = {};  
 
-    printf("Please enter size of map:\n");
+    printf("Please enter size of map (4-15):\n");
     scanf("%i", &areaSize);     //1- size
-    printf("Enter Number of ships:\n");
-    scanf("%i", &nShip);        //2- ship amounts
-    printf("Enter Player1 name:\n");
-    scanf("%s", pName1);        //3- player1 name
+    printf("Enter number of ships:\n");
+    scanf("%i%c", &nShip, trash[0]);        //2- ship amounts
+    printf("Enter player1 name:\n");
+    /*scanf("%s", pName1);*/        //3- player1 name
+    fgets(pName1, 21, stdin);
+    pName1[0] = 0;
+    fgets(pName1, 21, stdin);       //'cuase previous "fgets" gets ignored 
 
     //put && check ship in area for player 1:
     for(int i =0;i<nShip;i++)     
     {
-        printf("Enter ship position %i", i+1);
+        printf("Enter ship position \'%i\':\n", i+1);
         scanf("%d%d%c%c",&x,&y,&trash[0],&form);    //4- player1 ships position
         if (put_ship(x,y,form,sizeofship,player1,areaSize)==1 || put_ship(x,y,form,sizeofship,player1,areaSize)==2)  //check for error
         {
@@ -34,7 +37,7 @@ int main()
             {
                 if(put_ship(x,y,form,sizeofship,player1,areaSize)==1)
                 {
-                printf("ship is exist in that area plz enter Coordinate %i again\n", i+1);
+                    printf("ERROR: Ship exists in this area\nPlease enter position \'%i\' again:\n", i+1);
                 }
                 else if(put_ship(x,y,form,sizeofship,player1,areaSize)==2)
                 {
@@ -46,16 +49,19 @@ int main()
         }
     }
 
-    printf("Press \'enter\' to continue");
+    printf("Type something then press \'enter\' to continue:\n");
     scanf("%s",&trash);         //5- next player
     
     printf("Enter player2 name:\n");
-    scanf("%s", pName2);        //6- player2 name
-
+    /*scanf("%s", pName2);*/        //6- player2 name
+    fgets(pName2, 21, stdin);
+    pName2[0] = 0;
+    fgets(pName2, 21, stdin);       //'cuase previous "fgets" gets ignored 
+ 
     //put && check ship in area for player 2:
     for(int i =0;i<nShip;i++)       
     {
-        printf("Enter ship position %i", i+1);
+        printf("Enter ship position \'%i\':\n", i+1);
         scanf("%d%d%c%c",&x,&y,&trash[0],&form);        //7- player2 ships position
         if (put_ship(x,y,form,sizeofship,player2,areaSize)==1 || put_ship(x,y,form,sizeofship,player1,areaSize)==2)  //check for error
         {
@@ -64,11 +70,11 @@ int main()
             {
                 if(put_ship(x,y,form,sizeofship,player1,areaSize)==1)
                 {
-                printf("ship is exist in that area plz enter Coordinate %i again\n", i+1);
+                    printf("ERROR: Ship exists in this area\nPlease enter position \'%i\' again:\n", i+1);
                 }
                 else if(put_ship(x,y,form,sizeofship,player1,areaSize)==2)
                 {
-                printf("THE ship is out of the range plz enter Coordinate %i again\n", i+1);
+                    printf("THE ship is out of the range plz enter Coordinate %i again\n", i+1);
                 }
                 scanf("%d%d%c%c",&x,&y,&trash[0],&form);
                 if (put_ship(x,y,form,sizeofship,player2,areaSize)==0) sw=1;

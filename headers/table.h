@@ -43,11 +43,13 @@ void printNames(const char pName1[], const char pName2[], int n)
         printf(" ");
     }
     printf("%s",pName1);
+    printf("\b");
     for (int i = 0; i <3*(n+1)-(L1+L2)/2+14; i++)//print space between pName1 and pName2
     {
          printf(" ");
     }
-    printf("%s\n",pName2);
+    printf("%s\n",pName2);  
+    printf("\b");
     for (int i = 0; i <6*(n+1)+13 ; i++)
     {
          printf("=");
