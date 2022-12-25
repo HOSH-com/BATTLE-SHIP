@@ -4,6 +4,9 @@
 #include "headers/table.h"
 #include "headers/ship.h"
 
+int nRound;
+int p1_remainingShips;
+int p2_remainingShips;
 int player1[15][15] = {0};   //maximum battle area table is 15*15
 int player2[15][15] = {0};   
 
@@ -17,7 +20,7 @@ int main()
     char pName1[21] = {};
     char pName2[21] = {};  
 
-    //new game:
+    //new game settings:
     printf("Please enter size of map (4-15):\n");
     scanf("%i", &areaSize);     //1- size
     printf("Enter number of ships:\n");
@@ -91,6 +94,13 @@ int main()
             }
         }
     }
-    printTable(pName1 , pName2, player1, player2, areaSize);
+
+    //start the new game:
+    for (nRound = 1; p1_remainingShips || p2_remainingShips; nRound++)
+    {
+        
+    }
+    
+
     return 0;
 }
