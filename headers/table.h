@@ -5,16 +5,16 @@
 
 int tedad_char(const char p1[]);
 void printNames(const char pName1[], const char pName2[], int n);
-void printBattlefields(const int player1[][15], const int player2[][15], int n);
+void printBattlefields(const int player1[][15], const int player2[][15], int n, int nRound);
 void printRemainingShips(int n);
 
-void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n)
+void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound)
 {
     //printing players name:
     printNames(pName1, pName2, n);
 
     //printing players battlefield:
-    printBattlefields(player1, player2, n);
+    printBattlefields(player1, player2, n, nRound);
 
     //printing remaining ships:
     printRemainingShips(n);
@@ -55,9 +55,13 @@ void printNames(const char pName1[], const char pName2[], int n)
     printf("\n");
 }
 
-void printBattlefields(const int player1[][15], const int player2[][15], int n)
+void printBattlefields(const int player1[][15], const int player2[][15], int n, int nRound)
 {
-    //first line:
+    switch (nRound % 2)
+    {
+    //attacker player 1:
+    case 1:
+        //first line:
         printf("   ");                                 //section 1: empty space 1
         for (int i = 1; i <= n; i++) {      //section 2: col nom 1
             printf ("%2i ", i);
@@ -68,7 +72,57 @@ void printBattlefields(const int player1[][15], const int player2[][15], int n)
         }    
         printf("\n");                        //next line
     
-    //other lines:
+        //other lines:
+        for (int i = 0; i < n; i++)             //main loop with new condition
+        {
+            printf("%2i  ", i+1);               //section 1: row nom 1
+            for (int j = 0; j < n; j++)      //section 2: player 1
+            {
+                switch (player1[i][j]) 
+                {
+                    case NO_SHIP:
+                        printf("~  "); 
+                        break;
+                    default:
+                        if (player1[i][j] >= 1000) printf("■  ");    //show ship
+                        if (player1[i][j] <= -1000) printf("☒  ");     //show damaged ship 
+                        break;
+                }
+            }
+            printf("      |       ");               //section 3: empty space
+            printf("%2i  ", i+1);                     //section 4: row nom 2
+            for (int j = 0; j < n; j++)            //section 5: player 2
+            {   
+                switch (player2[i][j]) {
+                    case NO_SHIP:
+                        printf("~  "); 
+                        break;
+                    case DESTROYED:
+                        printf("X  "); 
+                        break;
+                    default:
+                        if(player2[i][j] > 0) printf("■  ");
+                        break;
+                }
+            }
+            printf("\n");       //next line
+        }
+        break;
+    
+    //attacker player 2:
+    case 0:
+        //first line:
+        printf("   ");                                 //section 1: empty space 1
+        for (int i = 1; i <= n; i++) {      //section 2: col nom 1
+            printf ("%2i ", i);
+        }
+        printf ("       |          ");                  //section 3: empty space 2
+        for (int i = 1; i <= n; i++) {      ////section 4: col nom 2
+            printf ("%2i ", i);
+        }    
+        printf("\n");                        //next line
+    
+        //other lines:
         for (int i = 0; i < n; i++)             //main loop with new condition
         {
             printf("%2i  ", i+1);               //section 1: row nom 1
@@ -105,6 +159,8 @@ void printBattlefields(const int player1[][15], const int player2[][15], int n)
             }
             printf("\n");       //next line
         }
+        break;
+    }
 }
 
 void printRemainingShips(int n)
