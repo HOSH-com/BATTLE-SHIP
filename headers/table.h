@@ -6,7 +6,7 @@
 int tedad_char(const char p1[]);
 void printNames(const char pName1[], const char pName2[], int n, int nRound);
 void printBattlefields(const int player1[][15], const int player2[][15], int n, int nRound);
-void printRemainingShips(int n);
+void printRemainingShips(int n, int p1_remainingShips, int p2_remainingShips);
 void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound);
 
 void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound)
@@ -18,7 +18,7 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
     printBattlefields(player1, player2, n, nRound);
 
     //printing remaining ships:
-    printRemainingShips(n);
+    printRemainingShips(n, p1_remainingShips, p2_remainingShips);
 }
 
 int tedad_char(const char p1[])
@@ -192,13 +192,13 @@ void printBattlefields(const int player1[][15], const int player2[][15], int n, 
     }
 }
 
-void printRemainingShips(int n)
+void printRemainingShips(int n, int p1_remainingShips, int p2_remainingShips)
 {
     printf("\n");
-    printf("remaining ships: 3");
+    printf("remaining ships: %i", p1_remainingShips);
         for (int i = 0; i <3*(n+1)+14-18; i++)
     {
     printf(" ");
     }  
-    printf("remaining ships: 3");
+    printf("remaining ships: %i", p2_remainingShips);
 }

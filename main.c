@@ -25,6 +25,7 @@ int main()
     scanf("%i", &areaSize);     //1- size
     printf("Enter number of ships:\n");
     scanf("%i", &nShip);        //2- ship amounts
+    p1_remainingShips = p2_remainingShips = nShip;
 
     //player 1:
     printf("Enter player1 name:\n");
@@ -96,11 +97,11 @@ int main()
     }
 
     //start the new game:
-    for (nRound = 1; p1_remainingShips || p2_remainingShips; nRound++)
+    for (nRound = 1; p1_remainingShips && p2_remainingShips; nRound++)
     {
         
     }
-    
+    if (p1_remainingShips)
 
     return 0;
 }
