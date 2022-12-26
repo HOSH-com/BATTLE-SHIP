@@ -4,21 +4,32 @@
 #include "headers/table.h"
 #include "headers/ship.h"
 
-int nRound;
+int nRound, nShip, areaSize;
 int p1_remainingShips;
 int p2_remainingShips;
-int player1[15][15] = {0};   //maximum battle area table is 15*15
-int player2[15][15] = {0};   
+int player1[15][15] = {0}, player2[15][15] = {0};   //maximum battlefield table is 15*15  
+char pName1[21], pName2[21]; 
+
+void new_game_settings();
+void start_new_game();
+void end_game();
 
 int main()
 {
+    new_game_settings();
+
+    start_new_game();
+
+    return 0;
+}
+
+void new_game_settings()
+{
     //ingredients:
-    int areaSize, x, y, nShip,sizeofship=3;
+    int x, y, sizeofship=3;
     int i;
     char form;
-    char trash[40];
-    char pName1[21] = {};
-    char pName2[21] = {};  
+    char trash[40];  
 
     //new game settings:
     printf("Please enter size of map (4-15):\n");
@@ -95,13 +106,17 @@ int main()
             }
         }
     }
+}
 
+void start_new_game()
+{
     //start the new game:
     for (nRound = 1; p1_remainingShips && p2_remainingShips; nRound++)
     {
-        
+        /*playing codes*/
     }
-    if (p1_remainingShips)
-
-    return 0;
+    if (p1_remainingShips); /*player1 wins*/
+    else if (p2_remainingShips) ;/*player2 wins*/
 }
+
+void end_game();
