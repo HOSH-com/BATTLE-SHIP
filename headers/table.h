@@ -4,14 +4,15 @@
 #define MISSED -1
 
 int tedad_char(const char p1[]);
-void printNames(const char pName1[], const char pName2[], int n);
+void printNames(const char pName1[], const char pName2[], int n, int nRound);
 void printBattlefields(const int player1[][15], const int player2[][15], int n, int nRound);
 void printRemainingShips(int n);
+void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound);
 
 void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound)
 {
     //printing players name:
-    printNames(pName1, pName2, n);
+    printNames(pName1, pName2, n, nRound);
 
     //printing players battlefield:
     printBattlefields(player1, player2, n, nRound);
@@ -33,26 +34,52 @@ int tedad_char(const char p1[])
 
 //functions declaratoin:
 
-void printNames(const char pName1[], const char pName2[], int n)
+void printNames(const char pName1[], const char pName2[], int n, int nRound)
 {
     int L1=tedad_char(pName1);//tedad character pName1
     int L2=tedad_char(pName2);//tedad character pName2
     int e=15;//space between arrays
-    for (int i = 0; i <(3+(3*n-L1)/2); i++)//print space befor pName1
+
+    switch (nRound % 2)
     {
-        printf(" ");
+    //attacker player 1:
+    case 1:
+        for (int i = 0; i <(3+(3*n-L1)/2); i++)//section 1: print space befor pName1
+        {
+            printf(" ");
+        }
+        printf("*%s",pName1);    //section 2: player1 name
+        for (int i = 0; i <3*(n+1)-(L1+L2)/2+15; i++)//section 3: print space between pName1 and pName2
+        {
+            printf(" ");
+        }
+        printf("%s\n",pName2);  //section 4: player2 name
+        for (int i = 0; i <6*(n+1)+14 ; i++)
+        {
+            printf("=");    //section 5: seperating names from battlefields
+        }
+        printf("\n");   //section 6: next line
+        break;
+    
+    //attacker player 2:
+    case 0:
+        for (int i = 0; i <(3+(3*n-L1)/2); i++)     //section 1: print space befor pName1
+        {
+            printf(" ");
+        }
+        printf("%s",pName1);        //section 2: player1 name
+        for (int i = 0; i <3*(n+1)-(L1+L2)/2+15; i++)//section 3: print space between pName1 and pName2
+        {
+            printf(" ");
+        }
+        printf("*%s\n",pName2);      //section 4: player2 name
+        for (int i = 0; i <6*(n+1)+14 ; i++)
+        {
+            printf("=");    //section 5: seperating names from battlefields
+        }
+        printf("\n");       //section 6: next line
+        break;
     }
-    printf("%s",pName1);
-    for (int i = 0; i <3*(n+1)-(L1+L2)/2+15; i++)//print space between pName1 and pName2
-    {
-         printf(" ");
-    }
-    printf("%s\n",pName2);
-    for (int i = 0; i <6*(n+1)+14 ; i++)
-    {
-         printf("=");
-    }
-    printf("\n");
 }
 
 void printBattlefields(const int player1[][15], const int player2[][15], int n, int nRound)
