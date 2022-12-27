@@ -135,13 +135,21 @@ void start_new_game()
         {
         //attacker player 1:
         case 0:
-            /*result = fire(x, y, areaSize, player2);*/
-            while (result == -1)   //scan AGAIN
+            result = fire(x, y, areaSize, player2);
+            while (result == -1 || result == -2)   //scan AGAIN
             {
-                printf("ERROR: The ship in this area is damaged already.\n"
-                "Enter your shot again(\"row number\" space \"column number\"):\n");
+                if (result == -1)
+                {
+                    printf("ERROR: The ship in this area is damaged already.\n");
+                    
+                }
+                else if (result == -2)
+                {
+                    printf("ERROR: The shot is out of the range (%i < row OR %i < column).\n", areaSize, areaSize);
+                }
+                printf("Enter your shot again(\"row number\" space \"column number\"):\n");
                 scanf("%i %i", &x, &y); 
-                /*result = fire(x, y, areaSize, player2);*/
+                result = fire(x, y, areaSize, player2);
             }
             if (result == 0)     //it's OK
             {
@@ -152,13 +160,21 @@ void start_new_game()
 
         //attacker player 2:
         case 1:
-            /*result = fire(x, y, areaSize, player1);*/
+            result = fire(x, y, areaSize, player1);
             while (result == -1)   //scan AGAIN
             {
-                printf("ERROR: The ship in this area is damaged already.\n"
-                "Enter your shot again(\"row number\" space \"column number\"):\n");
+                if (result == -1)
+                {
+                    printf("ERROR: The ship in this area is damaged already.\n");
+                    
+                }
+                else if (result == -2)
+                {
+                    printf("ERROR: The shot is out of the range (%i < row OR %i < column).\n", areaSize, areaSize);
+                }
+                printf("Enter your shot again(\"row number\" space \"column number\"):\n");
                 scanf("%i %i", &x, &y); 
-                /*result = fire(x, y, areaSize, player1);*/
+                result = fire(x, y, areaSize, player1);
             }
             if (result == 0)     //it's OK
             {
@@ -168,8 +184,9 @@ void start_new_game()
             break;
         }
         
-        
         /*delay and clearScreen after each round*/
+        sleep(3000);
+        clearScreen();      //6- clear screen
     }
 
 }
@@ -177,7 +194,7 @@ void start_new_game()
 void end_game()
 {
     if (p1_remainingShips); /*player1 wins*/
-    else if (p2_remainingShips) ;/*player2 wins*/
+    else if (p2_remainingShips); /*player2 wins*/
 }
 
 void clearScreen()
