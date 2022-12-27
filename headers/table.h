@@ -120,8 +120,8 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     printf("~  "); 
                     break;
                 default:
-                    if (player1[i][j] >= 1000) printf("■  ");    //show ship
-                    if (player1[i][j] <= -1000) printf("☒  ");     //show damaged ship 
+                    if (player1[i][j] >= 1000) printf("O  ");    //show ship
+                    if (player1[i][j] <= -1000) printf("Y  ");     //show damaged ship 
                         break;
                 }
             }
@@ -139,7 +139,7 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     break;
                 default:
                     if (player2[i][j] >= 1000) printf("~  ");    //DON'T show ships!
-                    if (player2[i][j] <= -1000) printf("☒  ");     //show damaged ships 
+                    if (player2[i][j] <= -1000) printf("Y  ");     //show damaged ships 
                     break;
                 }
             }
@@ -176,7 +176,7 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     break;
                 default:
                     if (player1[i][j] >= 1000) printf("~  ");    //DON'T show ships!
-                    if (player1[i][j] <= -1000) printf("☒  ");     //show damaged ships 
+                    if (player1[i][j] <= -1000) printf("Y  ");     //show damaged ships 
                     break;
                 }
             }
@@ -190,8 +190,8 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     printf("~  "); 
                     break;
                 default:
-                    if (player2[i][j] >= 1000) printf("■  ");    //show ship
-                    if (player2[i][j] <= -1000) printf("☒  ");     //show damaged ship 
+                    if (player2[i][j] >= 1000) printf("O  ");    //show ship
+                    if (player2[i][j] <= -1000) printf("Y  ");     //show damaged ship 
                         break;
                 }
             }

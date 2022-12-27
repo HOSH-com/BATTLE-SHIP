@@ -8,15 +8,17 @@ int fire(int x, int y ,int areaSize ,int A[][15])
     int X = x-1;
     int Y = y-1;
     
-    if (X>areaSize || Y>areaSize)
+    if (x>areaSize || x<1 || y>areaSize || y<1 )
     {
-        return -2;
+        return -1;
     }
     
     if (A[X][Y]>0)
     {
         A[X][Y]=A[X][Y]*-1;
+        return 1;
     }
+    
     else if (A[X][Y]==0)
     {
         A[X][Y]=-1;
@@ -81,10 +83,10 @@ int put_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize,int s
         }
         else if (player==2)
         {
-           player1_ship_Coordinates[shipname][0]=x;
-           player1_ship_Coordinates[shipname][1]=y;
-           player1_ship_Coordinates[shipname][2]=sizeofship;
-           player1_ship_Coordinates[shipname][3]=0;
+           player2_ship_Coordinates[shipname][0]=x;
+           player2_ship_Coordinates[shipname][1]=y;
+           player2_ship_Coordinates[shipname][2]=sizeofship;
+           player2_ship_Coordinates[shipname][3]=0;
 
         }
         
@@ -94,7 +96,7 @@ int put_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize,int s
     {
         for (int i = 0; i < sizeofship; i++)
         {
-            A[x+i][y]=sizeofship*10000+10000+shipname;
+            A[x+i][y]=sizeofship*10000+1000+shipname;
         }
         if (player==1)
         {
@@ -105,10 +107,10 @@ int put_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize,int s
         }
         else if (player==2)
         {
-           player1_ship_Coordinates[shipname][0]=x;
-           player1_ship_Coordinates[shipname][1]=y;
-           player1_ship_Coordinates[shipname][2]=sizeofship;
-           player1_ship_Coordinates[shipname][3]=1;
+           player2_ship_Coordinates[shipname][0]=x;
+           player2_ship_Coordinates[shipname][1]=y;
+           player2_ship_Coordinates[shipname][2]=sizeofship;
+           player2_ship_Coordinates[shipname][3]=1;
         }
         
     }

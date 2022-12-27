@@ -28,6 +28,8 @@ int main()
 
     start_new_game();
 
+    end_game();
+
     return 0;
 }
 
@@ -115,13 +117,13 @@ void new_game_settings()
             }
         }
     }
-    clearScreen();
 }
 
 void start_new_game()
 {
     int x, y, result;
 
+    sleep(5000);
     clearScreen();
     //start the new game:
     for (nRound = 1; p1_remainingShips && p2_remainingShips; nRound++)
@@ -129,64 +131,70 @@ void start_new_game()
         /*playing codes*/
         printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips); //1- show PRE-attack table status
         printf("Enter coordinates to shot (\"row number\" space \"column number\"):\n"); //2- get the shot coord.
-        scanf("%i %i", &x, &y);     
-        clearScreen();      //3- 
+        scanf("%i %i", &x, &y);      
 
         switch (nRound % 2)
         {
         //attacker player 1:
-        case 0:
+        case 1:
             result = fire(x, y, areaSize, player2);
-            while (result == -1 || result == -2)   //scan AGAIN
+            while (result < 0)   //scan AGAIN
             {
-                if (result == -1)
+                if (result < -1)
                 {
                     printf("ERROR: The ship in this area is damaged already.\n");
-                    
                 }
-                else if (result == -2)
+                else if (result == -1)
                 {
-                    printf("ERROR: The shot is out of the range (%i < row OR %i < column).\n", areaSize, areaSize);
+                    printf("ERROR: The shot is out of the range (min=1, max=%i).\n", areaSize);
                 }
                 printf("Enter your shot again(\"row number\" space \"column number\"):\n");
                 scanf("%i %i", &x, &y); 
                 result = fire(x, y, areaSize, player2);
             }
-            if (result == 0)     //it's OK
+            if (result ==0 || result == 1)     //it's OK
             {
+                clearScreen();
                 printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //4- show AFTER-attack table status
-                player2[x][y] = 0;      //5- don't show it in next rounds
+                if (result==0)
+                {
+                    player2[x-1][y-1] = 0;          //5- don't show it in next rounds
+                }      
             }
             break;
 
         //attacker player 2:
-        case 1:
+        case 0:
             result = fire(x, y, areaSize, player1);
-            while (result == -1)   //scan AGAIN
+            while (result < 0)   //scan AGAIN
             {
-                if (result == -1)
+                if (result < -1)
                 {
                     printf("ERROR: The ship in this area is damaged already.\n");
                     
                 }
-                else if (result == -2)
+                else if (result == -1)
                 {
-                    printf("ERROR: The shot is out of the range (%i < row OR %i < column).\n", areaSize, areaSize);
+                    printf("ERROR: The shot is out of the range (min=1, max=%i).\n", areaSize);
                 }
                 printf("Enter your shot again(\"row number\" space \"column number\"):\n");
                 scanf("%i %i", &x, &y); 
                 result = fire(x, y, areaSize, player1);
             }
-            if (result == 0)     //it's OK
+            if (result ==0 || result == 1)     //it's OK
             {
+                clearScreen();
                 printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //4- show AFTER-attack table status
-                player2[x][y] = 0;      //5- don't show it in next rounds
+                if (result==0)
+                {
+                    player1[x-1][y-1] = 0;          //5- don't show it in next rounds
+                }  
             }
             break;
         }
         
         /*delay and clearScreen after each round*/
-        sleep(3000);
+        sleep(5000);
         clearScreen();      //6- clear screen
     }
 
