@@ -35,27 +35,28 @@ int main()
     //put && check ship in area for player 1:
     for(int i =0;i<nShip;i++)     
     {
+
         printf("Enter ship position \'%i\' (%s):\n", i+1, pName1);
         scanf("%d%d%c%c",&x,&y,&trash[0],&form);    //4- player1 ships position
-        if (put_ship(x,y,form,sizeofship,player1,areaSize)==1 || put_ship(x,y,form,sizeofship,player1,areaSize)==2)  //check for error
+        if (put_ship(x,y,form,sizeofship,player1,areaSize,i,1)==1 || put_ship(x,y,form,sizeofship,player1,areaSize,i,1)==2)  //check for error
         {
             int sw=0;
             while (sw==0)
             {
-                if(put_ship(x,y,form,sizeofship,player1,areaSize)==1)
+                if(put_ship(x,y,form,sizeofship,player1,areaSize,i,1)==1)
                 {
                     printf("ERROR: Ship exists in this area.\nPlease enter position \'%i\' again (%s):\n", i+1, pName1);
                 }
-                else if(put_ship(x,y,form,sizeofship,player1,areaSize)==2)
+                else if(put_ship(x,y,form,sizeofship,player1,areaSize,i,1)==2)
                 {
                     printf("ERROR: The ship is out of the range.\nPlease enter position \'%i\' again (%s):\n", i+1, pName1);
                 }
                 scanf("%d%d%c%c",&x,&y,&trash[0],&form);
-                if (put_ship(x,y,form,sizeofship,player1,areaSize)==0) sw=1;
+                if (put_ship(x,y,form,sizeofship,player1,areaSize,i,1)==0) sw=1;
             }
         }
     }
-
+    
     printf("Type something then press \'enter\' to continue:\n");
     scanf("%s",&trash);         //5- next player
     
@@ -73,21 +74,21 @@ int main()
     {
         printf("Enter ship position \'%i\' (%s):\n", i+1, pName2);
         scanf("%d%d%c%c",&x,&y,&trash[0],&form);        //7- player2 ships position
-        if (put_ship(x,y,form,sizeofship,player2,areaSize)==1 || put_ship(x,y,form,sizeofship,player2,areaSize)==2)  //check for error
+        if (put_ship(x,y,form,sizeofship,player2,areaSize,i,2)==1 || put_ship(x,y,form,sizeofship,player2,areaSize,i,2)==2)  //check for error
         {
             int sw=0;
             while (sw==0)
             {
-                if(put_ship(x,y,form,sizeofship,player2,areaSize)==1)
+                if(put_ship(x,y,form,sizeofship,player2,areaSize,i,2)==1)
                 {
                     printf("ERROR: Ship exists in this area.\nPlease enter position \'%i\' again (%s):\n", i+1, pName2);
                 }
-                else if(put_ship(x,y,form,sizeofship,player2,areaSize)==2)
+                else if(put_ship(x,y,form,sizeofship,player2,areaSize,i,2)==2)
                 {
                     printf("ERROR: The ship is out of the range.\nPlease enter position \'%i\' again (%s):\n", i+1, pName2);
                 }
                 scanf("%d%d%c%c",&x,&y,&trash[0],&form);
-                if (put_ship(x,y,form,sizeofship,player2,areaSize)==0) sw=1;
+                if (put_ship(x,y,form,sizeofship,player2,areaSize,i,2)==0) sw=1;
             }
         }
     }
