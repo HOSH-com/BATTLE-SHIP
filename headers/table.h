@@ -16,9 +16,9 @@ int tedad_char(const char p1[]);
 void printNames(const char pName1[], const char pName2[], int n, int nRound);
 void printBattlefields(const int player1[][15], const int player2[][15], int n, int nRound);
 void printRemainingShips(int n, int p1_remainingShips, int p2_remainingShips);
-void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound);
+void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound, int p1_remainingShips, int p2_remainingShips);
 
-void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int areaSize, int nRound)
+void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int areaSize, int nRound, int p1_remainingShips, int p2_remainingShips)
 {
     //printing players name:
     printNames(pName1, pName2, areaSize, nRound);

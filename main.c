@@ -122,11 +122,12 @@ void start_new_game()
 {
     int x, y, result;
 
+    clearScreen();
     //start the new game:
     for (nRound = 1; p1_remainingShips && p2_remainingShips; nRound++)
     {
         /*playing codes*/
-        printTable(pName1, pName2, player1, player2, areaSize, nRound); //1- show PRE-attack table status
+        printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips); //1- show PRE-attack table status
         printf("Enter coordinates to shot (\"row number\" space \"column number\"):\n"); //2- get the shot coord.
         scanf("%i %i", &x, &y);     
         clearScreen();      //3- 
@@ -153,7 +154,7 @@ void start_new_game()
             }
             if (result == 0)     //it's OK
             {
-                printTable(pName1, pName2, player1, player2, areaSize, nRound);     //4- show AFTER-attack table status
+                printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //4- show AFTER-attack table status
                 player2[x][y] = 0;      //5- don't show it in next rounds
             }
             break;
@@ -178,7 +179,7 @@ void start_new_game()
             }
             if (result == 0)     //it's OK
             {
-                printTable(pName1, pName2, player1, player2, areaSize, nRound);     //4- show AFTER-attack table status
+                printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //4- show AFTER-attack table status
                 player2[x][y] = 0;      //5- don't show it in next rounds
             }
             break;
