@@ -3,7 +3,6 @@
 #include <windows.h>
 #include <conio.h>
 #include <time.h>
-#include <ctime>
 #include "headers/welcome.h"
 #include "headers/table.h"
 #include "headers/ship.h"
@@ -153,7 +152,19 @@ void start_new_game()
 
         //attacker player 2:
         case 1:
-            
+            /*result = fire(x, y, areaSize, player1);*/
+            while (result == -1)   //scan AGAIN
+            {
+                printf("ERROR: The ship in this area is damaged already.\n"
+                "Enter your shot again(\"row number\" space \"column number\"):\n");
+                scanf("%i %i", &x, &y); 
+                /*result = fire(x, y, areaSize, player1);*/
+            }
+            if (result == 0)     //it's OK
+            {
+                printTable(pName1, pName2, player1, player2, areaSize, nRound);     //4- show AFTER-attack table status
+                player2[x][y] = 0;      //5- don't show it in next rounds
+            }
             break;
         }
         
