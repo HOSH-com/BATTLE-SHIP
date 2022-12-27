@@ -1,28 +1,29 @@
 #include <stdio.h>
 int player1_ship_Coordinates[20][4];
 int player2_ship_Coordinates[20][4];
-int fire(int A[][15])
+int fire(int x, int y ,int areaSize ,int A[][15])
 {       
-        //وای اگر خامنه ای حکم جهادم دهد
-        int x,y;
-        printf("Enter coordinates to shot:\n");
-        scanf("%d%d",&x,&y);
-        if (A[x][y]>0)
-        {
-            A[x][y]=A[x][y]*-1;
-        }
-        else if (A[x][y]==0)
-        {
-            A[x][y]=-1;
-            return 0;
-        }
-        else if (A[x][y]<0)
-        {
-            printf("This area is damaged already\n");
-            fire(A);
-        }
-        
+    //وای اگر خامنه ای حکم جهادم دهد
+    
+    int X = x-1;
+    int Y = y-1;
+    
+    if (X>areaSize || Y>areaSize)
+    {
+        return -2;
+    }
+    
+    if (A[X][Y]>0)
+    {
+        A[X][Y]=A[X][Y]*-1;
+    }
+    else if (A[X][Y]==0)
+    {
+        A[X][Y]=-1;
+        return 0;
+    }
 }
+
 int check_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize)
 {    
     if (x+1>areaSize || y+1>areaSize) return 2;//ship out of range
