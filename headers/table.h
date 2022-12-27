@@ -18,16 +18,16 @@ void printBattlefields(const int player1[][15], const int player2[][15], int n, 
 void printRemainingShips(int n, int p1_remainingShips, int p2_remainingShips);
 void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound);
 
-void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound)
+void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int areaSize, int nRound)
 {
     //printing players name:
-    printNames(pName1, pName2, n, nRound);
+    printNames(pName1, pName2, areaSize, nRound);
 
     //printing players battlefield:
-    printBattlefields(player1, player2, n, nRound);
+    printBattlefields(player1, player2, areaSize, nRound);
 
     //printing remaining ships:
-    printRemainingShips(n, p1_remainingShips, p2_remainingShips);
+    printRemainingShips(areaSize, p1_remainingShips, p2_remainingShips);
 }
 
 int tedad_char(const char p1[])
@@ -201,13 +201,18 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
     }
 }
 
-void printRemainingShips(int n, int p1_remainingShips, int p2_remainingShips)
+void printRemainingShips(int areaSize, int p1_remainingShips, int p2_remainingShips)
 {
     printf("\n");
     printf("remaining ships: %i", p1_remainingShips);
-        for (int i = 0; i <3*(n+1)+14-18; i++)
+        for (int i = 0; i <3*(areaSize+1)+14-18; i++)
     {
     printf(" ");
     }  
-    printf("remaining ships: %i", p2_remainingShips);
+    printf("remaining ships: %i\n", p2_remainingShips);
+    for (int i = 0; i <6*(areaSize+1)+14 ; i++)
+        {
+            printf("=");    
+        }
+    printf("\n\n");
 }
