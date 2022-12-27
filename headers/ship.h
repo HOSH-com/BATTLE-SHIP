@@ -3,7 +3,7 @@ int player1_ship_Coordinates[20][4];
 int player2_ship_Coordinates[20][4];
 int fire(int A[][15])
 {       
-        //وای اگر خامنه ای حکم جهادم بدهد
+        //وای اگر خامنه ای حکم جهادم دهد
         int x,y;
         printf("Enter coordinates to shot:\n");
         scanf("%d%d",&x,&y);

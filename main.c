@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+#include <windows.h>
+#include <conio.h>
+#include <time.h>
+#include <ctime>
 #include "headers/welcome.h"
 #include "headers/table.h"
 #include "headers/ship.h"
@@ -10,6 +14,11 @@ int p2_remainingShips;
 int player1[15][15] = {0}, player2[15][15] = {0};   //maximum battlefield table is 15*15  
 char pName1[21], pName2[21]; 
 
+//tools:
+void clearScreen();
+void sleep(unsigned int mseconds);
+
+//main functions:
 void new_game_settings();
 void start_new_game();
 void end_game();
@@ -107,17 +116,66 @@ void new_game_settings()
             }
         }
     }
+    clearScreen();
 }
 
 void start_new_game()
 {
+    int x, y, result;
+
     //start the new game:
     for (nRound = 1; p1_remainingShips && p2_remainingShips; nRound++)
     {
         /*playing codes*/
+        printTable(pName1, pName2, player1, player2, areaSize, nRound); //1- show PRE-attack table status
+        printf("Enter coordinates to shot (\"row number\" space \"column number\"):\n"); //2- get the shot coord.
+        scanf("%i %i", &x, &y);     
+        clearScreen();      //3- 
+
+        switch (nRound % 2)
+        {
+        //attacker player 1:
+        case 0:
+            /*result = fire(x, y, areaSize, player2);*/
+            while (result == -1)   //scan AGAIN
+            {
+                printf("ERROR: The ship in this area is damaged already.\n"
+                "Enter your shot again(\"row number\" space \"column number\"):\n");
+                scanf("%i %i", &x, &y); 
+                /*result = fire(x, y, areaSize, player2);*/
+            }
+            if (result == 0)     //it's OK
+            {
+                printTable(pName1, pName2, player1, player2, areaSize, nRound);     //4- show AFTER-attack table status
+                player2[x][y] = 0;      //5- don't show it in next rounds
+            }
+            break;
+
+        //attacker player 2:
+        case 1:
+            
+            break;
+        }
+        
+        
+        /*delay and clearScreen after each round*/
     }
+
+}
+
+void end_game()
+{
     if (p1_remainingShips); /*player1 wins*/
     else if (p2_remainingShips) ;/*player2 wins*/
 }
 
-void end_game();
+void clearScreen()
+{
+    system("cls");
+}
+
+void sleep(unsigned int mseconds)
+{
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}
