@@ -20,7 +20,7 @@ int remainingShips(int x, int y,int whichplayer,int A[][15])
             {
                 if(A[X][Y+j] < -999) count++;
             }
-            if (count==sizeofship) return -2;       //player2 ship drowned
+            if (count+1==sizeofship) return -2;       //player2 ship drowned
         }
         //Vertical:
         else if (form==1)
@@ -30,7 +30,7 @@ int remainingShips(int x, int y,int whichplayer,int A[][15])
             {
                 if(A[X+j][Y] < -999) count++;
             }
-            if (count==sizeofship) return -2;       //player2 ship drowned
+            if (count+1==sizeofship) return -2;       //player2 ship drowned
         }
     }
 
@@ -49,7 +49,7 @@ int remainingShips(int x, int y,int whichplayer,int A[][15])
                 {
                     if(A[X][Y+j] < -999) count++;
                 }
-                if (count==sizeofship) return -1;   //player1 ship drowned 
+                if (count+1==sizeofship) return -1;   //player1 ship drowned 
             }
         //vertical:
         else if (form==1)
@@ -59,7 +59,7 @@ int remainingShips(int x, int y,int whichplayer,int A[][15])
                 {
                     if(A[X+j][Y] < -999) count++;
                 }
-                if (count==sizeofship) return -1;       //player1 ship drowned
+                if (count+1==sizeofship) return -1;       //player1 ship drowned
             }
     }
     return 0;
@@ -79,7 +79,7 @@ int fire(int x, int y ,int areaSize ,int A[][15],int whichplayer, int &p1_remain
     
     if (A[X][Y] > 999)
     {
-        A[X][Y]=A[X][Y]*(-1);
+        
        if (remainingShips(x,y,whichplayer,A)==-1) 
        {
             p1_remainingShips --;
@@ -88,6 +88,7 @@ int fire(int x, int y ,int areaSize ,int A[][15],int whichplayer, int &p1_remain
        {
             p2_remainingShips --;
        }
+       A[X][Y]=A[X][Y]*(-1);
        return 1;        //got shot
     }
     
