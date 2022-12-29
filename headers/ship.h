@@ -1,62 +1,71 @@
 #include <stdio.h>
-int player1_ship_Coordinates[20][4];
-int player2_ship_Coordinates[20][4];
+#include "global.h"
+
 int remainingShips(int x, int y,int whichplayer,int A[][15])
 {
-        int nship=A[x-1][y-1]%100;
+    int nship = A[x-1][y-1]%100;
+    
+    //attacker player1:
     if  (whichplayer==1)
     {
         int sizeofship=player2_ship_Coordinates[nship][2];
         int form=player2_ship_Coordinates[nship][3];
         int X=player2_ship_Coordinates[nship][0];
         int Y=player2_ship_Coordinates[nship][1];
-            if (form==0)
+        //Hoizental:
+        if (form==0)
+        {
+            int count=0;
+            for (int j = 0; j < sizeofship ; j++)
             {
-                int count=0;
-                for (int j = 0; j <sizeofship ; j++)
-                {
-                    if(A[X][Y+j]<0) count++;
-                }
-                if (count==sizeofship) return -1;
+                if(A[X][Y+j] < -999) count++;
             }
-            else if (form==1)
+            if (count+1==sizeofship) return -2;       //player2 ship drowned
+        }
+        //Vertical:
+        else if (form==1)
+        {
+            int count=0;
+            for (int j = 0; j <sizeofship ; j++)
             {
-                int count=0;
-                for (int j = 0; j <sizeofship ; j++)
-                {
-                    if(A[X+j][Y]<0) count++;
-                }
-                if (count==sizeofship) return -1;
+                if(A[X+j][Y] < -999) count++;
             }
+            if (count+1==sizeofship) return -2;       //player2 ship drowned
+        }
     }
+
+    //attacker player2:
     else if (whichplayer==2)
     {
         int sizeofship=player1_ship_Coordinates[nship][2];
         int form=player1_ship_Coordinates[nship][3];
         int X=player1_ship_Coordinates[nship][0];
         int Y=player1_ship_Coordinates[nship][1];
+        //horizental:
         if (form==0)
             {
                 int count=0;
                 for (int j = 0; j <sizeofship ; j++)
                 {
-                    if(A[X][Y+j]<0) count++;
+                    if(A[X][Y+j] < -999) count++;
                 }
-                if (count==sizeofship) return -1;
+                if (count+1==sizeofship) return -1;   //player1 ship drowned 
             }
-            else if (form==1)
+        //vertical:
+        else if (form==1)
             {
                 int count=0;
                 for (int j = 0; j <sizeofship ; j++)
                 {
-                    if(A[X+j][Y]<0) count++;
+                    if(A[X+j][Y] < -999) count++;
                 }
-                if (count==sizeofship) return -1;
+                if (count+1==sizeofship) return -1;       //player1 ship drowned
             }
     }
     return 0;
 }
-int fire(int x, int y ,int areaSize ,int A[][15],int whichplayer)
+
+int fire(int x, int y ,int areaSize ,int A[][15],int whichplayer, int &p1_remainingShips, int &p2_remainingShips)
 {       
     //وای اگر خامنه ای حکم جهادم دهد
     
@@ -65,24 +74,35 @@ int fire(int x, int y ,int areaSize ,int A[][15],int whichplayer)
     
     if (x>areaSize || x<1 || y>areaSize || y<1 )
     {
-        return -1;
+        return -1;          //ERROR
     }
     
-    if (A[X][Y]>0)
+    if (A[X][Y] > 999)
     {
-        A[X][Y]=A[X][Y]*-1;
+        
        if (remainingShips(x,y,whichplayer,A)==-1) 
        {
-       return 2;
+            p1_remainingShips --;
        }
-        return 1;
+       else if (remainingShips(x,y,whichplayer,A)==-2) 
+       {
+            p2_remainingShips --;
+       }
+       A[X][Y]=A[X][Y]*(-1);
+       return 1;        //got shot
     }
     
     else if (A[X][Y]==0)
     {
         A[X][Y]=-1;
-        return 0;
+        return 0;       //empty space
     }
+
+    else if (A[X][Y] < 0)
+    {
+        return A[X][Y];     //ERROR
+    }
+    return 3;
 }
 
 int check_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize)
@@ -111,6 +131,7 @@ int check_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize)
             }            
         }
     }
+    return 3;
 }
 
 int put_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize,int shipname,int player)//*shipname is the name of the ship like ship1 or ship2
@@ -131,7 +152,7 @@ int put_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize,int s
     {
         for (int i = 0; i < sizeofship; i++)
         {
-            A[x][y+i]=sizeofship*10000+0+shipname;
+            A[x][y+i]=sizeofship*1000+0+shipname;
         }
         if (player==1)
         {
@@ -155,7 +176,7 @@ int put_ship(int x,int y,char form,int sizeofship,int A[][15],int areaSize,int s
     {
         for (int i = 0; i < sizeofship; i++)
         {
-            A[x+i][y]=sizeofship*10000+1000+shipname;
+            A[x+i][y]=sizeofship*1000+100+shipname;
         }
         if (player==1)
         {

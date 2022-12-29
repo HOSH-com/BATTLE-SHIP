@@ -6,6 +6,7 @@
 #include "headers/welcome.h"
 #include "headers/table.h"
 #include "headers/ship.h"
+#include "headers/global.h"
 
 int nRound, nShip, areaSize;
 int p1_remainingShips;
@@ -25,7 +26,37 @@ void end_game();
 int main()
 {
     new_game_settings();
+    /*for (int i = 0; i < 20; i++)
+    {
+        printf("%2i, %2i, %2i, %2i\n", player1_ship_Coordinates[i][0], player1_ship_Coordinates[i][1], player1_ship_Coordinates[i][2], player1_ship_Coordinates[i][3]);   
+    }
+    printf("\n");
+    for (int i = 0; i < 20; i++)
+    {
+        printf("%2i, %2i, %2i, %2i\n", player2_ship_Coordinates[i][0], player2_ship_Coordinates[i][1], player2_ship_Coordinates[i][2], player2_ship_Coordinates[i][3]);   
+    }
 
+    for (int i = 0; i < areaSize; i++)
+    {
+        for (int j = 0; j < areaSize; j++)
+        {
+            printf("%4i,", player1[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    for (int i = 0; i < areaSize; i++)
+    {
+        for (int j = 0; j < areaSize; j++)
+        {
+            printf("%4i,", player2[i][j]);
+        }
+        printf("\n");
+    }
+
+    int trash;
+    scanf("%i", &trash);*/
+    
     start_new_game();
 
     end_game();
@@ -137,7 +168,7 @@ void start_new_game()
         {
         //attacker player 1:
         case 1:
-            result = fire(x, y, areaSize, player2,1);
+            result = fire(x, y, areaSize, player2, 1, p1_remainingShips, p2_remainingShips);
             while (result < 0)   //scan AGAIN
             {
                 if (result < -1)
@@ -150,10 +181,10 @@ void start_new_game()
                 }
                 printf("Enter your shot again(\"row number\" space \"column number\"):\n");
                 scanf("%i %i", &x, &y); 
-                result = fire(x, y, areaSize, player2,1);
+                result = fire(x, y, areaSize, player2, 1, p1_remainingShips, p2_remainingShips);
             }
-            if (result==2) p2_remainingShips--; 
-            if (result ==0 || result == 1 || result==2)     //it's OK
+
+            if (result == 0 || result == 1)     //it's OK
             {
                 clearScreen();
                 printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //4- show AFTER-attack table status
@@ -166,7 +197,7 @@ void start_new_game()
 
         //attacker player 2:
         case 0:
-            result = fire(x, y, areaSize, player1,2);
+            result = fire(x, y, areaSize, player1, 2, p1_remainingShips, p2_remainingShips);
             while (result < 0)   //scan AGAIN
             {
                 if (result < -1)
@@ -180,10 +211,10 @@ void start_new_game()
                 }
                 printf("Enter your shot again(\"row number\" space \"column number\"):\n");
                 scanf("%i %i", &x, &y); 
-                result = fire(x, y, areaSize, player1,2);
+                result = fire(x, y, areaSize, player1, 2, p1_remainingShips, p2_remainingShips);
             }
-            if (result == 2) p1_remainingShips--;
-            if (result ==0 || result == 1 || result==2)     //it's OK
+
+            if (result ==0 || result == 1)     //it's OK
             {
                 clearScreen();
                 printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //4- show AFTER-attack table status
@@ -204,8 +235,8 @@ void start_new_game()
 
 void end_game()
 {
-    if (p1_remainingShips); /*player1 wins*/
-    else if (p2_remainingShips); /*player2 wins*/
+    if (p1_remainingShips) printf("p1 wonnnnnnnnnnn"); /*player1 wins*/
+    else if (p2_remainingShips) printf("p2 wonnnnnnnnnnn"); /*player2 wins*/
 }
 
 void clearScreen()

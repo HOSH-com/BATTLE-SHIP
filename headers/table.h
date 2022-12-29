@@ -39,6 +39,7 @@ int tedad_char(const char p1[])
             return i;
         }
     }
+    return 3;
 }
 
 //functions declaratoin:
