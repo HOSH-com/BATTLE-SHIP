@@ -137,7 +137,7 @@ void start_new_game()
         {
         //attacker player 1:
         case 1:
-            result = fire(x, y, areaSize, player2);
+            result = fire(x, y, areaSize, player2,1);
             while (result < 0)   //scan AGAIN
             {
                 if (result < -1)
@@ -150,9 +150,10 @@ void start_new_game()
                 }
                 printf("Enter your shot again(\"row number\" space \"column number\"):\n");
                 scanf("%i %i", &x, &y); 
-                result = fire(x, y, areaSize, player2);
+                result = fire(x, y, areaSize, player2,1);
             }
-            if (result ==0 || result == 1)     //it's OK
+            if (result==2) p2_remainingShips--; 
+            if (result ==0 || result == 1 || result==2)     //it's OK
             {
                 clearScreen();
                 printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //4- show AFTER-attack table status
@@ -165,7 +166,7 @@ void start_new_game()
 
         //attacker player 2:
         case 0:
-            result = fire(x, y, areaSize, player1);
+            result = fire(x, y, areaSize, player1,2);
             while (result < 0)   //scan AGAIN
             {
                 if (result < -1)
@@ -179,9 +180,10 @@ void start_new_game()
                 }
                 printf("Enter your shot again(\"row number\" space \"column number\"):\n");
                 scanf("%i %i", &x, &y); 
-                result = fire(x, y, areaSize, player1);
+                result = fire(x, y, areaSize, player1,2);
             }
-            if (result ==0 || result == 1)     //it's OK
+            if (result == 2) p1_remainingShips--;
+            if (result ==0 || result == 1 || result==2)     //it's OK
             {
                 clearScreen();
                 printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //4- show AFTER-attack table status

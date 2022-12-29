@@ -1,7 +1,62 @@
 #include <stdio.h>
 int player1_ship_Coordinates[20][4];
 int player2_ship_Coordinates[20][4];
-int fire(int x, int y ,int areaSize ,int A[][15])
+int remainingShips(int x, int y,int whichplayer,int A[][15])
+{
+        int nship=A[x-1][y-1]%100;
+    if  (whichplayer==1)
+    {
+        int sizeofship=player2_ship_Coordinates[nship][2];
+        int form=player2_ship_Coordinates[nship][3];
+        int X=player2_ship_Coordinates[nship][0];
+        int Y=player2_ship_Coordinates[nship][1];
+            if (form==0)
+            {
+                int count=0;
+                for (int j = 0; j <sizeofship ; j++)
+                {
+                    if(A[X][Y+j]<0) count++;
+                }
+                if (count==sizeofship) return -1;
+            }
+            else if (form==1)
+            {
+                int count=0;
+                for (int j = 0; j <sizeofship ; j++)
+                {
+                    if(A[X+j][Y]<0) count++;
+                }
+                if (count==sizeofship) return -1;
+            }
+    }
+    else if (whichplayer==2)
+    {
+        int sizeofship=player1_ship_Coordinates[nship][2];
+        int form=player1_ship_Coordinates[nship][3];
+        int X=player1_ship_Coordinates[nship][0];
+        int Y=player1_ship_Coordinates[nship][1];
+        if (form==0)
+            {
+                int count=0;
+                for (int j = 0; j <sizeofship ; j++)
+                {
+                    if(A[X][Y+j]<0) count++;
+                }
+                if (count==sizeofship) return -1;
+            }
+            else if (form==1)
+            {
+                int count=0;
+                for (int j = 0; j <sizeofship ; j++)
+                {
+                    if(A[X+j][Y]<0) count++;
+                }
+                if (count==sizeofship) return -1;
+            }
+    }
+    return 0;
+}
+int fire(int x, int y ,int areaSize ,int A[][15],int whichplayer)
 {       
     //وای اگر خامنه ای حکم جهادم دهد
     
@@ -16,6 +71,10 @@ int fire(int x, int y ,int areaSize ,int A[][15])
     if (A[X][Y]>0)
     {
         A[X][Y]=A[X][Y]*-1;
+       if (remainingShips(x,y,whichplayer,A)==-1) 
+       {
+       return 2;
+       }
         return 1;
     }
     
