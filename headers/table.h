@@ -9,15 +9,21 @@
 
 #include <stdio.h>
 
+//constants:
 #define NO_SHIP 0
 #define MISSED -1
+#define NAME_LIMIT 50
 
+//tools:
 int tedad_char(const char p1[]);
+
+//main functions:
 void printNames(const char pName1[], const char pName2[], int n, int nRound);
 void printBattlefields(const int player1[][15], const int player2[][15], int n, int nRound);
 void printRemainingShips(int n, int p1_remainingShips, int p2_remainingShips);
 void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound, int p1_remainingShips, int p2_remainingShips);
 
+//functions definitions:
 void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int areaSize, int nRound, int p1_remainingShips, int p2_remainingShips)
 {
     //printing players name:
@@ -30,64 +36,62 @@ void printTable(const char pName1[], const char pName2[], const int player1[][15
     printRemainingShips(areaSize, p1_remainingShips, p2_remainingShips);
 }
 
-int tedad_char(const char p1[])
+int tedad_char(const char pName[])
 {
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < NAME_LIMIT; i++)
     {
-        if (p1[i]=='\0')
+        if (pName[i]=='\0')
         {
-            return i;
+            return i;   //name SIZE (i)
         }
     }
-    return 3;
+    return -1;      //name limit exeeded ERROR (-1)
 }
-
-//functions declaratoin:
 
 void printNames(const char pName1[], const char pName2[], int areaSize, int nRound)
 {
-    int L1=tedad_char(pName1);//tedad character pName1
-    int L2=tedad_char(pName2);//tedad character pName2
-    int e=15;//space between arrays
+    int L1 = tedad_char(pName1);//tedad character pName1
+    int L2 = tedad_char(pName2);//tedad character pName2
+    int e = 15;//space between arrays
 
     switch (nRound % 2)
     {
     //attacker player 1:
     case 1:
-        for (int i = 0; i <(3+(3*areaSize-L1)/2); i++)//section 1: print space befor pName1
+        for (int i = 0; i <(3+(3*areaSize-L1)/2); i++)//1- print space befor pName1
         {
             printf(" ");
         }
-        printf("*%s",pName1);    //section 2: player1 name
-        for (int i = 0; i <3*(areaSize+1)-(L1+L2)/2+15; i++)//section 3: print space between pName1 and pName2
+        printf("*%s",pName1);    //2- player1 name
+        for (int i = 0; i <3*(areaSize+1)-(L1+L2)/2+15; i++)//3- print space between pName1 and pName2
         {
             printf(" ");
         }
-        printf("%s\n",pName2);  //section 4: player2 name
+        printf("%s\n",pName2);  //4- player2 name
         for (int i = 0; i <6*(areaSize+1)+14 ; i++)
         {
-            printf("=");    //section 5: seperating names from battlefields
+            printf("=");    //5- seperating names from battlefields
         }
-        printf("\n");   //section 6: next line
+        printf("\n");   //6- next line
         break;
     
     //attacker player 2:
     case 0:
-        for (int i = 0; i <(3+(3*areaSize-L1)/2); i++)     //section 1: print space befor pName1
+        for (int i = 0; i <(3+(3*areaSize-L1)/2); i++)     //1- print space befor pName1
         {
             printf(" ");
         }
-        printf("%s",pName1);        //section 2: player1 name
-        for (int i = 0; i <3*(areaSize+1)-(L1+L2)/2+15; i++)//section 3: print space between pName1 and pName2
+        printf("%s",pName1);        //2- player1 name
+        for (int i = 0; i <3*(areaSize+1)-(L1+L2)/2+15; i++)//3- print space between pName1 and pName2
         {
             printf(" ");
         }
-        printf("*%s\n",pName2);      //section 4: player2 name
+        printf("*%s\n",pName2);      //4- player2 name
         for (int i = 0; i <6*(areaSize+1)+14 ; i++)
         {
-            printf("=");    //section 5: seperating names from battlefields
+            printf("=");    //5- seperating names from battlefields
         }
-        printf("\n");       //section 6: next line
+        printf("\n");       //next line
         break;
     }
 }
@@ -99,21 +103,21 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
     //attacker player 1:
     case 1:
         //first line:
-        printf("   ");                                 //section 1: empty space 1
-        for (int i = 1; i <= areaSize; i++) {      //section 2: col nom 1
+        printf("   ");                                 //1- empty space before p1
+        for (int i = 1; i <= areaSize; i++) {      //2- col. num. p1
             printf ("%2i ", i);
         }
-        printf ("       |          ");                  //section 3: empty space 2
-        for (int i = 1; i <= areaSize; i++) {      ////section 4: col nom 2
+        printf ("       |          ");                  //3- seperating p1 from p2
+        for (int i = 1; i <= areaSize; i++) {      //4- col. num. p2
             printf ("%2i ", i);
         }    
         printf("\n");                        //next line
     
         //other lines:
-        for (int i = 0; i < areaSize; i++)             //main loop with new condition
+        for (int i = 0; i < areaSize; i++)
         {
-            printf("%2i  ", i+1);               //section 1: row nom 1
-            for (int j = 0; j < areaSize; j++)      //section 2: player 1
+            printf("%2i  ", i+1);               //1- row num. p1
+            for (int j = 0; j < areaSize; j++)      //2- player1 battlefield
             {
                 switch (player1[i][j]) 
                 {
@@ -121,14 +125,14 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     printf("~  "); 
                     break;
                 default:
-                    if (player1[i][j] >= 1000) printf("O  ");    //show ship
-                    if (player1[i][j] <= -1000) printf("Y  ");     //show damaged ship 
+                    if (player1[i][j] >= 1000) printf("O  ");    //show SHIPS
+                    if (player1[i][j] <= -1000) printf("Y  ");     //show DAMAGED ships
                         break;
                 }
             }
-            printf("      |       ");               //section 3: empty space
-            printf("%2i  ", i+1);                     //section 4: row nom 2
-            for (int j = 0; j < areaSize; j++)            //section 5: player 2
+            printf("      |       ");               //3- seperating p1 from p2
+            printf("%2i  ", i+1);                     //4- row num. p2
+            for (int j = 0; j < areaSize; j++)            //5- player2 battlefield
             {   
                 switch (player2[i][j]) 
                 {
@@ -140,7 +144,7 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     break;
                 default:
                     if (player2[i][j] >= 1000) printf("~  ");    //DON'T show ships!
-                    if (player2[i][j] <= -1000) printf("Y  ");     //show damaged ships 
+                    if (player2[i][j] <= -1000) printf("Y  ");     //show DAMAGED ships 
                     break;
                 }
             }
@@ -151,21 +155,21 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
     //attacker player 2:
     case 0:
         //first line:
-        printf("   ");                                 //section 1: empty space 1
-        for (int i = 1; i <= areaSize; i++) {      //section 2: col nom 1
+        printf("   ");                                 //1- seperating p1 from p2
+        for (int i = 1; i <= areaSize; i++) {      //2- col. num. p1
             printf ("%2i ", i);
         }
-        printf ("       |          ");                  //section 3: empty space 2
-        for (int i = 1; i <= areaSize; i++) {      ////section 4: col nom 2
+        printf ("       |          ");                  //3- empty space before p2
+        for (int i = 1; i <= areaSize; i++) {      //4- col. num. p2
             printf ("%2i ", i);
         }    
         printf("\n");                        //next line
-    
+
         //other lines:
-        for (int i = 0; i < areaSize; i++)             //main loop with new condition
+        for (int i = 0; i < areaSize; i++)
         {
-            printf("%2i  ", i+1);               //section 1: row nom 1
-            for (int j = 0; j < areaSize; j++)      //section 2: player 1
+            printf("%2i  ", i+1);               //1- row num. p1
+            for (int j = 0; j < areaSize; j++)      //2- player1 battlefield
             {
                 switch (player1[i][j]) 
                 {
@@ -177,13 +181,13 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     break;
                 default:
                     if (player1[i][j] >= 1000) printf("~  ");    //DON'T show ships!
-                    if (player1[i][j] <= -1000) printf("Y  ");     //show damaged ships 
+                    if (player1[i][j] <= -1000) printf("Y  ");     //show DAMAGED ships 
                     break;
                 }
             }
-            printf("      |       ");               //section 3: empty space
-            printf("%2i  ", i+1);                     //section 4: row nom 2
-            for (int j = 0; j < areaSize; j++)            //section 5: player 2
+            printf("      |       ");               //3- seperating p1 from p2
+            printf("%2i  ", i+1);                     //4- row num. p2
+            for (int j = 0; j < areaSize; j++)            //5- player2 battlefield
             {   
                 switch (player2[i][j]) 
                 {
@@ -191,8 +195,8 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     printf("~  "); 
                     break;
                 default:
-                    if (player2[i][j] >= 1000) printf("O  ");    //show ship
-                    if (player2[i][j] <= -1000) printf("Y  ");     //show damaged ship 
+                    if (player2[i][j] >= 1000) printf("O  ");    //show SHIPS
+                    if (player2[i][j] <= -1000) printf("Y  ");     //show DAMAGED ships 
                         break;
                 }
             }
@@ -204,16 +208,18 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
 
 void printRemainingShips(int areaSize, int p1_remainingShips, int p2_remainingShips)
 {
-    printf("\n");
-    printf("remaining ships: %i", p1_remainingShips);
-        for (int i = 0; i <3*(areaSize+1)+14-18; i++)
+    printf("\n");       //1- seperating it from last function
+
+    printf("remaining ships: %i", p1_remainingShips);   //2- p1 remainings
+    for (int i = 0; i <3*(areaSize+1)+14-18; i++)       //3- empty spaces before p2
     {
-    printf(" ");
+        printf(" ");
     }  
-    printf("remaining ships: %i\n", p2_remainingShips);
-    for (int i = 0; i <6*(areaSize+1)+14 ; i++)
-        {
-            printf("=");    
-        }
-    printf("\n\n");
+    printf("remaining ships: %i\n", p2_remainingShips); //4- p2 remainings
+    for (int i = 0; i <6*(areaSize+1)+14 ; i++)         //5- seperating it from incomings 
+    {
+        printf("=");    
+    }
+
+    printf("\n\n"); //6- next line and 5)...
 }
