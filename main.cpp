@@ -26,36 +26,6 @@ void end_game();
 int main()
 {
     new_game_settings();
-    /*for (int i = 0; i < 20; i++)
-    {
-        printf("%2i, %2i, %2i, %2i\n", player1_ship_Coordinates[i][0], player1_ship_Coordinates[i][1], player1_ship_Coordinates[i][2], player1_ship_Coordinates[i][3]);   
-    }
-    printf("\n");
-    for (int i = 0; i < 20; i++)
-    {
-        printf("%2i, %2i, %2i, %2i\n", player2_ship_Coordinates[i][0], player2_ship_Coordinates[i][1], player2_ship_Coordinates[i][2], player2_ship_Coordinates[i][3]);   
-    }
-
-    for (int i = 0; i < areaSize; i++)
-    {
-        for (int j = 0; j < areaSize; j++)
-        {
-            printf("%4i,", player1[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-    for (int i = 0; i < areaSize; i++)
-    {
-        for (int j = 0; j < areaSize; j++)
-        {
-            printf("%4i,", player2[i][j]);
-        }
-        printf("\n");
-    }
-
-    int trash;
-    scanf("%i", &trash);*/
     
     start_new_game();
 
