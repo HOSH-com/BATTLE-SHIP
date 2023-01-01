@@ -8,6 +8,10 @@
 #include "headers/ship.h"
 #include "headers/global.h"
 
+#define BLACK 0
+#define RED 4
+#define WHITE 7
+
 //global variables:
 int nRound, nShip, areaSize;
 int p1_remainingShips;
@@ -18,6 +22,7 @@ char pName1[21], pName2[21];
 //tools:
 void clearScreen();
 void sleep(unsigned int mseconds);
+void setTextColor(int textColor, int backColor);
 
 //main functions:
 void new_game_settings();
@@ -45,16 +50,17 @@ void new_game_settings()
     char trash[40];  
 
     //in common settings:
-    do
+    printf("Please enter size of map (3-15):\n");
+    scanf("%i", &areaSize);     //1- area size
+    while (areaSize > 15 || areaSize < 3)  //check for ERROR
     {
-        printf("Please enter size of map (4-15):\n");
-        scanf("%i", &areaSize);     //1- area size
-        if (areaSize > 15 || areaSize < 4)  //check for ERROR
-        {
-            printf("ERROR: Enter size of map again (from 4 to 15):\n");
-            scanf("%i", &areaSize);
-        }
-    } while (areaSize > 15 || areaSize < 4);
+        setTextColor(RED, BLACK);
+        printf("ERROR: ");
+        setTextColor(WHITE, BLACK);
+        printf("Enter size of map again (from 3 to 15):\n");
+        scanf("%i", &areaSize);
+    }
+    setTextColor(WHITE, BLACK);
     printf("Enter number of ships:\n");
     scanf("%i", &nShip);        //2- ship amounts
     p1_remainingShips = p2_remainingShips = nShip;
@@ -245,4 +251,11 @@ void sleep(unsigned int mseconds)
 {
     clock_t goal = mseconds + clock();
     while (goal > clock());
+}
+
+void setTextColor(int textColor, int backColor)
+{
+    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    int colorAttribute = backColor << 4 | textColor;
+    SetConsoleTextAttribute(consoleHandle, colorAttribute);
 }
