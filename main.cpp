@@ -30,9 +30,11 @@ void start_new_game();
 void end_game();
 
 int main()
-{
+{   
+    system("color F0");
+    setTextColor(BLACK, 15);
     new_game_settings();
-    
+    setTextColor(BLACK, 15);
     start_new_game();
 
     end_game();
@@ -43,6 +45,7 @@ int main()
 //functions difinition:
 void new_game_settings()
 {
+    clearScreen();
     //ingredients:
     int x, y, sizeofship=3;
     int i, result;
@@ -54,21 +57,22 @@ void new_game_settings()
     scanf("%i", &areaSize);     //1- area size
     while (areaSize > 15 || areaSize < 3)  //check for ERROR
     {
-        setTextColor(RED, BLACK);
+        setTextColor(RED, 15);
         printf("ERROR: ");
-        setTextColor(WHITE, BLACK);
+        setTextColor(BLACK, 15);
         printf("Enter size of map again (from 3 to 15):\n");
         scanf("%i", &areaSize);
     }
-    setTextColor(WHITE, BLACK);
+    setTextColor(BLACK, 15);
     printf("Enter number of ships:\n");
     scanf("%i", &nShip);        //2- ship amounts
     p1_remainingShips = p2_remainingShips = nShip;
+    printf("...");
     sleep(3000);
     clearScreen();
 
     //player 1:
-    printf("PLAYER 1:\n\n"
+    printf("<PLAYER 1>\n\n"
     "Enter player1 name:\n");
     scanf("%c", &trash[0]);     //getting ready for next "scanf"
     for (i = 0; pName1[i-1] != '\n'; i++)   
@@ -90,11 +94,17 @@ void new_game_settings()
             {
                 if(result == 1)
                 {
-                    printf("ERROR: Ship exists in this area.\nPlease enter position \"%i\" again ('row' space 'column'):\n", i+1);
+                    setTextColor(RED, 15);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, 15);
+                    printf("Ship exists in this area.\nPlease enter position \"%i\" again ('row' space 'column'):\n", i+1);
                 }
                 else if(result == 2)
                 {
-                    printf("ERROR: The ship is out of the range (the area is %ix%i)."
+                    setTextColor(RED, 15);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, 15);
+                    printf("The ship is out of the range (the area is %ix%i)."
                     "\nPlease enter position \"%i\" again ('row' space 'column'):\n", areaSize, areaSize ,i+1);
                 }
                 scanf("%d%d%c%c",&x,&y,&trash[0],&form);
@@ -109,7 +119,7 @@ void new_game_settings()
     clearScreen();
 
     //player 2:
-    printf("PLAYER 2:\n\n"
+    printf("<PLAYER 2>\n\n"
     "Enter player2 name:\n");
     scanf("%c", &trash[0]);     //getting ready for next "scanf"
     for (i = 0; pName2[i-1] != '\n'; i++)
@@ -131,11 +141,17 @@ void new_game_settings()
             {
                 if(result == 1)
                 {
-                    printf("ERROR: Ship exists in this area.\nPlease enter position \"%i\" again ('row' space 'column'):\n", i+1);
+                    setTextColor(RED, 15);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, 15);
+                    printf("Ship exists in this area.\nPlease enter position \"%i\" again ('row' space 'column'):\n", i+1);
                 }
                 else if(result == 2)
                 {
-                    printf("ERROR: The ship is out of the range (the area is %ix%i)."
+                    setTextColor(RED, 15);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, 15);
+                    printf("The ship is out of the range (the area is %ix%i)."
                     "\nPlease enter position \"%i\" again ('row' space 'column'):\n", areaSize, areaSize ,i+1);
                 }
                 scanf("%d%d%c%c",&x,&y,&trash[0],&form);
@@ -144,13 +160,14 @@ void new_game_settings()
             }
         }
     }
+    printf("...");
+    sleep(5000);
 }
 
 void start_new_game()
 {
     int x, y, result;
 
-    sleep(5000);
     clearScreen();
     //start the new game:
     for (nRound = 1; p1_remainingShips && p2_remainingShips; nRound++)
@@ -169,11 +186,17 @@ void start_new_game()
             {
                 if (result == -2)
                 {
-                    printf("ERROR: The ship in this area is damaged already.\n");
+                    setTextColor(RED, 15);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, 15);
+                    printf("The ship in this area is damaged already.\n");
                 }
                 else if (result == -1)
                 {
-                    printf("ERROR: The shot is out of the range (min=1, max=%i).\n", areaSize);
+                    setTextColor(RED, 15);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, 15);
+                    printf("The shot is out of the range (min=1, max=%i).\n", areaSize);
                 }
                 printf("Enter your shot again(\"row number\" space \"column number\"):\n");
                 scanf("%i %i", &x, &y); 
@@ -202,12 +225,18 @@ void start_new_game()
             {
                 if (result == -2)
                 {
-                    printf("ERROR: The ship in this area is damaged already.\n");
+                    setTextColor(RED, 15);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, 15);
+                    printf("The ship in this area is damaged already.\n");
                     
                 }
                 else if (result == -1)
                 {
-                    printf("ERROR: The shot is out of the range (min=1, max=%i).\n", areaSize);
+                    setTextColor(RED, 15);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, 15);
+                    printf("The shot is out of the range (min=1, max=%i).\n", areaSize);
                 }
                 printf("Enter your shot again(\"row number\" space \"column number\"):\n");
                 scanf("%i %i", &x, &y); 
@@ -230,6 +259,7 @@ void start_new_game()
         }
         
         /*delay and clearScreen after each round*/
+        printf("...");
         sleep(5000);
         clearScreen();      //6- clear screen
     }

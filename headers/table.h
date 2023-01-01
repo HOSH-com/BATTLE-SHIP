@@ -125,8 +125,8 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     printf("~  "); 
                     break;
                 default:
-                    if (player1[i][j] >= 1000) printf("O  ");    //show SHIPS
-                    if (player1[i][j] <= -1000) printf("Y  ");     //show DAMAGED ships
+                    if (player1[i][j] >= 1000) printf("%c  ", 254);    //show SHIPS
+                    if (player1[i][j] <= -1000) printf("X  ");     //show DAMAGED ships
                         break;
                 }
             }
@@ -140,11 +140,11 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     printf("~  "); 
                     break;
                 case MISSED:
-                    printf("X  "); 
+                    printf("%c  ", 168); 
                     break;
                 default:
                     if (player2[i][j] >= 1000) printf("~  ");    //DON'T show ships!
-                    if (player2[i][j] <= -1000) printf("Y  ");     //show DAMAGED ships 
+                    if (player2[i][j] <= -1000) printf("X  ");     //show DAMAGED ships 
                     break;
                 }
             }
@@ -177,11 +177,11 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     printf("~  "); 
                     break;
                 case MISSED:
-                    printf("X  "); 
+                    printf("%c  ", 168); 
                     break;
                 default:
                     if (player1[i][j] >= 1000) printf("~  ");    //DON'T show ships!
-                    if (player1[i][j] <= -1000) printf("Y  ");     //show DAMAGED ships 
+                    if (player1[i][j] <= -1000) printf("X  ");     //show DAMAGED ships 
                     break;
                 }
             }
@@ -195,8 +195,8 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                     printf("~  "); 
                     break;
                 default:
-                    if (player2[i][j] >= 1000) printf("O  ");    //show SHIPS
-                    if (player2[i][j] <= -1000) printf("Y  ");     //show DAMAGED ships 
+                    if (player2[i][j] >= 1000) printf("%c  ", 254);    //show SHIPS
+                    if (player2[i][j] <= -1000) printf("X  ");     //show DAMAGED ships 
                         break;
                 }
             }
@@ -211,7 +211,7 @@ void printRemainingShips(int areaSize, int p1_remainingShips, int p2_remainingSh
     printf("\n");       //1- seperating it from last function
 
     printf("remaining ships: %i", p1_remainingShips);   //2- p1 remainings
-    for (int i = 0; i <3*(areaSize+1)+14-18; i++)       //3- empty spaces before p2
+    for (int i = 0; i <3*(areaSize+1)-2; i++)       //3- empty spaces before p2
     {
         printf(" ");
     }  
