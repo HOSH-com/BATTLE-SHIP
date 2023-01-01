@@ -9,6 +9,13 @@
 
 #include <stdio.h>
 
+
+#define BLACK 0
+#define BLUE 3
+#define RED 4
+#define WHITE1 7
+#define WHITE2 15
+
 //constants:
 #define NO_SHIP 0
 #define MISSED -1
@@ -22,6 +29,7 @@ void printNames(const char pName1[], const char pName2[], int n, int nRound);
 void printBattlefields(const int player1[][15], const int player2[][15], int n, int nRound);
 void printRemainingShips(int n, int p1_remainingShips, int p2_remainingShips);
 void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int n, int nRound, int p1_remainingShips, int p2_remainingShips);
+void setTextColor(int textColor, int backColor);
 
 //functions definitions:
 void printTable(const char pName1[], const char pName2[], const int player1[][15], const int player2[][15], int areaSize, int nRound, int p1_remainingShips, int p2_remainingShips)
@@ -122,7 +130,9 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                 switch (player1[i][j]) 
                 {
                 case NO_SHIP:
+                    setTextColor(BLUE,WHITE2);
                     printf("~  "); 
+                    setTextColor(BLACK,WHITE2);
                     break;
                 default:
                     if (player1[i][j] >= 1000) printf("%c  ", 254);    //show SHIPS
@@ -137,13 +147,20 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                 switch (player2[i][j]) 
                 {
                 case NO_SHIP:
+                    setTextColor(BLUE,WHITE2);
                     printf("~  "); 
+                    setTextColor(BLACK,WHITE2);
                     break;
                 case MISSED:
                     printf("%c  ", 168); 
                     break;
                 default:
-                    if (player2[i][j] >= 1000) printf("~  ");    //DON'T show ships!
+                    if (player2[i][j] >= 1000)
+                    {
+                        setTextColor(BLUE,WHITE2);
+                        printf("~  ");    //DON'T show ships!
+                        setTextColor(BLACK,WHITE2); 
+                    }
                     if (player2[i][j] <= -1000) printf("X  ");     //show DAMAGED ships 
                     break;
                 }
@@ -174,13 +191,20 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                 switch (player1[i][j]) 
                 {
                 case NO_SHIP:
-                    printf("~  "); 
+                    setTextColor(BLUE,WHITE2);
+                    printf("~  ");
+                    setTextColor(BLACK,WHITE2); 
                     break;
                 case MISSED:
                     printf("%c  ", 168); 
                     break;
                 default:
-                    if (player1[i][j] >= 1000) printf("~  ");    //DON'T show ships!
+                    if (player1[i][j] >= 1000)
+                    {
+                        setTextColor(BLUE,WHITE2);
+                        printf("~  ");    //DON'T show ships!
+                        setTextColor(BLACK,WHITE2); 
+                    }
                     if (player1[i][j] <= -1000) printf("X  ");     //show DAMAGED ships 
                     break;
                 }
@@ -192,7 +216,9 @@ void printBattlefields(const int player1[][15], const int player2[][15], int are
                 switch (player2[i][j]) 
                 {
                 case NO_SHIP:
+                    setTextColor(BLUE,WHITE2);
                     printf("~  "); 
+                    setTextColor(BLACK,WHITE2);
                     break;
                 default:
                     if (player2[i][j] >= 1000) printf("%c  ", 254);    //show SHIPS
@@ -222,4 +248,10 @@ void printRemainingShips(int areaSize, int p1_remainingShips, int p2_remainingSh
     }
 
     printf("\n\n"); //6- next line and 5)...
+}
+void setTextColor(int textColor, int backColor)
+{
+    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    int colorAttribute = backColor << 4 | textColor;
+    SetConsoleTextAttribute(consoleHandle, colorAttribute);
 }

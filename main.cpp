@@ -9,8 +9,11 @@
 #include "headers/global.h"
 
 #define BLACK 0
+#define GREY 8
+#define WHITE1 7
+#define WHITE2 15
+#define BLUE 3
 #define RED 4
-#define WHITE 7
 
 //global variables:
 int nRound, nShip, areaSize;
@@ -84,7 +87,7 @@ void new_game_settings()
     //put && check ship in area for player 1:
     for(int i =0;i<nShip;i++)     
     {
-        printf("Enter ship position \"%i\" ('row' space 'column'):\n", i+1);
+        printf("Enter ship position \"%i\" ('row' space 'column' space 'h/v'):\n", i+1);
         scanf("%d%d%c%c",&x,&y,&trash[0],&form);    //4- player1 ships position
         result = put_ship(x,y,form,sizeofship,player1,areaSize,i,1);
         if (result==1 || result==2)  //check for error
@@ -97,7 +100,7 @@ void new_game_settings()
                     setTextColor(RED, 15);
                     printf("ERROR: ");
                     setTextColor(BLACK, 15);
-                    printf("Ship exists in this area.\nPlease enter position \"%i\" again ('row' space 'column'):\n", i+1);
+                    printf("Ship exists in this area.\nPlease enter position \"%i\" again ('row' space 'column' space 'h/v'):\n", i+1);
                 }
                 else if(result == 2)
                 {
@@ -105,7 +108,7 @@ void new_game_settings()
                     printf("ERROR: ");
                     setTextColor(BLACK, 15);
                     printf("The ship is out of the range (the area is %ix%i)."
-                    "\nPlease enter position \"%i\" again ('row' space 'column'):\n", areaSize, areaSize ,i+1);
+                    "\nPlease enter position \"%i\" again ('row' space 'column' space 'h/v'):\n", areaSize, areaSize ,i+1);
                 }
                 scanf("%d%d%c%c",&x,&y,&trash[0],&form);
                 result = put_ship(x,y,form,sizeofship,player1,areaSize,i,2);
@@ -131,7 +134,7 @@ void new_game_settings()
     //put && check ship in area for player 2:
     for(int i =0;i<nShip;i++)       
     {
-        printf("Enter ship position \"%i\" ('row' space 'column'):\n", i+1);
+        printf("Enter ship position \"%i\" ('row' space 'column' space 'h/v'):\n", i+1);
         scanf("%d%d%c%c",&x,&y,&trash[0],&form);        //7- player2 ships position
         result = put_ship(x,y,form,sizeofship,player2,areaSize,i,2);
         if (result == 1 || result == 2)  //check for error
@@ -144,7 +147,7 @@ void new_game_settings()
                     setTextColor(RED, 15);
                     printf("ERROR: ");
                     setTextColor(BLACK, 15);
-                    printf("Ship exists in this area.\nPlease enter position \"%i\" again ('row' space 'column'):\n", i+1);
+                    printf("Ship exists in this area.\nPlease enter position \"%i\" again ('row' space 'column' space 'h/v'):\n", i+1);
                 }
                 else if(result == 2)
                 {
@@ -152,7 +155,7 @@ void new_game_settings()
                     printf("ERROR: ");
                     setTextColor(BLACK, 15);
                     printf("The ship is out of the range (the area is %ix%i)."
-                    "\nPlease enter position \"%i\" again ('row' space 'column'):\n", areaSize, areaSize ,i+1);
+                    "\nPlease enter position \"%i\" again ('row' space 'column' space 'h/v'):\n", areaSize, areaSize ,i+1);
                 }
                 scanf("%d%d%c%c",&x,&y,&trash[0],&form);
                 result = put_ship(x,y,form,sizeofship,player2,areaSize,i,2);
@@ -172,9 +175,9 @@ void start_new_game()
     //start the new game:
     for (nRound = 1; p1_remainingShips && p2_remainingShips; nRound++)
     {
-        /*playing codes*/
         printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips); //1- show PRE-attack table status
-        printf("Enter coordinates to shot (\"row number\" space \"column number\"):\n"); //2- get the shot coord.
+        printf("Enter coordinates to shot ('row number' space 'column'):\n"); //2- get the shot coord.
+        setTextColor(BLACK,WHITE2);
         scanf("%i %i", &x, &y);      
 
         switch (nRound % 2)
@@ -198,7 +201,7 @@ void start_new_game()
                     setTextColor(BLACK, 15);
                     printf("The shot is out of the range (min=1, max=%i).\n", areaSize);
                 }
-                printf("Enter your shot again(\"row number\" space \"column number\"):\n");
+                printf("Enter your shot again('row number' space 'column'):\n");
                 scanf("%i %i", &x, &y); 
                 result = fire(x, y, areaSize, player2, 1, p1_remainingShips, p2_remainingShips);
             }
@@ -206,7 +209,7 @@ void start_new_game()
             if (result == 0 || result == 1 || result==2)     //it's OK
             {
                 clearScreen();
-                printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //4- show AFTER-attack table status
+                printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //3- show AFTER-attack table status
                 if (result==2)
                 {
                     printf("One of %s's ships sank!\n", pName2);    //ship SANK
@@ -238,7 +241,8 @@ void start_new_game()
                     setTextColor(BLACK, 15);
                     printf("The shot is out of the range (min=1, max=%i).\n", areaSize);
                 }
-                printf("Enter your shot again(\"row number\" space \"column number\"):\n");
+                printf("Enter your shot again('row number' space 'column'):\n");
+                setTextColor(BLACK,WHITE2);
                 scanf("%i %i", &x, &y); 
                 result = fire(x, y, areaSize, player1, 2, p1_remainingShips, p2_remainingShips);
             }
@@ -246,7 +250,7 @@ void start_new_game()
             if (result ==0 || result == 1 || result == 2)     //it's OK
             {
                 clearScreen();
-                printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //4- show AFTER-attack table status
+                printTable(pName1, pName2, player1, player2, areaSize, nRound, p1_remainingShips, p2_remainingShips);     //3- show AFTER-attack table status
                 if (result==2)
                 {
                     printf("One of %s's ships sank!\n", pName1);    //ship SANK
@@ -258,10 +262,10 @@ void start_new_game()
             break;
         }
         
-        /*delay and clearScreen after each round*/
+        //delay and clearScreen after each round:
         printf("...");
         sleep(5000);
-        clearScreen();      //6- clear screen
+        clearScreen();      
     }
 
 }
@@ -283,9 +287,3 @@ void sleep(unsigned int mseconds)
     while (goal > clock());
 }
 
-void setTextColor(int textColor, int backColor)
-{
-    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-    int colorAttribute = backColor << 4 | textColor;
-    SetConsoleTextAttribute(consoleHandle, colorAttribute);
-}
