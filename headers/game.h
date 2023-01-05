@@ -1,3 +1,19 @@
+/*
+کتابخانۀ مورد استفاده برای انجام بازی 
+شامل:...
+- new game settings
+- start the new game and running the rounds
+- end of the game
+
+*/
+
+#define BLACK 0
+#define GREY 8
+#define WHITE1 7
+#define WHITE2 15
+#define BLUE 3
+#define RED 4
+
 //main functions:
 void new_game_settings();
 void start_new_game();
@@ -132,7 +148,7 @@ void start_new_game()
 
     clearScreen();
     //start the new game:
-    for (setting.nRound = 1; player1[0].number_of_ship && player2[0].number_of_ship; setting.nRound++)
+    for (setting.nRound = 1; player1[0].remaining_ship && player2[0].remaining_ship; setting.nRound++)
     {
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row number' space 'column'):\n"); //2- get the shot coord.
@@ -231,7 +247,7 @@ void start_new_game()
 
 void end_game()
 {
-    if (player1[0].number_of_ship) printf("PLAYER 1 WONNNNNNNNN!"); /*player1 wins*/
-    else if (player2[0].number_of_ship) printf("PLAYER 2 WONNNNNNNNN!"); /*player2 wins*/
+    if (player1[0].remaining_ship) printf("PLAYER 1 WONNNNNNNNN!"); /*player1 wins*/
+    else if (player2[0].remaining_ship) printf("PLAYER 2 WONNNNNNNNN!"); /*player2 wins*/
 }
 
