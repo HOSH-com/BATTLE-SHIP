@@ -10,8 +10,6 @@
 #include "headers/global.h"
 #include "headers/attachment.h"
 
-
-
 int main()
 {   
     system("color F0");

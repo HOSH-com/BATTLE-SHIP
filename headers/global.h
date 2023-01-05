@@ -3,6 +3,9 @@
 #ifndef global
 #define global
 
+#define MAX_COOR 20
+int sizeofship=3;
+
 int player1_ship_Coordinates[20][4] = {0};
 int player2_ship_Coordinates[20][4] = {0};
 struct PLAYERS_INFO
