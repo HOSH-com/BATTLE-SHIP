@@ -8,9 +8,6 @@
 
 */
 
-#include <stdio.h>
-#include "global.h"
-
 //main functions:
 int remainingShips(int x, int y,int whichplayer,int A[][15]);
 int fire(int x, int y,int A[][15],int whichplayer, int &p1_remainingShips, int &p2_remainingShips);

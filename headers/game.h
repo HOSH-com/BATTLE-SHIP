@@ -1,5 +1,26 @@
+/*
+کتابخانۀ مورد استفاده برای انجام بازی 
+شامل:...
+- new game settings
+- start the new game and running the rounds
+- end of the game
 
-//functions difinition:
+*/
+
+#define BLACK 0
+#define GREY 8
+#define WHITE1 7
+#define WHITE2 15
+#define BLUE 3
+#define RED 4
+
+//main functions:
+void new_game_settings();
+void start_new_game();
+void end_game();
+
+int nShip;
+
 void new_game_settings()
 {
     clearScreen();
@@ -23,6 +44,7 @@ void new_game_settings()
     setTextColor(BLACK, 15);
     printf("Enter number of ships:\n");
     scanf("%i", &nShip);        //2- ship amounts
+
     player1[0].remaining_ship=player1[0].number_of_ship=player2[0].remaining_ship=player2[0].number_of_ship= nShip;
     printf("...");
     sleep(3000);
@@ -32,11 +54,12 @@ void new_game_settings()
     printf("<PLAYER 1>\n\n"
     "Enter player1 name:\n");
     scanf("%c", &trash[0]);     //getting ready for next "scanf"
-    for (i = 0; pName1[i-1] != '\n'; i++)   
+    for (i = 0; player1[0].name[i-1] != '\n'; i++)   
     {
-        scanf("%c", &pName1[i]);//3- player1 name
+        scanf("%c", &player1[0].name[i]);//3- player1 name
     }
-    pName1[i-1] = 0;
+    player1[0].name[i-1] = 0;
+
 
     //put && check ship in area for player 1:
     for(int i =0;i<nShip;i++)     
@@ -53,11 +76,12 @@ void new_game_settings()
     printf("<PLAYER 2>\n\n"
     "Enter player2 name:\n");
     scanf("%c", &trash[0]);     //getting ready for next "scanf"
-    for (i = 0; pName2[i-1] != '\n'; i++)
+
+    for (i = 0; player2[0].name[i-1] != '\n'; i++)
     {
-        scanf("%c", &pName2[i]);    //6- player2 name
+        scanf("%c", &player2[0].name[i]);    //6- player2 name
     }
-    pName2[i-1] = 0;
+    player2[0].name[i-1] = 0;
  
     //put && check ship in area for player 2:
     for(int i =0;i<nShip;i++)       
@@ -79,8 +103,9 @@ void start_new_game()
     {
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row number' space 'column'):\n"); //2- get the shot coord.
+        
         setTextColor(BLACK,WHITE2);      
-    
+
             result = fire();
             while (result < 0)   //check for ERRORS
             {
@@ -99,6 +124,7 @@ void start_new_game()
                     printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
                 }
                 printf("Enter your shot again('row number' space 'column'):\n");
+
                 result = fire();
             }
 
@@ -120,7 +146,6 @@ void start_new_game()
                     player1[0].battlefield[x-1][y-1] = 0;
                 }      
             }
-            
         }
         
         //delay and clearScreen after each round:
