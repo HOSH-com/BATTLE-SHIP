@@ -22,18 +22,18 @@ int remainingShips(int x, int y)
     //attacker player1:
     if  (setting.nRound%2==1)
     {
-        int shipName = player2->battlefield[x-1][y-1]%100;
-        int X = player2_ship_Coordinates[shipName][0]; 
-        int Y = player2_ship_Coordinates[shipName][1];
-        int sizeofship = player2_ship_Coordinates[shipName][2];
-        int form = player2_ship_Coordinates[shipName][3];
+        int shipName = player2[0].battlefield[x-1][y-1]%100;
+        int X = player2[0].ship_coordinates[shipName][0]; 
+        int Y = player2[0].ship_coordinates[shipName][1];
+        int sizeofship = player2[0].ship_coordinates[shipName][2];
+        int form = player2[0].ship_coordinates[shipName][3];
         //Hoizental:
         if (form==0)
         {
             int count=0;
             for (int j = 0; j < sizeofship ; j++)
             {
-                if(player2->battlefield[X][Y+j] < -999) count++;
+                if(player2[0].battlefield[X][Y+j] < -999) count++;
             }
             if (count+1==sizeofship) return -2;       //player2 ship sank (-2)
         }
@@ -43,7 +43,7 @@ int remainingShips(int x, int y)
             int count=0;
             for (int j = 0; j <sizeofship ; j++)
             {
-                if(player2->battlefield[X+j][Y] < -999) count++;
+                if(player2[0].battlefield[X+j][Y] < -999) count++;
             }
             if (count+1==sizeofship) return -2;       //player2 ship sank (-2)
         }
@@ -52,18 +52,18 @@ int remainingShips(int x, int y)
     //attacker player2:
     else if (setting.nRound%2==0)
     {
-        int shipName = player1->battlefield[x-1][y-1]%100;
-        int X = player1_ship_Coordinates[shipName][0];
-        int Y = player1_ship_Coordinates[shipName][1];
-        int sizeofship = player1_ship_Coordinates[shipName][2];
-        int form = player1_ship_Coordinates[shipName][3];
+        int shipName = player1[0].ship_coordinates[x-1][y-1]%100;
+        int X = player1[0].ship_coordinates[shipName][0];
+        int Y = player1[0].ship_coordinates[shipName][1];
+        int sizeofship = player1[0].ship_coordinates[shipName][2];
+        int form = player1[0].ship_coordinates[shipName][3];
         //Horizental:
         if (form==0)
             {
                 int count=0;
                 for (int j = 0; j <sizeofship ; j++)
                 {
-                    if(player1->battlefield[X][Y+j] < -999) count++;
+                    if(player1[0].battlefield[X][Y+j] < -999) count++;
                 }
                 if (count+1==sizeofship) return -1;   //player1 ship sank (-1)
             }
@@ -73,7 +73,7 @@ int remainingShips(int x, int y)
                 int count=0;
                 for (int j = 0; j <sizeofship ; j++)
                 {
-                    if(player1->battlefield[X+j][Y] < -999) count++;
+                    if(player1[0].battlefield[X+j][Y] < -999) count++;
                 }
                 if (count+1==sizeofship) return -1;       //player1 ship sank (-1)
             }
@@ -97,52 +97,52 @@ int fire()
     }
     if(setting.nRound%2==1)
     {
-    if (player2->battlefield[X][Y] > 999)
+    if (player2[0].battlefield[X][Y] > 999)
     {
         result = remainingShips(x,y);
         if (result<0) 
         {
-            player2->remaning_ship --;
-            player2->battlefield[X][Y]=player2->battlefield[X][Y]*(-1);
+            player2[0].remaining_ship --;
+            player2[0].battlefield[X][Y]=player2[0].battlefield[X][Y]*(-1);
             return 2;   //ship SANK (2)
         }
-        player2->battlefield[X][Y]=player2->battlefield[X][Y]*(-1);
+        player2[0].battlefield[X][Y]=player2[0].battlefield[X][Y]*(-1);
         return 1;        //got shot (1)
     }
     
-    else if (player2->battlefield[X][Y]==0)
+    else if (player2[0].battlefield[X][Y]==0)
     {
-        player2->battlefield[X][Y]=-1;
+        player2[0].battlefield[X][Y]=-1;
         return 0;       //MISSED shot (0)
     }
 
-    else if (player2->battlefield[X][Y] < 0)
+    else if (player2[0].battlefield[X][Y] < 0)
     {
         return -2;     //already damaged ERROR (-2)
     }
     }
     if(setting.nRound%2==0)
     {
-    if (player1->battlefield[X][Y] > 999)
+    if (player1[0].battlefield[X][Y] > 999)
     {
         result = remainingShips(x,y);
         if (result<0) 
         {
-            player1->remaning_ship --;
-            player1->battlefield[X][Y]=player1->battlefield[X][Y]*(-1);
+            player1[0].remaining_ship --;
+            player1[0].battlefield[X][Y]=player1[0].battlefield[X][Y]*(-1);
             return 2;   //ship SANK (2)
         }
-        player1->battlefield[X][Y]=player1->battlefield[X][Y]*(-1);
+        player1[0].battlefield[X][Y]=player1[0].battlefield[X][Y]*(-1);
         return 1;        //got shot (1)
     }
     
-    else if (player1->battlefield[X][Y]==0)
+    else if (player1[0].battlefield[X][Y]==0)
     {
-        player1->battlefield[X][Y]=-1;
+        player1[0].battlefield[X][Y]=-1;
         return 0;       //MISSED shot (0)
     }
 
-    else if (player1->battlefield[X][Y] < 0)
+    else if (player1[0].battlefield[X][Y] < 0)
     {
         return -2;     //already damaged ERROR (-2)
     }
@@ -163,7 +163,7 @@ int check_ship(int x,int y,char form,int sizeofship)
         if(y+sizeofship-1>setting.size_of_area-1) return 2;//ship out of range ERROR (2)
         for (int i = 0; i < sizeofship; i++)
         {
-            if (player1->battlefield[x][y+i]!=0)
+            if (player1[0].battlefield[x][y+i]!=0)
             {
                 return 1;       //ship existence ERROR (1)
             }            
@@ -176,7 +176,7 @@ int check_ship(int x,int y,char form,int sizeofship)
         if(x+sizeofship-1>setting.size_of_area-1) return 2;//ship out of range ERROR (2)
         for (int i = 0; i < sizeofship; i++)
         {
-            if (player1->battlefield[x+i][y]!=0)
+            if (player1[0].battlefield[x+i][y]!=0)
             {
                 return 1;       //ship existence ERROR (1)
             }            
@@ -194,7 +194,7 @@ int check_ship(int x,int y,char form,int sizeofship)
         if(y+sizeofship-1>setting.size_of_area-1) return 2;//ship out of range ERROR (2)
         for (int i = 0; i < sizeofship; i++)
         {
-            if (player2->battlefield[x][y+i]!=0)
+            if (player2[0].battlefield[x][y+i]!=0)
             {
                 return 1;       //ship existence ERROR (1)
             }            
@@ -207,7 +207,7 @@ int check_ship(int x,int y,char form,int sizeofship)
         if(x+sizeofship-1>setting.size_of_area-1) return 2;//ship out of range ERROR (2)
         for (int i = 0; i < sizeofship; i++)
         {
-            if (player2->battlefield[x+i][y]!=0)
+            if (player2[0].battlefield[x+i][y]!=0)
             {
                 return 1;       //ship existence ERROR (1)
             }            
@@ -256,11 +256,11 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
         {
             if (setting.nRound%2==1)
             {
-                player1->battlefield[x][y+i]=sizeofship*1000+0+shipname;
+                player1[0].battlefield[x][y+i]=sizeofship*1000+0+shipname;
             }
             else if (setting.nRound%2==0)
             {
-                player2[x][y+i]=sizeofship*1000+0+shipname;
+                player2[0].battlefield[x][y+i]=sizeofship*1000+0+shipname;
             }
         }
         if (setting.nRound%2==1)
@@ -269,17 +269,17 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
             //* player1_ship_Coordinates[shipname][1] = y;
             //* player1_ship_Coordinates[shipname][2] = sizeofship;
             //* player1_ship_Coordinates[shipname][3] = 0;
-            player1->ship_coordinates[shipname][0]=x;
-            player1->ship_coordinates[shipname][1]=y;
-            player1->ship_coordinates[shipname][2]=sizeofship;
-            player1->ship_coordinates[shipname][3]=0;
+            player1[0].ship_coordinates[shipname][0]=x;
+            player1[0].ship_coordinates[shipname][1]=y;
+            player1[0].ship_coordinates[shipname][2]=sizeofship;
+            player1[0].ship_coordinates[shipname][3]=0;
         }
         else if (setting.nRound%2==0)
         {
-            player2->ship_coordinates[shipname][0]=x;
-            player2->ship_coordinates[shipname][1]=y;
-            player2->ship_coordinates[shipname][2]=sizeofship;
-            player2->ship_coordinates[shipname][3]=0;
+            player2[0].ship_coordinates[shipname][0]=x;
+            player2[0].ship_coordinates[shipname][1]=y;
+            player2[0].ship_coordinates[shipname][2]=sizeofship;
+            player2[0].ship_coordinates[shipname][3]=0;
         }
     }
 
@@ -289,26 +289,26 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
         {
             if (setting.nRound%2==1)
             {
-                player1->battlefield[x][y+i]=sizeofship*1000+100+shipname;
+                player1[0].battlefield[x][y+i]=sizeofship*1000+100+shipname;
             }
             else if (setting.nRound%2==0)
             {
-                player2[x][y+i]=sizeofship*1000+100+shipname;
+                player2[0].battlefield[x][y+i]=sizeofship*1000+100+shipname;
             }
         }
         if (setting.nRound%2==1)
         {
-            player1->ship_coordinates[shipname][0]=x;
-            player1->ship_coordinates[shipname][1]=y;
-            player1->ship_coordinates[shipname][2]=sizeofship;
-            player1->ship_coordinates[shipname][3]=1;
+            player1[0].ship_coordinates[shipname][0]=x;
+            player1[0].ship_coordinates[shipname][1]=y;
+            player1[0].ship_coordinates[shipname][2]=sizeofship;
+            player1[0].ship_coordinates[shipname][3]=1;
         }
         else if (setting.nRound%2==0)
         {
-            player2->ship_coordinates[shipname][0]=x;
-            player2->ship_coordinates[shipname][1]=y;
-            player2->ship_coordinates[shipname][2]=sizeofship;
-            player2->ship_coordinates[shipname][3]=1;
+            player2[0].ship_coordinates[shipname][0]=x;
+            player2[0].ship_coordinates[shipname][1]=y;
+            player2[0].ship_coordinates[shipname][2]=sizeofship;
+            player2[0].ship_coordinates[shipname][3]=1;
         }  
     }
     return 0;       //NO problem (0)
