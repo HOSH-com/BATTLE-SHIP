@@ -1,9 +1,4 @@
 #define MAX_COOR 20
-
-#ifndef global
-#define global
-
-#define MAX_COOR 20
 int sizeofship=3;
 
 int player1_ship_Coordinates[20][4] = {0};
@@ -23,5 +18,3 @@ struct GAME_SETTING
     int max_repair;
     int nRound;
 }setting;
-
-#endif

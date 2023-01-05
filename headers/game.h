@@ -106,55 +106,54 @@ void start_new_game()
         
         setTextColor(BLACK,WHITE2);      
 
+        result = fire();
+        while (result < 0)   //check for ERRORS
+        {
+            if (result == -2)
+            {
+                setTextColor(RED, 15);
+                printf("ERROR: ");
+                setTextColor(BLACK, 15);
+                printf("The ship in this area is damaged already.\n");
+            }
+            else if (result == -1)
+            {
+                setTextColor(RED, 15);
+                printf("ERROR: ");
+                setTextColor(BLACK, 15);
+                printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
+            }
+            printf("Enter your shot again('row number' space 'column'):\n");
+
             result = fire();
-            while (result < 0)   //check for ERRORS
-            {
-                if (result == -2)
-                {
-                    setTextColor(RED, 15);
-                    printf("ERROR: ");
-                    setTextColor(BLACK, 15);
-                    printf("The ship in this area is damaged already.\n");
-                }
-                else if (result == -1)
-                {
-                    setTextColor(RED, 15);
-                    printf("ERROR: ");
-                    setTextColor(BLACK, 15);
-                    printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
-                }
-                printf("Enter your shot again('row number' space 'column'):\n");
-
-                result = fire();
-            }
-
-            if (result == 0 || result == 1 || result==2)     //it's OK
-            {
-                clearScreen();
-                printTable();     //3- show AFTER-attack table status
-                if (result==2)
-                {
-                    printf("One of %s's ships sank!\n", pName2);    //ship SANK
-                }
-                else if (result==0)
-                {
-                    if(setting.nRound%2==1)
-                    {
-                    player2[0].battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
-                    }
-                    else
-                    player1[0].battlefield[x-1][y-1] = 0;
-                }      
-            }
         }
-        
-        //delay and clearScreen after each round:
-        printf("...");
-        sleep(5000);
-        clearScreen();      
-    }
 
+        if (result == 0 || result == 1 || result==2)     //it's OK
+        {
+            clearScreen();
+            printTable();     //3- show AFTER-attack table status
+            if (result==2)
+            {
+                printf("One of %s's ships sank!\n", player2[0].name);    //ship SANK
+            }
+            else if (result==0)
+            {
+                if(setting.nRound%2==1)
+                {
+                player2[0].battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
+                }
+                else
+                player1[0].battlefield[x-1][y-1] = 0;
+            }      
+        }
+    }
+    
+    //delay and clearScreen after each round:
+    printf("...");
+    sleep(5000);
+    clearScreen();      
 }
+
 
 void end_game()
 {
