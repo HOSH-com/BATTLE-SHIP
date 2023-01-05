@@ -7,13 +7,9 @@
 #include "headers/table.h"
 #include "headers/ship.h"
 #include "headers/global.h"
+#include "headers/attachment.h"
 
 int nShip;
-
-//tools:
-void clearScreen();
-void sleep(unsigned int mseconds);
-void setTextColor(int textColor, int backColor);
 
 //main functions:
 void new_game_settings();
@@ -262,16 +258,5 @@ void end_game()
 {
     if (player1[0].number_of_ship) printf("PLAYER 1 WONNNNNNNNN!"); /*player1 wins*/
     else if (player2[0].number_of_ship) printf("PLAYER 2 WONNNNNNNNN!"); /*player2 wins*/
-}
-
-void clearScreen()
-{
-    system("cls");
-}
-
-void sleep(unsigned int mseconds)
-{
-    clock_t goal = mseconds + clock();
-    while (goal > clock());
 }
 
