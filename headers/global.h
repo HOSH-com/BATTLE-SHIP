@@ -8,7 +8,7 @@ struct PLAYERS_INFO
 {
     char name[21];
     int number_of_ship;
-    int remaning_ship;
+    int remaining_ship;
     int battlefield[15][15];
     int ship_coordinates[MAX_COOR][4];
 }player1[100],player2[100];
