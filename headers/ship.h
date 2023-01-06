@@ -14,10 +14,10 @@
 #define BLUE 3
 #define RED 4
 //main functions:
-int remainingShips(int x, int y,int whichplayer,int A[][15]);
-int fire(int x, int y,int A[][15],int whichplayer, int &p1_remainingShips, int &p2_remainingShips);
-int check_ship(int x,int y,char form,int sizeofship,int A[][15]);
-int put_ship(int x,int y,char form,int sizeofship,int A[][15],int shipname,int player);
+int remainingShips(int x, int y);
+int fire(int &xxx, int &yyy);
+int check_ship(int x,int y,char form,int sizeofship);
+int put_ship(int i);
 
 int remainingShips(int x, int y)
 {
@@ -273,10 +273,6 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
         }
         if (setting.nRound%2==1)
         {
-            //* player1_ship_Coordinates[shipname][0] = x;
-            //* player1_ship_Coordinates[shipname][1] = y;
-            //* player1_ship_Coordinates[shipname][2] = sizeofship;
-            //* player1_ship_Coordinates[shipname][3] = 0;
             player1[0].ship_coordinates[shipname][0]=x;
             player1[0].ship_coordinates[shipname][1]=y;
             player1[0].ship_coordinates[shipname][2]=sizeofship;
