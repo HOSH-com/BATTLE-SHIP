@@ -229,12 +229,14 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
     char trash[40];
     char form;
     int x,y;
+    int result;
+    do
+    {
     scanf("%d%d%c%c",&x,&y,&trash[0],&form);
     x = x-1;
     y = y-1;
-
     //check for errors:
-    int result = check_ship(x,y,form,sizeofship);
+    result = check_ship(x,y,form,sizeofship);
     if (result==1 || result==2)  //check for error
         {
                 if(result == 1)
@@ -252,9 +254,9 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
                     printf("The ship is out of the range (the area is %ix%i)."
                     "\nPlease enter position \"%i\" again ('row' space 'column' space 'h/v'):\n",setting.size_of_area,setting.size_of_area,shipname+1);
                 }
-                put_ship(shipname);
+                
         }
-        
+    } while (result==2 || result==1);
     //putting ships:
     if (form=='H' || form=='h')     //Horizental
     {

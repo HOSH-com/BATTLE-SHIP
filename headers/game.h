@@ -153,9 +153,7 @@ void start_new_game()
     printf("..."); //delay and clearScreen after each round:
     sleep(5000);
     clearScreen();
-    }
-    
-         
+    }    
 }
 
 
