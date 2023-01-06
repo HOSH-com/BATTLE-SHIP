@@ -83,7 +83,7 @@ int remainingShips(int x, int y)
     return 0;       //DIDN'T sank (0)
 }
 
-int fire()
+int fire(int &xxx,int &yyy)
 {       
     //وای اگر خامنه ای حکم جهادم دهد
     int result;
@@ -115,6 +115,8 @@ int fire()
     else if (player2[0].battlefield[X][Y]==0)
     {
         player2[0].battlefield[X][Y]=-1;
+        xxx=x;
+        yyy=y;
         return 0;       //MISSED shot (0)
     }
 
@@ -141,6 +143,8 @@ int fire()
     else if (player1[0].battlefield[X][Y]==0)
     {
         player1[0].battlefield[X][Y]=-1;
+        xxx=x;
+        yyy=y;
         return 0;       //MISSED shot (0)
     }
 

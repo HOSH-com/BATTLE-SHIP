@@ -109,7 +109,7 @@ void start_new_game()
         
         setTextColor(BLACK,WHITE2);      
 
-        result = fire();
+        result = fire(x,y);
         while (result < 0)   //check for ERRORS
         {
             if (result == -2)
@@ -128,7 +128,7 @@ void start_new_game()
             }
             printf("Enter your shot again('row number' space 'column'):\n");
 
-            result = fire();
+            result = fire(x,y);
         }
 
         if (result == 0 || result == 1 || result==2)     //it's OK
@@ -149,12 +149,13 @@ void start_new_game()
                 player1[0].battlefield[x-1][y-1] = 0;
             }      
         }
+                             
+    printf("..."); //delay and clearScreen after each round:
+    sleep(5000);
+    clearScreen();
     }
     
-    //delay and clearScreen after each round:
-    printf("...");
-    sleep(5000);
-    clearScreen();      
+         
 }
 
 
