@@ -17,12 +17,13 @@ int main()
 
     system("color F0");
     setTextColor(BLACK, 15);
+    clearScreen();
 
-    printf("If you prefer to set settings from file press '1' to skip, else press '2' to continue.\n");
-    //do
-    //{
-        scanf("%c", &mode);
-    //} while (mode != '1' || mode != '2');
+    printf("If you wish to set settings from file press '1' to skip, else press '2' to continue.\n");
+    do
+    {
+        mode = getch();
+    } while (mode != '1' && mode != '2');
     
     if (mode == '2') new_game_settings();
     else if (mode == '1')file_game_setting();

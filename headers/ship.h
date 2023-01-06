@@ -29,7 +29,7 @@ int remainingShips(int x, int y)
         int Y = player2[0].ship_coordinates[shipName][1];
         int sizeofship = player2[0].ship_coordinates[shipName][2];
         int form = player2[0].ship_coordinates[shipName][3];
-        printf("\n\nshipName = %i, X = %i, Y = %i, sizeofship = %i, form = %i\n\n", shipName, X, Y, sizeofship, form);
+        
         //Hoizental:
         if (form==0)
         {
@@ -55,12 +55,12 @@ int remainingShips(int x, int y)
     //attacker player2:
     else if (setting.nRound%2==0)
     {
-        int shipName = player1[0].ship_coordinates[x-1][y-1]%100;
+        int shipName = player1[0].battlefield[x-1][y-1]%100;
         int X = player1[0].ship_coordinates[shipName][0];
         int Y = player1[0].ship_coordinates[shipName][1];
         int sizeofship = player1[0].ship_coordinates[shipName][2];
         int form = player1[0].ship_coordinates[shipName][3];
-        printf("\n\nshipName = %i, X = %i, Y = %i, sizeofship = %i, form = %i\n\n", shipName, X, Y, sizeofship, form);
+        
         //Horizental:
         if (form==0)
             {
@@ -69,7 +69,7 @@ int remainingShips(int x, int y)
                 {
                     if(player1[0].battlefield[X][Y+j] < -999) count++;
                 }
-                printf("count = %i\n\n", count+1);
+                
                 if (count+1==sizeofship) return -1;   //player1 ship sank (-1)
             }
         //Vertical:
@@ -80,7 +80,7 @@ int remainingShips(int x, int y)
                 {
                     if(player1[0].battlefield[X+j][Y] < -999) count++;
                 }
-                printf("count = %i\n\n", count+1);
+                
                 if (count+1==sizeofship) return -1;       //player1 ship sank (-1)
             }
     }
@@ -167,34 +167,33 @@ int check_ship(int x,int y,char form,int sizeofship)
 {    
     if (setting.nRound%2==1)
     {
+        if (x+1>setting.size_of_area || y+1>setting.size_of_area) return 2;//ship out of range ERROR (2)
 
-    if (x+1>setting.size_of_area || y+1>setting.size_of_area) return 2;//ship out of range ERROR (2)
-
-    //check existence for Horizental ship in map:
-    if (form =='H' || form=='h')
-    {   
-        if(y+sizeofship-1>setting.size_of_area-1) return 2;//ship out of range ERROR (2)
-        for (int i = 0; i < sizeofship; i++)
-        {
-            if (player1[0].battlefield[x][y+i]!=0)
+        //check existence for Horizental ship in map:
+        if (form =='H' || form=='h')
+        {   
+            if(y+sizeofship-1>setting.size_of_area-1) return 2;//ship out of range ERROR (2)
+            for (int i = 0; i < sizeofship; i++)
             {
-                return 1;       //ship existence ERROR (1)
-            }            
+                if (player1[0].battlefield[x][y+i]!=0)
+                {
+                    return 1;       //ship existence ERROR (1)
+                }            
+            }
         }
-    }
 
-    //check existence for Vertical ship in map:
-    if (form=='v' || form=='V')
-    { 
-        if(x+sizeofship-1>setting.size_of_area-1) return 2;//ship out of range ERROR (2)
-        for (int i = 0; i < sizeofship; i++)
-        {
-            if (player1[0].battlefield[x+i][y]!=0)
+        //check existence for Vertical ship in map:
+        if (form=='v' || form=='V')
+        { 
+            if(x+sizeofship-1>setting.size_of_area-1) return 2;//ship out of range ERROR (2)
+            for (int i = 0; i < sizeofship; i++)
             {
-                return 1;       //ship existence ERROR (1)
-            }            
+                if (player1[0].battlefield[x+i][y]!=0)
+                {
+                    return 1;       //ship existence ERROR (1)
+                }            
+            }
         }
-    }
     }
     else if (setting.nRound%2==0)
     {

@@ -3,7 +3,7 @@ void file_game_setting()
     clearScreen();
     int nShip, x, y, result, length;
     char form, temp[11];
-    FILE *finput = fopen("C:\\Users\\ASUS\\Desktop\\BATTLE-SHIP\\input.txt", "rt");
+    FILE *finput = fopen("input.txt", "rt");
     if (!finput)
     {
         printf("ERROR: can't open the file!\n");
@@ -14,15 +14,15 @@ void file_game_setting()
     fscanf(finput, "%i", &player1[0].number_of_ship);
     nShip = player1[0].remaining_ship = player2[0].remaining_ship = player2[0].number_of_ship = player1[0].number_of_ship;
 
-    fgets(temp, 2, finput);
-    fgets(player1[0].name, 100, finput);     //ERROR because of '\n'
-    length = strlen(player1[0].name);
+    fgets(temp, 2, finput);                 //scaning '\n'
+    fgets(player1[0].name, 100, finput);     
+    length = strlen(player1[0].name);       //deleting '\n'
     player1[0].name[length-1] = 0;
 
     //putting ships for player1:
     for (int i = 0; i < nShip; i++)
     {
-        fscanf(finput, "%i %i %c", &x, &y, &form);    //ERROR trash 
+        fscanf(finput, "%i %i %c", &x, &y, &form);    
         x--; y--;
         if (form=='H' || form=='h')     //Horizental
         {
@@ -56,14 +56,14 @@ void file_game_setting()
     fscanf(finput, "%s", temp);
 
     fgets(temp, 2, finput);
-    fgets(player2[0].name, 100, finput);     //ERROR because of '\n'
-    length = strlen(player2[0].name);
+    fgets(player2[0].name, 100, finput);     
+    length = strlen(player2[0].name);       //deleting '\n'
     player2[0].name[length-1] = 0;
 
     //putting ships for player2:
     for (int i = 0; i < nShip; i++)
     {
-        fscanf(finput, "%i %i %c", &x, &y, &form);    //ERROR trash 
+        fscanf(finput, "%i %i %c", &x, &y, &form);    
         x--; y--;
         if (form=='H' || form=='h')     //Horizental
         {

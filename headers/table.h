@@ -69,7 +69,7 @@ void printNames()
             printf(" ");
         }
         printf("%s",player1[0].name);        //2- player1 name
-        for (int i = 0; i <3*(setting.size_of_area+1)-(L1+L2)/2+15; i++)//3- print space between pName1 and pName2
+        for (int i = 0; i <3*(setting.size_of_area+1)-(L1+L2)/2+14; i++)//3- print space between pName1 and pName2
         {
             printf(" ");
         }
@@ -215,8 +215,8 @@ void printRemainingShips()
 {
     printf("\n");       //1- seperating it from last function
 
-    printf("remaining ships: %i", player1[0].remaining_ship);   //2- p1 remainings
-    for (int i = 0; i <3*(setting.size_of_area+1)-2; i++)       //3- empty spaces before p2
+    printf(" remaining ships: %i", player1[0].remaining_ship);   //2- p1 remainings
+    for (int i = 0; i <3*(setting.size_of_area+1)-3; i++)       //3- empty spaces before p2
     {
         printf(" ");
     }  
