@@ -291,11 +291,11 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
         {
             if (setting.nRound%2==1)
             {
-                player1[0].battlefield[x][y+i]=sizeofship*1000+100+shipname;
+                player1[0].battlefield[x+i][y]=sizeofship*1000+100+shipname;
             }
             else if (setting.nRound%2==0)
             {
-                player2[0].battlefield[x][y+i]=sizeofship*1000+100+shipname;
+                player2[0].battlefield[x+i][y]=sizeofship*1000+100+shipname;
             }
         }
         if (setting.nRound%2==1)

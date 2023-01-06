@@ -29,7 +29,7 @@ void new_game_settings()
     int i, result;
     char form;
     char trash[40];  
-
+    
     //in common settings:
     printf("Please enter size of map (3-15):\n");
     scanf("%i", &setting.size_of_area);     //1- area size
@@ -60,7 +60,7 @@ void new_game_settings()
     }
     player1[0].name[i-1] = 0;
 
-
+    setting.nRound = 1;
     //put && check ship in area for player 1:
     for(int i =0;i<nShip;i++)     
     {
@@ -82,7 +82,9 @@ void new_game_settings()
         scanf("%c", &player2[0].name[i]);    //6- player2 name
     }
     player2[0].name[i-1] = 0;
- 
+
+    setting.nRound++;
+
     //put && check ship in area for player 2:
     for(int i =0;i<nShip;i++)       
     {
@@ -91,6 +93,7 @@ void new_game_settings()
     }
     printf("...");
     sleep(5000);
+    setting.nRound++;
 }
 
 void start_new_game()
@@ -99,7 +102,7 @@ void start_new_game()
 
     clearScreen();
     //start the new game:
-    for (setting.nRound = 1; player1[0].remaining_ship && player2[0].remaining_ship; setting.nRound++)
+    for (setting.nRound=1; player1[0].remaining_ship && player2[0].remaining_ship; setting.nRound++)
     {
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row number' space 'column'):\n"); //2- get the shot coord.
