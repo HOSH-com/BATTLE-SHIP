@@ -29,6 +29,7 @@ int remainingShips(int x, int y)
         int Y = player2[0].ship_coordinates[shipName][1];
         int sizeofship = player2[0].ship_coordinates[shipName][2];
         int form = player2[0].ship_coordinates[shipName][3];
+        printf("\n\nshipName = %i, X = %i, Y = %i, sizeofship = %i, form = %i\n\n", shipName, X, Y, sizeofship, form);
         //Hoizental:
         if (form==0)
         {
@@ -59,6 +60,7 @@ int remainingShips(int x, int y)
         int Y = player1[0].ship_coordinates[shipName][1];
         int sizeofship = player1[0].ship_coordinates[shipName][2];
         int form = player1[0].ship_coordinates[shipName][3];
+        printf("\n\nshipName = %i, X = %i, Y = %i, sizeofship = %i, form = %i\n\n", shipName, X, Y, sizeofship, form);
         //Horizental:
         if (form==0)
             {
@@ -67,6 +69,7 @@ int remainingShips(int x, int y)
                 {
                     if(player1[0].battlefield[X][Y+j] < -999) count++;
                 }
+                printf("count = %i\n\n", count+1);
                 if (count+1==sizeofship) return -1;   //player1 ship sank (-1)
             }
         //Vertical:
@@ -77,6 +80,7 @@ int remainingShips(int x, int y)
                 {
                     if(player1[0].battlefield[X+j][Y] < -999) count++;
                 }
+                printf("count = %i\n\n", count+1);
                 if (count+1==sizeofship) return -1;       //player1 ship sank (-1)
             }
     }
@@ -97,61 +101,64 @@ int fire(int &xxx,int &yyy)
     {
        return -1;
     }
+
+    //attacker player1:
     if(setting.nRound%2==1)
     {
-    if (player2[0].battlefield[X][Y] > 999)
-    {
-        result = remainingShips(x,y);
-        if (result<0) 
+        if (player2[0].battlefield[X][Y] > 999)
         {
-            player2[0].remaining_ship --;
+            result = remainingShips(x,y);
+            if (result<0) 
+            {
+                player2[0].remaining_ship --;
+                player2[0].battlefield[X][Y]=player2[0].battlefield[X][Y]*(-1);
+                return 2;   //ship SANK (2)
+            }
             player2[0].battlefield[X][Y]=player2[0].battlefield[X][Y]*(-1);
-            return 2;   //ship SANK (2)
+            return 1;        //got shot (1)
         }
-        player2[0].battlefield[X][Y]=player2[0].battlefield[X][Y]*(-1);
-        return 1;        //got shot (1)
-    }
-    
-    else if (player2[0].battlefield[X][Y]==0)
-    {
-        player2[0].battlefield[X][Y]=-1;
-        xxx=x;
-        yyy=y;
-        return 0;       //MISSED shot (0)
-    }
-
-    else if (player2[0].battlefield[X][Y] < 0)
-    {
-        return -2;     //already damaged ERROR (-2)
-    }
-    }
-    if(setting.nRound%2==0)
-    {
-    if (player1[0].battlefield[X][Y] > 999)
-    {
-        result = remainingShips(x,y);
-        if (result<0) 
+        
+        else if (player2[0].battlefield[X][Y]==0)
         {
-            player1[0].remaining_ship --;
-            player1[0].battlefield[X][Y]=player1[0].battlefield[X][Y]*(-1);
-            return 2;   //ship SANK (2)
+            player2[0].battlefield[X][Y]=-1;
+            xxx=x;
+            yyy=y;
+            return 0;       //MISSED shot (0)
         }
-        player1[0].battlefield[X][Y]=player1[0].battlefield[X][Y]*(-1);
-        return 1;        //got shot (1)
-    }
-    
-    else if (player1[0].battlefield[X][Y]==0)
-    {
-        player1[0].battlefield[X][Y]=-1;
-        xxx=x;
-        yyy=y;
-        return 0;       //MISSED shot (0)
-    }
 
-    else if (player1[0].battlefield[X][Y] < 0)
-    {
-        return -2;     //already damaged ERROR (-2)
+        else if (player2[0].battlefield[X][Y] < 0)
+        {
+            return -2;     //already damaged ERROR (-2)
+        }
     }
+    //attacker player2:
+    else if(setting.nRound%2==0)
+    {
+        if (player1[0].battlefield[X][Y] > 999)
+        {
+            result = remainingShips(x,y);
+            if (result<0) 
+            {
+                player1[0].remaining_ship --;
+                player1[0].battlefield[X][Y]=player1[0].battlefield[X][Y]*(-1);
+                return 2;   //ship SANK (2)
+            }
+            player1[0].battlefield[X][Y]=player1[0].battlefield[X][Y]*(-1);
+            return 1;        //got shot (1)
+        }
+        
+        else if (player1[0].battlefield[X][Y]==0)
+        {
+            player1[0].battlefield[X][Y]=-1;
+            xxx=x;
+            yyy=y;
+            return 0;       //MISSED shot (0)
+        }
+
+        else if (player1[0].battlefield[X][Y] < 0)
+        {
+            return -2;     //already damaged ERROR (-2)
+        }
     }
     return 3;           //EXTRA (3)
 }

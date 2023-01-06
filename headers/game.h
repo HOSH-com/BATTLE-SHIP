@@ -110,6 +110,7 @@ void start_new_game()
         setTextColor(BLACK,WHITE2);      
 
         result = fire(x,y);
+
         while (result < 0)   //check for ERRORS
         {
             if (result == -2)
@@ -133,7 +134,7 @@ void start_new_game()
 
         if (result == 0 || result == 1 || result==2)     //it's OK
         {
-            clearScreen();
+            //clearScreen();
             printTable();     //3- show AFTER-attack table status
             if (result==2)
             {
@@ -151,7 +152,7 @@ void start_new_game()
         }
                              
     printf("..."); //delay and clearScreen after each round:
-    sleep(5000);
+    sleep(20000);
     clearScreen();
     }    
 }
