@@ -3,12 +3,12 @@
 #include <windows.h>
 #include <conio.h>
 #include <time.h>
-#include "headers/welcome.h"
-#include "headers/game.h"
-#include "headers/table.h"
-#include "headers/ship.h"
 #include "headers/global.h"
 #include "headers/attachment.h"
+#include "headers/ship.h"
+#include "headers/table.h"
+#include "headers/game.h"
+#include "headers/welcome.h"
 
 int main()
 {   

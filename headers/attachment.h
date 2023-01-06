@@ -24,7 +24,7 @@ void setTextColor(int textColor, int backColor)
 
 int tedad_char(const char pName[])
 {
-    for (int i = 0; i < NAME_LIMIT; i++)
+    for (int i = 0; i < 21; i++)
     {
         if (pName[i]=='\0')
         {

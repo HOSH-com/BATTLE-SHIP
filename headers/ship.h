@@ -7,7 +7,12 @@
 - جایگذاری کشتی بازیکن در نقشه
 
 */
-
+#define BLACK 0
+#define GREY 8
+#define WHITE1 7
+#define WHITE2 15
+#define BLUE 3
+#define RED 4
 //main functions:
 int remainingShips(int x, int y,int whichplayer,int A[][15]);
 int fire(int x, int y,int A[][15],int whichplayer, int &p1_remainingShips, int &p2_remainingShips);
