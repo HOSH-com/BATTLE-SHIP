@@ -45,7 +45,7 @@ void new_game_settings()
     printf("Enter number of ships:\n");
     scanf("%i", &nShip);        //2- ship amounts
 
-    player1[0].remaining_ship=player1[0].number_of_ship=player2[0].remaining_ship=player2[0].number_of_ship= nShip;
+    player1.remaining_ship=player1.number_of_ship=player2.remaining_ship=player2.number_of_ship= nShip;
     printf("...");
     sleep(3000);
     clearScreen();
@@ -54,11 +54,11 @@ void new_game_settings()
     printf("<PLAYER 1>\n\n"
     "Enter player1 name:\n");
     scanf("%c", &trash[0]);     //getting ready for next "scanf"
-    for (i = 0; player1[0].name[i-1] != '\n'; i++)   
+    for (i = 0; player1.name[i-1] != '\n'; i++)   
     {
-        scanf("%c", &player1[0].name[i]);//3- player1 name
+        scanf("%c", &player1.name[i]);//3- player1 name
     }
-    player1[0].name[i-1] = 0;
+    player1.name[i-1] = 0;
 
     setting.nRound = 1;
     //put && check ship in area for player 1:
@@ -77,11 +77,11 @@ void new_game_settings()
     "Enter player2 name:\n");
     scanf("%c", &trash[0]);     //getting ready for next "scanf"
 
-    for (i = 0; player2[0].name[i-1] != '\n'; i++)
+    for (i = 0; player2.name[i-1] != '\n'; i++)
     {
-        scanf("%c", &player2[0].name[i]);    //6- player2 name
+        scanf("%c", &player2.name[i]);    //6- player2 name
     }
-    player2[0].name[i-1] = 0;
+    player2.name[i-1] = 0;
 
     setting.nRound++;
 
@@ -102,7 +102,7 @@ void start_new_game()
 
     clearScreen();
     //start the new game:
-    for (setting.nRound=1; player1[0].remaining_ship && player2[0].remaining_ship; setting.nRound++)
+    for (setting.nRound=1; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
     {
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row number' space 'column'):\n"); //2- get the shot coord.
@@ -138,16 +138,16 @@ void start_new_game()
             printTable();     //3- show AFTER-attack table status
             if (result==2)
             {
-                printf("One of %s's ships sank!\n", player2[0].name);    //ship SANK
+                printf("One of %s's ships sank!\n", player2.name);    //ship SANK
             }
             else if (result==0)
             {
                 if(setting.nRound%2==1)
                 {
-                player2[0].battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
+                player2.battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
                 }
                 else
-                player1[0].battlefield[x-1][y-1] = 0;
+                player1.battlefield[x-1][y-1] = 0;
             }      
         }
                              
@@ -160,6 +160,6 @@ void start_new_game()
 
 void end_game()
 {
-    if (player1[0].remaining_ship) printf("PLAYER 1 WONNNNNNNNN!"); /*player1 wins*/
-    else if (player2[0].remaining_ship) printf("PLAYER 2 WONNNNNNNNN!"); /*player2 wins*/
+    if (player1.remaining_ship) printf("PLAYER 1 WONNNNNNNNN!"); /*player1 wins*/
+    else if (player2.remaining_ship) printf("PLAYER 2 WONNNNNNNNN!"); /*player2 wins*/
 }

@@ -10,7 +10,7 @@ struct PLAYERS_INFO
     int remaining_ship;
     int battlefield[15][15];
     int ship_coordinates[MAX_COOR][4];
-}player1[100],player2[100];
+}player1,player2;
 struct GAME_SETTING
 {
     int size_of_area;
