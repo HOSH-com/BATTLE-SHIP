@@ -104,6 +104,7 @@ void start_new_game()
     //start the new game:
     for (setting.nRound=1; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
     {
+        file_save_round();
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row number' space 'column'):\n"); //2- get the shot coord.
         
@@ -135,6 +136,7 @@ void start_new_game()
         if (result == 0 || result == 1 || result==2)     //it's OK
         {
             clearScreen();
+            file_save_round();
             printTable();     //3- show AFTER-attack table status
             if (result==2)
             {
@@ -144,10 +146,10 @@ void start_new_game()
             {
                 if(setting.nRound%2==1)
                 {
-                player2.battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
+                    player2.battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
                 }
                 else
-                player1.battlefield[x-1][y-1] = 0;
+                    player1.battlefield[x-1][y-1] = 0;
             }      
         }
                              
