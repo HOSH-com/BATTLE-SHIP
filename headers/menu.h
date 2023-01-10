@@ -12,12 +12,13 @@ void menu()
     char choice;
 
     printf(
-    "\t\t\tMENU\n\n\n"
-    "\t\t1- Resume\n\n"
-    "\t\t2- New Game\n\n"
-    "\t\t3- Replay The Last Game"
-    "\t\t4- Dark/Light Mode"
-    "\t\t5- Exit"
+        "\n\n\n"
+        "           MENU:\n\n"
+        "                1- Resume\n\n"
+        "                2- New Game\n\n"
+        "                3- Replay The Last Game\n\n"
+        "                4- Dark/Light Mode\n\n"
+        "                5- Exit"
     );
 
     do
@@ -60,24 +61,61 @@ void resume()
 
 void new_game()
 {
+    clearScreen();
     char mode;
 
     system("color F0");
     setTextColor(BLACK, WHITE2);
     clearScreen();
 
-    printf("If you wish to set settings from file press '1' to skip, else press '2' to continue.\n");
+    //printf("If you wish to set settings from file press '1' to skip, else press '2' to continue.\n");
+    printf(
+        "\n\n\n"
+        "           NEW GAME:\n\n"
+        "                    1- Start\n\n"
+        "                    2- Set File Settings\n\n"
+        "                    3- Back"
+    );
+
+
     do
     {
         mode = getch();
-    } while (mode != '1' && mode != '2');
+    } while (mode != '1' && mode != '2' && mode != '3');
     
-    if (mode == '2') new_game_settings();
-    else if (mode == '1')file_game_setting();
+    switch (mode)
+    {
+    case '1':
+        new_game_settings();
+        break;
+    
+    case '2':
+        file_game_setting();
+        break;
+    
+    case '3':
+        menu();
+        break;
+    }
 
     setTextColor(BLACK, WHITE2);
     start_new_game();
 
     end_game();
+}
+
+void replay()
+{
+    /*کد پخش بازپخش*/
+}
+
+void change_theme()
+{
+    /*کد تغییر زمینه */
+}
+
+void exit_game()
+{
+    /*کد خروج از بازی*/
 }
 

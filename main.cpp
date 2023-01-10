@@ -14,10 +14,11 @@
 
 int main()
 {   
-
+    system("color F0"); //apply the default theme
     /*welcome
     **menu*/
 
+    menu();
 
     /*char mode;
 
