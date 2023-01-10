@@ -108,7 +108,64 @@ void new_game()
 
 void replay()
 {
-    /*کد پخش بازپخش*/
+    int sw = 1;
+    char choice;
+    FILE* freplay = fopen("replay.dat", "r");
+    if (!freplay)
+    {
+        printf("ERROR: can't open replay.dat\n");
+        exit (-1);
+    }
+
+    clearScreen();
+    fread(&last_round, sizeof(LAST_ROUND), 1, freplay);
+    printTable();
+    printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
+    do
+    {
+        do
+        {
+            choice = getch();
+        } while (choice != 'P', choice != 'N', choice != 'E', choice != 'ESC');
+
+        switch (choice)
+        {
+        case 'P':
+            clearScreen();
+            fseek(freplay, -2*sizeof(LAST_ROUND), SEEK_CUR);
+            fread(&last_round, sizeof(LAST_ROUND), 1, freplay);
+            printTable();
+            printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
+            break;
+        
+        case 'N':
+            if (feof(freplay))
+                sw = 0;
+            else
+            {
+                clearScreen();
+                fread(&last_round, sizeof(LAST_ROUND), 1, freplay);
+                printTable();
+                printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
+            }
+            break;
+        
+        case 'E':
+            clearScreen();
+            fseek(freplay, -sizeof(LAST_ROUND), SEEK_END);
+            fread(&last_round, sizeof(LAST_ROUND), 1, freplay);
+            printTable();
+            printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
+            break;
+        
+        case 'ESC':
+            sw = 0;
+            break;
+        }
+        
+    } while (sw = 1);
+    
+    menu();
 }
 
 void change_theme()

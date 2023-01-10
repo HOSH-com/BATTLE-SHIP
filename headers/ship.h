@@ -89,7 +89,6 @@ int remainingShips(int x, int y)
 
 int fire(int &xxx,int &yyy)
 {       
-    //وای اگر خامنه ای حکم جهادم دهد
     int result;
     int x,y;
     
