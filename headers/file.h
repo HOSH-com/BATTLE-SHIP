@@ -1,5 +1,5 @@
 void file_game_setting();
-void file_save_round();
+void file_save_round(int);
 
 
 void file_game_setting()
@@ -109,8 +109,16 @@ void file_game_setting()
 void file_save_round()
 {
     FILE *fround;
+
     fround = fopen("replay.dat", "ab");
+    if (!fround)
+    {
+        printf("ERROR: can't open replay.dat\n");
+        exit (-1);
+    }
     fwrite(&last_round, sizeof(LAST_ROUND), 1, fround);
+    fclose(fround);
+    
 }
 
 

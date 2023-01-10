@@ -86,6 +86,8 @@ void new_game()
     switch (mode)
     {
     case '1':
+        FILE *ftemp = fopen("replay.dat", "wb");
+        fclose(ftemp);
         new_game_settings();
         break;
     
