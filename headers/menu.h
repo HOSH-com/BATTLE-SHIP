@@ -55,7 +55,7 @@ void menu()
 
 void resume()
 {
-    /*hesam code */
+    /*کد از سر گیری بازی قبلی */
 }
 
 void new_game()
