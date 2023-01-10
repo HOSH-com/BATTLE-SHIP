@@ -1,5 +1,5 @@
 void file_game_setting();
-void file_save_round(int);
+void file_save_round();
 
 
 void file_game_setting()
@@ -120,5 +120,4 @@ void file_save_round()
     fclose(fround);
     
 }
-
 

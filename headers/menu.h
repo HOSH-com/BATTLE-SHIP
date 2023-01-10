@@ -5,6 +5,8 @@ void exit_game();
 void replay();
 void change_theme();
 
+#define ESC 27
+
 
 void menu()
 {
@@ -86,15 +88,19 @@ void new_game()
     switch (mode)
     {
     case '1':
-        FILE *ftemp = fopen("replay.dat", "wb");
-        fclose(ftemp);
-        new_game_settings();
-        break;
-    
+        {
+            FILE *ftemp = fopen("replay.dat", "wb");
+            fclose(ftemp);
+            new_game_settings();
+            break;
+        }
     case '2':
-        file_game_setting();
-        break;
-    
+        {
+            FILE *ftemp = fopen("replay.dat", "wb");
+            fclose(ftemp);
+            file_game_setting();
+            break;
+        }
     case '3':
         menu();
         break;
@@ -126,10 +132,11 @@ void replay()
         do
         {
             choice = getch();
-        } while (choice != 'P', choice != 'N', choice != 'E', choice != 'ESC');
+        } while (choice != 'P', choice != 'N', choice != 'E', choice != ESC);
 
         switch (choice)
         {
+        case 'p':
         case 'P':
             clearScreen();
             fseek(freplay, -2*sizeof(LAST_ROUND), SEEK_CUR);
@@ -138,6 +145,7 @@ void replay()
             printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
             break;
         
+        case 'n':
         case 'N':
             if (feof(freplay))
                 sw = 0;
@@ -150,6 +158,7 @@ void replay()
             }
             break;
         
+        case 'e':
         case 'E':
             clearScreen();
             fseek(freplay, -sizeof(LAST_ROUND), SEEK_END);
@@ -158,7 +167,7 @@ void replay()
             printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
             break;
         
-        case 'ESC':
+        case ESC:
             sw = 0;
             break;
         }
