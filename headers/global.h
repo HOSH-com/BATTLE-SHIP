@@ -18,3 +18,11 @@ struct GAME_SETTING
     int max_repair;
     int nRound;
 }setting;
+
+struct LAST_ROUND
+{
+    struct GAME_SETTING setting;
+    struct PLAYERS_INFO player1, player2;
+}last_round;
+
+
