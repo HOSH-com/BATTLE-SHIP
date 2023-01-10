@@ -1,3 +1,7 @@
+void file_game_setting();
+void file_save_round();
+
+
 void file_game_setting()
 {   
     clearScreen();
@@ -101,3 +105,12 @@ void file_game_setting()
         exit (1);
     }
 }
+
+void file_save_round()
+{
+    FILE *fround;
+    fround = fopen("replay.dat", "ab");
+    fwrite(&last_round, sizeof(LAST_ROUND), 1, fround);
+}
+
+
