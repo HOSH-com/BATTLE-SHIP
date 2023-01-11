@@ -58,7 +58,67 @@ void menu()
 
 void resume()
 {
-    /*کد از سر گیری بازی قبلی */
+    read_last_movement_or_last_round();
+
+    int x, y, result;
+
+    clearScreen();
+    //start the new game:
+    for (; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
+    {
+        file_save_round();
+        printTable(); //1- show PRE-attack table status
+        printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n"); //2- get the shot coord.
+        
+        setTextColor(BLACK,WHITE2);      
+
+        result = fire(x,y);
+
+        while (result < 0)   //check for ERRORS
+        {
+            if (result == -2)
+            {
+                setTextColor(RED, 15);
+                printf("ERROR: ");
+                setTextColor(BLACK, 15);
+                printf("The ship in this area is damaged already.\n");
+            }
+            else if (result == -1)
+            {
+                setTextColor(RED, 15);
+                printf("ERROR: ");
+                setTextColor(BLACK, 15);
+                printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
+            }
+            printf("Enter your shot again('row number' space 'column'):\n");
+
+            result = fire(x,y);
+        }
+
+        if (result == 0 || result == 1 || result==2)     //it's OK
+        {
+            clearScreen();
+            file_save_round();
+            printTable();     //3- show AFTER-attack table status
+            if (result==2)
+            {
+                printf("One of %s's ships sank!\n", player2.name);    //ship SANK
+            }
+            else if (result==0)
+            {
+                if(setting.nRound%2==1)
+                {
+                    player2.battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
+                }
+                else
+                    player1.battlefield[x-1][y-1] = 0;
+            }      
+        }
+                             
+    printf("..."); //delay and clearScreen after each round:
+    sleep(5000);
+    clearScreen();
+    }    
 }
 
 void new_game()

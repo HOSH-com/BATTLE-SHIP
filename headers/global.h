@@ -1,4 +1,10 @@
 #define MAX_COOR 20
+#define BLACK 0
+#define GREY 8
+#define WHITE1 7
+#define WHITE2 15
+#define BLUE 3
+#define RED 4
 int sizeofship=3;
 
 struct PLAYERS_INFO

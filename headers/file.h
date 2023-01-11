@@ -179,7 +179,7 @@ void file_replay()
                 sw = 0;
             else
             {
-                fseek(freplay, -1*sizeof(GAME_SETTING), SEEK_CUR);
+                fseek(freplay, -1*sizeof(GAME_SETTING), SEEK_CUR);  
                 clearScreen();
                 fread(&setting, sizeof(GAME_SETTING), 1, freplay);
                 fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
@@ -208,4 +208,32 @@ void file_replay()
     } while (sw == 1);
     
     fclose(freplay);
+}
+
+int save_last_movement_or_last_round()
+{
+    FILE *openfile=fopen("continue.dat","wb");
+    if (!openfile)
+    {
+        printf("ERROR:We cant open save FILE");
+        return -1;
+    }
+    fwrite(&setting,sizeof(GAME_SETTING),1,openfile);
+    fwrite(&player1,sizeof(PLAYERS_INFO),1,openfile);
+    fwrite(&player2,sizeof(PLAYERS_INFO),1,openfile);
+    fclose(openfile);
+}
+
+int read_last_movement_or_last_round()
+{
+    FILE *openfile=fopen("continue.dat","rb");
+    if (!openfile)
+    {
+        printf("ERROR:We cant open save FILE");
+        return -1;
+    }
+    fread(&setting,sizeof(GAME_SETTING),1,openfile);
+    fread(&player1,sizeof(PLAYERS_INFO),1,openfile);
+    fread(&player2,sizeof(PLAYERS_INFO),1,openfile);
+    fclose(openfile);
 }

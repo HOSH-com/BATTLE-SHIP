@@ -5,9 +5,9 @@
 #include <time.h>
 #include "headers/global.h"
 #include "headers/attachment.h"
-#include "headers/ship.h"
 #include "headers/table.h"
 #include "headers/file.h"
+#include "headers/ship.h"
 #include "headers/game.h"
 #include "headers/menu.h"
 #include "headers/welcome.h"

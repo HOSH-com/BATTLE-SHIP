@@ -7,12 +7,7 @@
 
 */
 
-#define BLACK 0
-#define GREY 8
-#define WHITE1 7
-#define WHITE2 15
-#define BLUE 3
-#define RED 4
+
 
 //main functions:
 void new_game_settings();
@@ -106,7 +101,7 @@ void start_new_game()
     {
         file_save_round();
         printTable(); //1- show PRE-attack table status
-        printf("Enter coordinates to shot ('row number' space 'column'):\n"); //2- get the shot coord.
+        printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n"); //2- get the shot coord.
         
         setTextColor(BLACK,WHITE2);      
 

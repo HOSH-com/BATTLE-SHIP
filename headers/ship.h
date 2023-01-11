@@ -96,6 +96,27 @@ int fire(int &xxx,int &yyy)
     int X = x-1;
     int Y = y-1;
     
+    while (x==0 && y==0)
+    {
+        printf("DO YOU SURE TO EXIT GAME?\nPRESS 1 for YES OR PRESS 0 for NO\n");
+        int command;
+        scanf("%d",&command);
+        if (command==1)
+        {
+        save_last_movement_or_last_round();
+        exit(1);
+        }
+        else if(command==0)
+        {
+            printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n"); //2- get the shot coord.
+            scanf("%i %i", &x, &y);
+            int X = x-1;
+            int Y = y-1;
+        }
+    }
+    
+
+
     if (x>setting.size_of_area || x<1 || y>setting.size_of_area || y<1 )
     {
        return -1;
