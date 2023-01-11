@@ -1,5 +1,14 @@
+/*
+کتابخانۀ مورد استفاده برای اعمال انجام شده روی فایل‌ها
+شامل:...
+- 
+*/
+
+#define ESC 27
+
 void file_game_setting();
 void file_save_round();
+void file_replay();
 
 
 void file_game_setting()
@@ -123,3 +132,80 @@ void file_save_round()
     
 }
 
+void file_replay()
+{
+    int sw = 1;
+    char choice;
+    FILE* freplay = fopen("replay.dat", "rb");
+    if (!freplay)
+    {
+        printf("ERROR: can't open replay.dat\n");
+        exit (-1);
+    }
+
+    clearScreen();
+    fread(&setting, sizeof(GAME_SETTING), 1, freplay);
+    fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
+    fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
+    printTable();
+    printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
+    do
+    {
+        do
+        {
+            choice = getch();
+        } while (choice != 'P'&& choice != 'N'&& choice != 'E'&&choice != 'p'&& choice != 'n'&& choice != 'e'&& choice != ESC);
+
+        switch (choice)
+        {
+        case 'p':
+        case 'P':
+            if (ftell(freplay) > sizeof(LAST_ROUND))
+            {
+                clearScreen();
+                fseek(freplay, -2*sizeof(LAST_ROUND), SEEK_CUR);
+                fread(&setting, sizeof(GAME_SETTING), 1, freplay);
+                fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
+                fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
+                printTable();
+                printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
+            }
+            break;
+        
+        case 'n':
+        case 'N':
+            fread(&setting, sizeof(GAME_SETTING), 1, freplay);  //extra
+            if (feof(freplay))
+                sw = 0;
+            else
+            {
+                fseek(freplay, -1*sizeof(GAME_SETTING), SEEK_CUR);
+                clearScreen();
+                fread(&setting, sizeof(GAME_SETTING), 1, freplay);
+                fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
+                fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
+                printTable();
+                printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
+            }
+            break;
+        
+        case 'e':
+        case 'E':
+            clearScreen();
+            fseek(freplay, -sizeof(LAST_ROUND), SEEK_END);
+            fread(&setting, sizeof(GAME_SETTING), 1, freplay);
+            fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
+            fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
+            printTable();
+            printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
+            break;
+        
+        case ESC:
+            sw = 0;
+            break;
+        }
+        
+    } while (sw == 1);
+    
+    fclose(freplay);
+}
