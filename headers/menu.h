@@ -116,7 +116,7 @@ void replay()
 {
     int sw = 1;
     char choice;
-    FILE* freplay = fopen("replay.dat", "r");
+    FILE* freplay = fopen("replay.dat", "rb");
     if (!freplay)
     {
         printf("ERROR: can't open replay.dat\n");
