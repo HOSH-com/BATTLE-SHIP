@@ -124,7 +124,9 @@ void replay()
     }
 
     clearScreen();
-    fread(&last_round, sizeof(LAST_ROUND), 1, freplay);
+    fread(&setting, sizeof(GAME_SETTING), 1, freplay);
+    fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
+    fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
     printTable();
     printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
     do
@@ -132,7 +134,7 @@ void replay()
         do
         {
             choice = getch();
-        } while (choice != 'P', choice != 'N', choice != 'E', choice != ESC);
+        } while (choice != 'P'&& choice != 'N'&& choice != 'E'&&choice != 'p'&& choice != 'n'&& choice != 'e'&& choice != ESC);
 
         switch (choice)
         {
@@ -140,7 +142,9 @@ void replay()
         case 'P':
             clearScreen();
             fseek(freplay, -2*sizeof(LAST_ROUND), SEEK_CUR);
-            fread(&last_round, sizeof(LAST_ROUND), 1, freplay);
+            fread(&setting, sizeof(GAME_SETTING), 1, freplay);
+            fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
+            fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
             printTable();
             printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
             break;
@@ -152,7 +156,9 @@ void replay()
             else
             {
                 clearScreen();
-                fread(&last_round, sizeof(LAST_ROUND), 1, freplay);
+                fread(&setting, sizeof(GAME_SETTING), 1, freplay);
+                fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
+                fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
                 printTable();
                 printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
             }
@@ -162,7 +168,9 @@ void replay()
         case 'E':
             clearScreen();
             fseek(freplay, -sizeof(LAST_ROUND), SEEK_END);
-            fread(&last_round, sizeof(LAST_ROUND), 1, freplay);
+            fread(&setting, sizeof(GAME_SETTING), 1, freplay);
+            fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
+            fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
             printTable();
             printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
             break;
@@ -172,8 +180,9 @@ void replay()
             break;
         }
         
-    } while (sw = 1);
+    } while (sw == 1);
     
+    fclose(freplay);
     menu();
 }
 

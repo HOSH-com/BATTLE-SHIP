@@ -226,5 +226,5 @@ void printRemainingShips()
         printf("=");    
     }
 
-    printf("\n\n"); //6- next line and 5)...
+    printf("\nRound %i\n\n", setting.nRound); //6- next line and 5)...
 }

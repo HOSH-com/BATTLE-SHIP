@@ -116,7 +116,9 @@ void file_save_round()
         printf("ERROR: can't open replay.dat\n");
         exit (-1);
     }
-    fwrite(&last_round, sizeof(LAST_ROUND), 1, fround);
+    fwrite(&setting, sizeof(GAME_SETTING), 1, fround);
+    fwrite(&player1, sizeof(PLAYERS_INFO), 1, fround);
+    fwrite(&player2, sizeof(PLAYERS_INFO), 1, fround);
     fclose(fround);
     
 }
