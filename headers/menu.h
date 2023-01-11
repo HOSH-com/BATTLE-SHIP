@@ -18,7 +18,7 @@ void menu()
         "           MENU:\n\n"
         "                1- Resume\n\n"
         "                2- New Game\n\n"
-        "                3- Replay The Last Game\n\n"
+        "                3- Replay The Last Match\n\n"
         "                4- Dark/Light Mode\n\n"
         "                5- Exit"
     );
@@ -140,21 +140,26 @@ void replay()
         {
         case 'p':
         case 'P':
-            clearScreen();
-            fseek(freplay, -2*sizeof(LAST_ROUND), SEEK_CUR);
-            fread(&setting, sizeof(GAME_SETTING), 1, freplay);
-            fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
-            fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
-            printTable();
-            printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
+            if (ftell(freplay) > sizeof(LAST_ROUND))
+            {
+                clearScreen();
+                fseek(freplay, -2*sizeof(LAST_ROUND), SEEK_CUR);
+                fread(&setting, sizeof(GAME_SETTING), 1, freplay);
+                fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
+                fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
+                printTable();
+                printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
+            }
             break;
         
         case 'n':
         case 'N':
+            fread(&setting, sizeof(GAME_SETTING), 1, freplay);  //extra
             if (feof(freplay))
                 sw = 0;
             else
             {
+                fseek(freplay, -1*sizeof(GAME_SETTING), SEEK_CUR);
                 clearScreen();
                 fread(&setting, sizeof(GAME_SETTING), 1, freplay);
                 fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
