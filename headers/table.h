@@ -40,51 +40,105 @@ void printNames()
     int L1 = tedad_char(player1.name);//tedad character pName1
     int L2 = tedad_char(player2.name);//tedad character pName2
     int e = 15;//space between arrays
-
-    switch (setting.nRound % 2)
+    if (setting.theme==0)
     {
-    //attacker player 1:
-    case 1:
-        for (int i = 0; i <(3+(3*setting.size_of_area-L1)/2); i++)//1- print space befor pName1
+        SetTextColor(BLACK,WHITE2);
+        switch (setting.nRound % 2)
         {
-            printf(" ");
+        //attacker player 1:
+        case 1:
+            for (int i = 0; i <(3+(3*setting.size_of_area-L1)/2); i++)//1- print space befor pName1
+            {
+                printf(" ");
+            }
+            printf("*%s",player1.name);    //2- player1 name
+            for (int i = 0; i <3*(setting.size_of_area+1)-(L1+L2)/2+15; i++)//3- print space between pName1 and pName2
+            {
+                printf(" ");
+            }
+            printf("%s\n",player2.name);  //4- player2 name
+            for (int i = 0; i <6*(setting.size_of_area+1)+14 ; i++)
+            {
+                printf("=");    //5- seperating names from battlefields
+            }
+            printf("\n");   //6- next line
+            break;
+        
+        //attacker player 2:
+        case 0:
+            for (int i = 0; i <(3+(3*setting.size_of_area-L1)/2); i++)     //1- print space befor pName1
+            {
+                printf(" ");
+            }
+            printf("%s",player1.name);        //2- player1 name
+            for (int i = 0; i <3*(setting.size_of_area+1)-(L1+L2)/2+14; i++)//3- print space between pName1 and pName2
+            {
+                printf(" ");
+            }
+            printf("*%s\n",player2.name);      //4- player2 name
+            for (int i = 0; i <6*(setting.size_of_area+1)+14 ; i++)
+            {
+                printf("=");    //5- seperating names from battlefields
+            }
+            printf("\n");       //next line
+            break;
         }
-        printf("*%s",player1.name);    //2- player1 name
-        for (int i = 0; i <3*(setting.size_of_area+1)-(L1+L2)/2+15; i++)//3- print space between pName1 and pName2
-        {
-            printf(" ");
-        }
-        printf("%s\n",player2.name);  //4- player2 name
-        for (int i = 0; i <6*(setting.size_of_area+1)+14 ; i++)
-        {
-            printf("=");    //5- seperating names from battlefields
-        }
-        printf("\n");   //6- next line
-        break;
-    
-    //attacker player 2:
-    case 0:
-        for (int i = 0; i <(3+(3*setting.size_of_area-L1)/2); i++)     //1- print space befor pName1
-        {
-            printf(" ");
-        }
-        printf("%s",player1.name);        //2- player1 name
-        for (int i = 0; i <3*(setting.size_of_area+1)-(L1+L2)/2+14; i++)//3- print space between pName1 and pName2
-        {
-            printf(" ");
-        }
-        printf("*%s\n",player2.name);      //4- player2 name
-        for (int i = 0; i <6*(setting.size_of_area+1)+14 ; i++)
-        {
-            printf("=");    //5- seperating names from battlefields
-        }
-        printf("\n");       //next line
-        break;
     }
+    else if (setting.theme==1)
+    {
+        setTextColor(WHITE2,BLACK);
+        switch (setting.nRound % 2)
+        {
+        //attacker player 1:
+        case 1:
+            for (int i = 0; i <(3+(3*setting.size_of_area-L1)/2); i++)//1- print space befor pName1
+            {
+                printf(" ");
+            }
+            printf("*%s",player1.name);    //2- player1 name
+            for (int i = 0; i <3*(setting.size_of_area+1)-(L1+L2)/2+15; i++)//3- print space between pName1 and pName2
+            {
+                printf(" ");
+            }
+            printf("%s\n",player2.name);  //4- player2 name
+            for (int i = 0; i <6*(setting.size_of_area+1)+14 ; i++)
+            {
+                printf("=");    //5- seperating names from battlefields
+            }
+            printf("\n");   //6- next line
+            break;
+        
+        //attacker player 2:
+        case 0:
+            for (int i = 0; i <(3+(3*setting.size_of_area-L1)/2); i++)     //1- print space befor pName1
+            {
+                printf(" ");
+            }
+            printf("%s",player1.name);        //2- player1 name
+            for (int i = 0; i <3*(setting.size_of_area+1)-(L1+L2)/2+14; i++)//3- print space between pName1 and pName2
+            {
+                printf(" ");
+            }
+            printf("*%s\n",player2.name);      //4- player2 name
+            for (int i = 0; i <6*(setting.size_of_area+1)+14 ; i++)
+            {
+                printf("=");    //5- seperating names from battlefields
+            }
+            printf("\n");       //next line
+            break;
+        }
+    }
+    
 }
 
 void printBattlefields()
 {
+        if (setting.theme==0)
+        {
+            setTextColor(BLACK,WHITE2);
+        }
+        else setTextColor(WHITE2,BLACK);
+
     switch (setting.nRound % 2)
     {
     //attacker player 1:
@@ -109,10 +163,20 @@ void printBattlefields()
                 switch (player1.battlefield[i][j]) 
                 {
                 case NO_SHIP:
+                    if(setting.theme==0)
+                    {
                     setTextColor(BLUE,WHITE2);
                     printf("~  "); 
                     setTextColor(BLACK,WHITE2);
-                    break;
+                   
+                    }
+                    else if(setting.theme==1)
+                    {
+                    setTextColor(BLUE,BLACK);
+                    printf("~  "); 
+                    setTextColor(WHITE2,BLACK);
+                    }
+                        break;
                 default:
                     if (player1.battlefield[i][j] >= 1000) printf("%c  ", 254);    //show SHIPS
                     if (player1.battlefield[i][j] <= -1000) printf("X  ");     //show DAMAGED ships
@@ -126,19 +190,38 @@ void printBattlefields()
                 switch (player2.battlefield[i][j]) 
                 {
                 case NO_SHIP:
+                    if(setting.theme==0)
+                    {
                     setTextColor(BLUE,WHITE2);
                     printf("~  "); 
                     setTextColor(BLACK,WHITE2);
+                   
+                    }
+                    else if(setting.theme==1)
+                    {
+                    setTextColor(BLUE,BLACK);
+                    printf("~  "); 
+                    setTextColor(WHITE2,BLACK);
+                    }
                     break;
                 case MISSED:
                     printf("%c  ", 168); 
                     break;
                 default:
-                    if (player2.battlefield[i][j] >= 1000)
+                    if (player2.battlefield[i][j] >= 1000)//DON'T show ships!
                     {
+                       if(setting.theme==0)
+                        {
                         setTextColor(BLUE,WHITE2);
-                        printf("~  ");    //DON'T show ships!
-                        setTextColor(BLACK,WHITE2); 
+                        printf("~  "); 
+                        setTextColor(BLACK,WHITE2);
+                        }
+                         else if(setting.theme==1)
+                        {
+                        setTextColor(BLUE,BLACK);
+                        printf("~  "); 
+                        setTextColor(WHITE2,BLACK);
+                        }
                     }
                     if (player2.battlefield[i][j] <= -1000) printf("X  ");     //show DAMAGED ships 
                     break;
@@ -169,10 +252,19 @@ void printBattlefields()
             {
                 switch (player1.battlefield[i][j]) 
                 {
-                case NO_SHIP:
-                    setTextColor(BLUE,WHITE2);
-                    printf("~  ");
-                    setTextColor(BLACK,WHITE2); 
+                case NO_SHIP://DON'T show ships!
+                    if(setting.theme==0)
+                    {
+                        setTextColor(BLUE,WHITE2);
+                        printf("~  "); 
+                        setTextColor(BLACK,WHITE2);
+                        }
+                         else if(setting.theme==1)
+                        {
+                        setTextColor(BLUE,BLACK);
+                        printf("~  "); 
+                        setTextColor(WHITE2,BLACK);
+                    }
                     break;
                 case MISSED:
                     printf("%c  ", 168); 
@@ -180,9 +272,18 @@ void printBattlefields()
                 default:
                     if (player1.battlefield[i][j] >= 1000)
                     {
-                        setTextColor(BLUE,WHITE2);
-                        printf("~  ");    //DON'T show ships!
-                        setTextColor(BLACK,WHITE2); 
+                        if(setting.theme==0)
+                        {
+                            setTextColor(BLUE,WHITE2);
+                            printf("~  "); 
+                            setTextColor(BLACK,WHITE2);
+                        }
+                        else if(setting.theme==1)
+                        {
+                            setTextColor(BLUE,BLACK);
+                            printf("~  "); 
+                            setTextColor(WHITE2,BLACK);
+                        }
                     }
                     if (player1.battlefield[i][j] <= -1000) printf("X  ");     //show DAMAGED ships 
                     break;
@@ -195,9 +296,18 @@ void printBattlefields()
                 switch (player2.battlefield[i][j]) 
                 {
                 case NO_SHIP:
-                    setTextColor(BLUE,WHITE2);
-                    printf("~  "); 
-                    setTextColor(BLACK,WHITE2);
+                    if(setting.theme==0)
+                        {
+                            setTextColor(BLUE,WHITE2);
+                            printf("~  "); 
+                            setTextColor(BLACK,WHITE2);
+                        }
+                        else if(setting.theme==1)
+                        {
+                            setTextColor(BLUE,BLACK);
+                            printf("~  "); 
+                            setTextColor(WHITE2,BLACK);
+                        }
                     break;
                 default:
                     if (player2.battlefield[i][j] >= 1000) printf("%c  ", 254);    //show SHIPS

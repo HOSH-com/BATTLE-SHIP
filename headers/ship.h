@@ -267,16 +267,34 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
         {
                 if(result == 1)
                 {
+                    if (setting.theme==0)
+                    {
                     setTextColor(RED, 15);
                     printf("ERROR: ");
                     setTextColor(BLACK, 15);
+                    }
+                    else
+                    {
+                    setTextColor(RED, BLACK);
+                    printf("ERROR: ");
+                    setTextColor(WHITE2,BLACK);
+                    }
                     printf("Ship exists in this area.\nPlease enter position \"%i\" again ('row' space 'column' space 'h/v'):\n", shipname+1);
                 }
                 else if(result == 2)
                 {
+                    if (setting.theme==0)
+                    {
                     setTextColor(RED, 15);
                     printf("ERROR: ");
                     setTextColor(BLACK, 15);
+                    }
+                    else
+                    {
+                    setTextColor(RED, BLACK);
+                    printf("ERROR: ");
+                    setTextColor(WHITE2,BLACK);
+                    }
                     printf("The ship is out of the range (the area is %ix%i)."
                     "\nPlease enter position \"%i\" again ('row' space 'column' space 'h/v'):\n",setting.size_of_area,setting.size_of_area,shipname+1);
                 }

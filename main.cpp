@@ -14,7 +14,8 @@
 
 int main()
 {   
-    system("color F0"); //apply the default theme
+    if (setting.theme==0) system("color F0"); //apply the default theme
+    else system("color 0F");
     /*welcome
     **menu*/
 

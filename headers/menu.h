@@ -12,8 +12,12 @@ void menu()
 {
     clearScreen();
     char choice;
-
-    printf(
+    if (setting.theme==0) system("color F0"); //apply the default theme
+    else system("color 0F");
+    if (setting.theme==0)
+        {
+            setTextColor(BLACK,WHITE2);
+            printf(
         "\n\n\n"
         "           MENU:\n\n"
         "                1- Resume\n\n"
@@ -21,12 +25,26 @@ void menu()
         "                3- Replay The Last Match\n\n"
         "                4- Dark/Light Mode\n\n"
         "                5- Exit"
-    );
+        );
 
+        }
+        else if(setting.theme==1)
+        {
+            setTextColor(WHITE2,BLACK);
+            printf(
+        "\n\n\n"
+        "           MENU:\n\n"
+        "                1- Resume\n\n"
+        "                2- New Game\n\n"
+        "                3- Replay The Last Match\n\n"
+        "                4- Dark/Light Mode\n\n"
+        "                5- Exit"
+        );
+        }
     do
     {
         choice = getch();
-    } while (choice != '1' && choice != '2' && choice != '3');
+    } while (choice != '1' && choice != '2' && choice != '3' && choice != '4' && choice != '5');
 
     switch (choice)
     {
@@ -69,8 +87,14 @@ void resume()
         file_save_round();
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n"); //2- get the shot coord.
-        
-        setTextColor(BLACK,WHITE2);      
+        if (setting.theme==0)
+        {
+            setTextColor(BLACK,WHITE2);
+        }
+        else if(setting.theme==1)
+        {
+            setTextColor(WHITE2,BLACK);
+        }
 
         result = fire(x,y);
 
@@ -125,11 +149,18 @@ void new_game()
 {
     clearScreen();
     char mode;
-
-    system("color F0");
-    setTextColor(BLACK, WHITE2);
-    clearScreen();
-
+    if (setting.theme==0)
+    {
+        system("color F0");
+        setTextColor(BLACK, WHITE2);
+        clearScreen();
+    }
+    else if (setting.theme==1)
+    {
+        system("color 0F");
+        setTextColor(WHITE2, BLACK);
+        clearScreen();
+    }
     //printf("If you wish to set settings from file press '1' to skip, else press '2' to continue.\n");
     printf(
         "\n\n\n"
@@ -178,13 +209,25 @@ void replay()
     menu();
 }
 
-void change_theme()
+void change_theme()     /*کد تغییر زمینه */
 {
-    /*کد تغییر زمینه */
+    clearScreen();
+    printf("Which theme do you prefer?\nWHITE<0> or DARK<1>\nENTER THE CODE\n");
+    int command;
+    scanf("%d",&command);
+    if(command==0)
+    {
+        setting.theme=0;
+    }
+    else if (command==1)
+    {
+        setting.theme=1;
+    }
+    menu();
 }
-
 void exit_game()
 {
     /*کد خروج از بازی*/
+    exit(1);
 }
 

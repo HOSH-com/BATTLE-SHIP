@@ -30,13 +30,32 @@ void new_game_settings()
     scanf("%i", &setting.size_of_area);     //1- area size
     while (setting.size_of_area > 15 || setting.size_of_area < 3)  //check for ERROR
     {
+        if (setting.theme==0)
+        {
         setTextColor(RED, 15);
         printf("ERROR: ");
         setTextColor(BLACK, 15);
         printf("Enter size of map again (from 3 to 15):\n");
         scanf("%i", &setting.size_of_area);
+        }
+        else if (setting.theme==1)
+        {
+        setTextColor(RED,0);
+        printf("ERROR: ");
+        setTextColor(15,0);
+        printf("Enter size of map again (from 3 to 15):\n");
+        scanf("%i", &setting.size_of_area);
+        }
+        
     }
-    setTextColor(BLACK, 15);
+    if (setting.theme==0)
+    {
+        setTextColor(BLACK, 15);
+    }
+    else
+    {
+        setTextColor(15,BLACK);
+    }
     printf("Enter number of ships:\n");
     scanf("%i", &nShip);        //2- ship amounts
 
@@ -102,25 +121,48 @@ void start_new_game()
         file_save_round();
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n"); //2- get the shot coord.
-        
-        setTextColor(BLACK,WHITE2);      
-
+        if (setting.theme==0)
+        {
+            setTextColor(BLACK,WHITE2); 
+        }
+        else
+        {
+            setTextColor(WHITE2,BLACK);
+        }
         result = fire(x,y);
 
         while (result < 0)   //check for ERRORS
         {
             if (result == -2)
             {
+                if (setting.theme==0)
+                {
                 setTextColor(RED, 15);
                 printf("ERROR: ");
                 setTextColor(BLACK, 15);
+                }
+                else
+                {
+                setTextColor(RED, BLACK);
+                printf("ERROR: ");
+                setTextColor(WHITE2,BLACK);
+                }
                 printf("The ship in this area is damaged already.\n");
             }
             else if (result == -1)
             {
+                if (setting.theme==0)
+                {
                 setTextColor(RED, 15);
                 printf("ERROR: ");
                 setTextColor(BLACK, 15);
+                }
+                else
+                {
+                setTextColor(RED, BLACK);
+                printf("ERROR: ");
+                setTextColor(WHITE2,BLACK);
+                }
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
             printf("Enter your shot again('row number' space 'column'):\n");
