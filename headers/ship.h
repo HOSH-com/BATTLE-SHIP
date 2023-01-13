@@ -116,7 +116,6 @@ int fire(int &xxx,int &yyy)
     }
     
 
-
     if (x>setting.size_of_area || x<1 || y>setting.size_of_area || y<1 )
     {
        return -1;
@@ -285,9 +284,9 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
                 {
                     if (setting.theme==0)
                     {
-                    setTextColor(RED, 15);
+                    setTextColor(RED, WHITE2);
                     printf("ERROR: ");
-                    setTextColor(BLACK, 15);
+                    setTextColor(BLACK, WHITE2);
                     }
                     else
                     {

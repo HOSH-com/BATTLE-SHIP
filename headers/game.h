@@ -113,6 +113,8 @@ void new_game_settings()
 void start_new_game()
 {
     int x, y, result;
+    if (setting.theme==0) setTextColor(BLACK, WHITE2);
+    else setTextColor(WHITE2, BLACK);
 
     clearScreen();
     //start the new game:
@@ -121,14 +123,6 @@ void start_new_game()
         file_save_round();
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n"); //2- get the shot coord.
-        if (setting.theme==0)
-        {
-            setTextColor(BLACK,WHITE2); 
-        }
-        else
-        {
-            setTextColor(WHITE2,BLACK);
-        }
         result = fire(x,y);
 
         while (result < 0)   //check for ERRORS
@@ -137,15 +131,15 @@ void start_new_game()
             {
                 if (setting.theme==0)
                 {
-                setTextColor(RED, 15);
-                printf("ERROR: ");
-                setTextColor(BLACK, 15);
+                    setTextColor(RED, WHITE2);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, WHITE2);
                 }
                 else
                 {
-                setTextColor(RED, BLACK);
-                printf("ERROR: ");
-                setTextColor(WHITE2,BLACK);
+                    setTextColor(RED, BLACK);
+                    printf("ERROR: ");
+                    setTextColor(WHITE2,BLACK);
                 }
                 printf("The ship in this area is damaged already.\n");
             }
@@ -153,15 +147,15 @@ void start_new_game()
             {
                 if (setting.theme==0)
                 {
-                setTextColor(RED, 15);
-                printf("ERROR: ");
-                setTextColor(BLACK, 15);
+                    setTextColor(RED, WHITE2);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, WHITE2);
                 }
                 else
                 {
-                setTextColor(RED, BLACK);
-                printf("ERROR: ");
-                setTextColor(WHITE2,BLACK);
+                    setTextColor(RED, BLACK);
+                    printf("ERROR: ");
+                    setTextColor(WHITE2,BLACK);
                 }
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
@@ -199,6 +193,8 @@ void start_new_game()
 
 void end_game()
 {
+    if (setting.theme==0) setTextColor(BLACK, WHITE2);
+    else setTextColor(WHITE2, BLACK);
     //player1 wins:
     if (player1.remaining_ship) 
     {

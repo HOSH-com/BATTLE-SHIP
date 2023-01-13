@@ -79,6 +79,8 @@ void resume()
     read_last_movement_or_last_round();
 
     int x, y, result;
+    if (setting.theme==0) system("color F0"); //apply the default theme
+    else system("color 0F");
 
     clearScreen();
     //start the new game:
@@ -211,17 +213,15 @@ void replay()
 
 void change_theme()     /*کد تغییر زمینه */
 {
-    clearScreen();
-    printf("Which theme do you prefer?\nWHITE<0> or DARK<1>\nENTER THE CODE\n");
-    int command;
-    scanf("%d",&command);
-    if(command==0)
+    if (setting.theme==0)       //if white, change it to black
     {
-        setting.theme=0;
+        setting.theme = 1;
+        system("color 0F");
     }
-    else if (command==1)
+    else                        //if black, change it to white
     {
-        setting.theme=1;
+        setting.theme = 0;
+        system("color F0");
     }
     menu();
 }
