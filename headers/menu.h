@@ -79,8 +79,8 @@ void resume()
     read_last_movement_or_last_round();
 
     int x, y, result;
-    if (setting.theme==0) system("color F0"); //apply the default theme
-    else system("color 0F");
+    if (setting.theme==0) setTextColor(BLACK, WHITE2);
+    else setTextColor(WHITE2, BLACK);
 
     clearScreen();
     //start the new game:
@@ -89,31 +89,40 @@ void resume()
         file_save_round();
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n"); //2- get the shot coord.
-        if (setting.theme==0)
-        {
-            setTextColor(BLACK,WHITE2);
-        }
-        else if(setting.theme==1)
-        {
-            setTextColor(WHITE2,BLACK);
-        }
-
         result = fire(x,y);
 
         while (result < 0)   //check for ERRORS
         {
             if (result == -2)
             {
-                setTextColor(RED, 15);
-                printf("ERROR: ");
-                setTextColor(BLACK, 15);
+                if (setting.theme==0)
+                {
+                    setTextColor(RED, WHITE2);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, WHITE2);
+                }
+                else
+                {
+                    setTextColor(RED, BLACK);
+                    printf("ERROR: ");
+                    setTextColor(WHITE2,BLACK);
+                }
                 printf("The ship in this area is damaged already.\n");
             }
             else if (result == -1)
             {
-                setTextColor(RED, 15);
-                printf("ERROR: ");
-                setTextColor(BLACK, 15);
+                if (setting.theme==0)
+                {
+                    setTextColor(RED, WHITE2);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, WHITE2);
+                }
+                else
+                {
+                    setTextColor(RED, BLACK);
+                    printf("ERROR: ");
+                    setTextColor(WHITE2,BLACK);
+                }
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
             printf("Enter your shot again('row number' space 'column'):\n");
