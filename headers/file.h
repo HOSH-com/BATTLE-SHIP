@@ -9,7 +9,8 @@
 void file_game_setting();
 void file_save_round();
 void file_replay();
-
+void save_last_movement_or_last_round();
+void read_last_movement_or_last_round();
 
 void file_game_setting()
 {   
@@ -210,13 +211,13 @@ void file_replay()
     fclose(freplay);
 }
 
-int save_last_movement_or_last_round()
+void save_last_movement_or_last_round()
 {
     FILE *openfile=fopen("continue.dat","wb");
     if (!openfile)
     {
         printf("ERROR:We cant open save FILE");
-        return -1;
+        exit (-1);
     }
     fwrite(&setting,sizeof(GAME_SETTING),1,openfile);
     fwrite(&player1,sizeof(PLAYERS_INFO),1,openfile);
@@ -224,13 +225,13 @@ int save_last_movement_or_last_round()
     fclose(openfile);
 }
 
-int read_last_movement_or_last_round()
+void read_last_movement_or_last_round()
 {
     FILE *openfile=fopen("continue.dat","rb");
     if (!openfile)
     {
         printf("ERROR:We cant open save FILE");
-        return -1;
+        exit (-1);
     }
     fread(&setting,sizeof(GAME_SETTING),1,openfile);
     fread(&player1,sizeof(PLAYERS_INFO),1,openfile);
