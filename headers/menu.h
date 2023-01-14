@@ -88,7 +88,19 @@ void resume()
     {
         file_save_round();
         printTable(); //1- show PRE-attack table status
-        printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n"); //2- get the shot coord.
+        printf("Enter coordinates to shot ('row num' space 'column num'):"); //2- get the shot coord.
+        if (setting.theme == 0)
+        {
+            setTextColor(GREY, WHITE2);
+            printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
+            setTextColor(BLACK, WHITE2);
+        }
+        else if (setting.theme == 1)
+        {
+            setTextColor(GREY, BLACK);
+            printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
+            setTextColor(WHITE2, BLACK);
+        }
         result = fire(x,y);
 
         while (result < 0)   //check for ERRORS
@@ -172,7 +184,7 @@ void new_game()
         setTextColor(WHITE2, BLACK);
         clearScreen();
     }
-    //printf("If you wish to set settings from file press '1' to skip, else press '2' to continue.\n");
+    
     printf(
         "\n\n\n"
         "           NEW GAME:\n\n"
@@ -191,14 +203,14 @@ void new_game()
     {
     case '1':
         {
-            FILE *ftemp = fopen("replay.dat", "wb");
+            FILE *ftemp = fopen("replay.dat", "wb");    //rmove the last game replay
             fclose(ftemp);
             new_game_settings();
             break;
         }
     case '2':
         {
-            FILE *ftemp = fopen("replay.dat", "wb");
+            FILE *ftemp = fopen("replay.dat", "wb");    //rmove the last game replay
             fclose(ftemp);
             file_game_setting();
             break;

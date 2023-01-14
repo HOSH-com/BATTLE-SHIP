@@ -91,27 +91,32 @@ int fire(int &xxx,int &yyy)
 {       
     int result;
     int x,y;
+    int command;
     
     scanf("%i %i", &x, &y);
     int X = x-1;
     int Y = y-1;
     
-    while (x==0 && y==0)
+    while (x==0 && y==0)    //especial code to pause the game(0,0)
     {
-        printf("DO YOU SURE TO EXIT GAME?\nPRESS 1 for YES OR PRESS 0 for NO\n");
-        int command;
-        scanf("%d",&command);
-        if (command==1)
+        printf("ARE YOU SURE TO EXIT THE GAME?\n"
+               "     1-YES      2-NO\n");
+        do
         {
-        save_last_movement_or_last_round();
-        exit(1);
+            command = getch();
+        } while (command!='1' && command!='2');
+        
+        if (command=='1') //save and exit the game
+        {
+            save_last_movement_or_last_round();
+            exit(1);
         }
-        else if(command==0)
+        else if(command=='2') //resume the game 
         {
-            printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n"); //2- get the shot coord.
+            printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n");
             scanf("%i %i", &x, &y);
-            int X = x-1;
-            int Y = y-1;
+            X = x-1;
+            Y = y-1;
         }
     }
     
