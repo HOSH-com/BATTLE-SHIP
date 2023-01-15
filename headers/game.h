@@ -172,6 +172,7 @@ void start_new_game()
                 }
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
+            else if (result == -3) return;      //back to MENU
             printf("Enter your shot again('row number' [SPACE] 'column'):\n");
 
             result = fire(x,y);
@@ -184,7 +185,10 @@ void start_new_game()
             printTable();     //3- show AFTER-attack table status
             if (result==2)
             {
-                printf("One of %s's ships sank!\n", player2.name);    //ship SANK
+                if (setting.nRound == 1)
+                    printf("One of %s's ships sank!\n", player2.name);    //ship SANK
+                else
+                    printf("One of %s's ships sank!\n", player1.name);    //ship SANK
             }
             else if (result==0)
             {
@@ -203,7 +207,7 @@ void start_new_game()
     }    
 }
 
-void resume_game()
+void resume_game()      /*the same start_new_game but without nRound=1 */
 {
     int x, y, result;
     if (setting.theme==0) setTextColor(BLACK, WHITE2);
@@ -264,6 +268,7 @@ void resume_game()
                 }
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
+            else if (result == -3) return;      //back to MENU
             printf("Enter your shot again('row number' [SPACE] 'column'):\n");
 
             result = fire(x,y);
@@ -276,8 +281,7 @@ void resume_game()
             printTable();     //3- show AFTER-attack table status
             if (result==2)
             {
-                if (setting.nRound%2 == 1) printf("One of %s's ships sank!\n", player2.name);    //ship SANK
-                else if (setting.nRound%2 == 0) printf("One of %s's ships sank!\n", player2.name);    //ship SANK
+                printf("One of %s's ships sank!\n", player2.name);    //ship SANK
             }
             else if (result==0)
             {
@@ -293,23 +297,28 @@ void resume_game()
     printf("..."); //delay and clearScreen after each round:
     sleep(5000);
     clearScreen();
-    }    
+    }     
 }
 
 void end_game()
 {
     if (setting.theme==0) setTextColor(BLACK, WHITE2);
     else setTextColor(WHITE2, BLACK);
+    //no winner:
+    if (player1.remaining_ship && player2.remaining_ship)
+        printf("Returning to menu...\n");
     //player1 wins:
-    if (player1.remaining_ship) 
+    else if (player1.remaining_ship) 
     {
-        printf("PLAYER 1 WONNNNNNNNN!"); 
+        printf("%s WONNNNNNNNN!\n", player1.name); 
+        setting.status = 0;
     }
     //player2 wins:
     else if (player2.remaining_ship) 
     {
-        printf("PLAYER 2 WONNNNNNNNN!");    
+        printf("%s WONNNNNNNNN!\n", player2.name);    
+        setting.status = 0;
     }
-    sleep(3000);
 
+    sleep(3000);
 }

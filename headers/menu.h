@@ -10,59 +10,70 @@ void change_theme();
 
 void menu()
 {
-    clearScreen();
-    char choice;
-    if (setting.theme==0) system("color F0"); //apply the default theme
-    else system("color 0F");
+    while (TRUE)
+    {
+        clearScreen();
+        char choice;
+        if (setting.theme==0) system("color F0"); //apply the default theme
+        else system("color 0F");
 
-    printf(
-        "\n\n\n"
-        "           MENU:\n\n"
-        "                1- Resume\n\n"
-        "                2- New Game\n\n"
-        "                3- Replay The Last Match\n\n"
-        "                4- Dark/Light Mode\n\n"
-        "                5- Exit"
+        printf(
+            "\n\n\n"
+            "           MENU:\n\n"
+            "                1- Resume\n\n"
+            "                2- New Game\n\n"
+            "                3- Replay The Last Match\n\n"
+            "                4- Dark/Light Mode\n\n"
+            "                5- Exit"
         );
 
-    do
-    {
-        choice = getch();
-    } while (choice != '1' && choice != '2' && choice != '3' && choice != '4' && choice != '5');
+        do
+        {
+            choice = getch();
+        } while (choice != '1' && choice != '2' && choice != '3' && choice != '4' && choice != '5');
 
-    switch (choice)
-    {
-    case '1':
-        resume();
-        break;
-    
-    case '2':
-        new_game();
-        break;
-    
-    case '3':
-        replay();
-        break;
-    
-    case '4':
-        change_theme();
-        break;
+        switch (choice)
+        {
+        case '1':
+            resume();
+            break;
+        
+        case '2':
+            new_game();
+            break;
+        
+        case '3':
+            replay();
+            break;
+        
+        case '4':
+            change_theme();
+            break;
 
-    case '5':
-        exit_game();
-        break;
-    
-    default:
-        break;
+        case '5':
+            exit_game();
+            break;
+        
+        default:
+            break;
+        }
     }
-
 }
 
 void resume()
-{
+{   
     read_last_movement_or_last_round();
-    resume_game();
-    end_game();
+    if (setting.status == 1)
+    {
+        resume_game();
+        end_game();
+    }
+    else        //if the last game was finished
+    {
+        clearScreen();
+        printf("\n\n\n          NOT FOUND ANY UNFINISHED GAME.\n          Returning to menu...\n");
+        sleep(5000);
+    }
 }
 
 void new_game()
@@ -90,6 +101,7 @@ void new_game()
     {
     case '1':
         {
+            setting.status = 1;
             FILE *ftemp = fopen("replay.dat", "wb");    //rmove the last game replay
             fclose(ftemp);
             new_game_settings();
@@ -97,26 +109,24 @@ void new_game()
         }
     case '2':
         {
+            setting.status = 1;
             FILE *ftemp = fopen("replay.dat", "wb");    //rmove the last game replay
             fclose(ftemp);
             file_game_setting();
             break;
         }
     case '3':
-        menu();
+        return;
         break;
     }
 
-    setTextColor(BLACK, WHITE2);
     start_new_game();
-
     end_game();
 }
 
 void replay()
 {
     file_replay();
-    menu();
 }
 
 void change_theme()     /*کد تغییر زمینه */
@@ -131,11 +141,31 @@ void change_theme()     /*کد تغییر زمینه */
         setting.theme = 0;
         system("color F0");
     }
-    menu();
 }
+
 void exit_game()
 {
-    /*کد خروج از بازی*/
-    exit(1);
+    clearScreen();
+    int command;
+
+    printf(
+        "\n\n\n"
+        "           EXIT:\n\n"
+        "                ARE YOU SURE TO EXIT THE GAME?\n\n"
+        "                       1-YES      2-NO\n"
+    );
+    
+    do
+    {
+        command = getch();
+    } while (command!='1' && command!='2');
+        
+    if (command == '1') 
+    {
+        clearScreen();
+        system("color 07");
+        exit (1);
+    }
+    //else return;
 }
 

@@ -23,6 +23,7 @@ struct GAME_SETTING
     int max_repair;
     int nRound;
     int theme=0; //*code 0 for white background and 1 for dark background
+    int status;
 }setting;
 
 struct LAST_ROUND

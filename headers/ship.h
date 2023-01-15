@@ -109,7 +109,7 @@ int fire(int &xxx,int &yyy)
         if (command=='1') //save and exit the game
         {
             save_last_movement_or_last_round();
-            exit(1);
+            return -3;      //back to MENU (-3)
         }
         else if(command=='2') //resume the game 
         {
@@ -123,7 +123,7 @@ int fire(int &xxx,int &yyy)
 
     if (x>setting.size_of_area || x<1 || y>setting.size_of_area || y<1 )
     {
-       return -1;
+       return -1;   //shot out of range ERROR (-1)
     }
 
     //attacker player1:
