@@ -14,10 +14,8 @@ void menu()
     char choice;
     if (setting.theme==0) system("color F0"); //apply the default theme
     else system("color 0F");
-    if (setting.theme==0)
-        {
-            setTextColor(BLACK,WHITE2);
-            printf(
+
+    printf(
         "\n\n\n"
         "           MENU:\n\n"
         "                1- Resume\n\n"
@@ -27,20 +25,6 @@ void menu()
         "                5- Exit"
         );
 
-        }
-        else if(setting.theme==1)
-        {
-            setTextColor(WHITE2,BLACK);
-            printf(
-        "\n\n\n"
-        "           MENU:\n\n"
-        "                1- Resume\n\n"
-        "                2- New Game\n\n"
-        "                3- Replay The Last Match\n\n"
-        "                4- Dark/Light Mode\n\n"
-        "                5- Exit"
-        );
-        }
     do
     {
         choice = getch();
@@ -77,115 +61,16 @@ void menu()
 void resume()
 {
     read_last_movement_or_last_round();
-
-    int x, y, result;
-    if (setting.theme==0) setTextColor(BLACK, WHITE2);
-    else setTextColor(WHITE2, BLACK);
-
-    clearScreen();
-    //start the new game:
-    for (; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
-    {
-        file_save_round();
-        printTable(); //1- show PRE-attack table status
-        printf("Enter coordinates to shot ('row num' space 'column num'):"); //2- get the shot coord.
-        if (setting.theme == 0)
-        {
-            setTextColor(GREY, WHITE2);
-            printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
-            setTextColor(BLACK, WHITE2);
-        }
-        else if (setting.theme == 1)
-        {
-            setTextColor(GREY, BLACK);
-            printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
-            setTextColor(WHITE2, BLACK);
-        }
-        result = fire(x,y);
-
-        while (result < 0)   //check for ERRORS
-        {
-            if (result == -2)
-            {
-                if (setting.theme==0)
-                {
-                    setTextColor(RED, WHITE2);
-                    printf("ERROR: ");
-                    setTextColor(BLACK, WHITE2);
-                }
-                else
-                {
-                    setTextColor(RED, BLACK);
-                    printf("ERROR: ");
-                    setTextColor(WHITE2,BLACK);
-                }
-                printf("The ship in this area is damaged already.\n");
-            }
-            else if (result == -1)
-            {
-                if (setting.theme==0)
-                {
-                    setTextColor(RED, WHITE2);
-                    printf("ERROR: ");
-                    setTextColor(BLACK, WHITE2);
-                }
-                else
-                {
-                    setTextColor(RED, BLACK);
-                    printf("ERROR: ");
-                    setTextColor(WHITE2,BLACK);
-                }
-                printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
-            }
-            printf("Enter your shot again('row number' space 'column'):\n");
-
-            result = fire(x,y);
-        }
-
-        if (result == 0 || result == 1 || result==2)     //it's OK
-        {
-            clearScreen();
-            file_save_round();
-            printTable();     //3- show AFTER-attack table status
-            if (result==2)
-            {
-                printf("One of %s's ships sank!\n", player2.name);    //ship SANK
-            }
-            else if (result==0)
-            {
-                if(setting.nRound%2==1)
-                {
-                    player2.battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
-                }
-                else
-                    player1.battlefield[x-1][y-1] = 0;
-            }      
-        }
-                             
-    printf("..."); //delay and clearScreen after each round:
-    sleep(5000);
-    clearScreen();
-    }    
-
+    resume_game();
     end_game();
 }
 
 void new_game()
 {
     clearScreen();
+    if (setting.theme==0) system("color F0");
+    else system("color 0F");
     char mode;
-    if (setting.theme==0)
-    {
-        system("color F0");
-        setTextColor(BLACK, WHITE2);
-        clearScreen();
-    }
-    else if (setting.theme==1)
-    {
-        system("color 0F");
-        setTextColor(WHITE2, BLACK);
-        clearScreen();
-    }
     
     printf(
         "\n\n\n"

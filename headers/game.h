@@ -12,6 +12,7 @@
 //main functions:
 void new_game_settings();
 void start_new_game();
+void resume_game();
 void end_game();
 
 int nShip;
@@ -78,11 +79,11 @@ void new_game_settings()
     //put && check ship in area for player 1:
     for(int i =0;i<nShip;i++)     
     {
-        printf("Enter ship position \"%i\" ('row' space 'column' space 'h/v'):\n", i+1);
+        printf("Enter ship position \"%i\" ('row' [SPACE] 'column' [SPACE] 'h/v'):\n", i+1);
         put_ship(i);
     }
     
-    printf("Type something then press \"enter\" to continue:\n");
+    printf("Type something then press [ENTER] to continue:\n");
     scanf("%s",&trash);         //5- next player
     clearScreen();
 
@@ -102,7 +103,7 @@ void new_game_settings()
     //put && check ship in area for player 2:
     for(int i =0;i<nShip;i++)       
     {
-        printf("Enter ship position \"%i\" ('row' space 'column' space 'h/v'):\n", i+1);
+        printf("Enter ship position \"%i\" ('row' [SPACE] 'column' [SPACE] 'h/v'):\n", i+1);
         put_ship(i);
     }
     printf("...");
@@ -122,7 +123,7 @@ void start_new_game()
     {
         file_save_round();
         printTable(); //1- show PRE-attack table status
-        printf("Enter coordinates to shot ('row num' space 'column num'):"); //2- get the shot coord.
+        printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):"); //2- get the shot coord.
         if (setting.theme == 0)
         {
             setTextColor(GREY, WHITE2);
@@ -171,7 +172,7 @@ void start_new_game()
                 }
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
-            printf("Enter your shot again('row number' space 'column'):\n");
+            printf("Enter your shot again('row number' [SPACE] 'column'):\n");
 
             result = fire(x,y);
         }
@@ -202,6 +203,97 @@ void start_new_game()
     }    
 }
 
+void resume_game()
+{
+    int x, y, result;
+    if (setting.theme==0) setTextColor(BLACK, WHITE2);
+    else setTextColor(WHITE2, BLACK);
+
+    clearScreen();
+    //start the new game:
+    for (; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
+    {
+        file_save_round();
+        printTable(); //1- show PRE-attack table status
+        printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):"); //2- get the shot coord.
+        if (setting.theme == 0)
+        {
+            setTextColor(GREY, WHITE2);
+            printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
+            setTextColor(BLACK, WHITE2);
+        }
+        else if (setting.theme == 1)
+        {
+            setTextColor(GREY, BLACK);
+            printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
+            setTextColor(WHITE2, BLACK);
+        }
+        result = fire(x,y);
+
+        while (result < 0)   //check for ERRORS
+        {
+            if (result == -2)
+            {
+                if (setting.theme==0)
+                {
+                    setTextColor(RED, WHITE2);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, WHITE2);
+                }
+                else
+                {
+                    setTextColor(RED, BLACK);
+                    printf("ERROR: ");
+                    setTextColor(WHITE2,BLACK);
+                }
+                printf("The ship in this area is damaged already.\n");
+            }
+            else if (result == -1)
+            {
+                if (setting.theme==0)
+                {
+                    setTextColor(RED, WHITE2);
+                    printf("ERROR: ");
+                    setTextColor(BLACK, WHITE2);
+                }
+                else
+                {
+                    setTextColor(RED, BLACK);
+                    printf("ERROR: ");
+                    setTextColor(WHITE2,BLACK);
+                }
+                printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
+            }
+            printf("Enter your shot again('row number' [SPACE] 'column'):\n");
+
+            result = fire(x,y);
+        }
+
+        if (result == 0 || result == 1 || result==2)     //it's OK
+        {
+            clearScreen();
+            file_save_round();
+            printTable();     //3- show AFTER-attack table status
+            if (result==2)
+            {
+                printf("One of %s's ships sank!\n", player2.name);    //ship SANK
+            }
+            else if (result==0)
+            {
+                if(setting.nRound%2==1)
+                {
+                    player2.battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
+                }
+                else
+                    player1.battlefield[x-1][y-1] = 0;
+            }      
+        }
+                             
+    printf("..."); //delay and clearScreen after each round:
+    sleep(5000);
+    clearScreen();
+    }    
+}
 
 void end_game()
 {
@@ -217,4 +309,6 @@ void end_game()
     {
         printf("PLAYER 2 WONNNNNNNNN!");    
     }
+    sleep(3000);
+
 }
