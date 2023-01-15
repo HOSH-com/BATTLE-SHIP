@@ -211,14 +211,10 @@ void end_game()
     if (player1.remaining_ship) 
     {
         printf("PLAYER 1 WONNNNNNNNN!"); 
-        setting.nRound = -1;    //the game is finished (-1)
     }
     //player2 wins:
     else if (player2.remaining_ship) 
     {
-        printf("PLAYER 2 WONNNNNNNNN!"); 
-        setting.nRound = -1;    //the game is finished (-1)
+        printf("PLAYER 2 WONNNNNNNNN!");    
     }
-    //unfinished game:
-    /*کد ذخیره سازی بازی */
 }

@@ -5,7 +5,7 @@ void exit_game();
 void replay();
 void change_theme();
 
-#define ESC 27
+
 
 
 void menu()
@@ -166,6 +166,8 @@ void resume()
     sleep(5000);
     clearScreen();
     }    
+
+    end_game();
 }
 
 void new_game()

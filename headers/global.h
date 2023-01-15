@@ -5,6 +5,7 @@
 #define WHITE2 15
 #define BLUE 3
 #define RED 4
+#define ESC 27
 int sizeofship=3;
 
 struct PLAYERS_INFO
