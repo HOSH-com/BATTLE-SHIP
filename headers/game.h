@@ -276,7 +276,8 @@ void resume_game()
             printTable();     //3- show AFTER-attack table status
             if (result==2)
             {
-                printf("One of %s's ships sank!\n", player2.name);    //ship SANK
+                if (setting.nRound%2 == 1) printf("One of %s's ships sank!\n", player2.name);    //ship SANK
+                else if (setting.nRound%2 == 0) printf("One of %s's ships sank!\n", player2.name);    //ship SANK
             }
             else if (result==0)
             {
