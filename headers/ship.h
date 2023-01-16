@@ -99,7 +99,7 @@ int fire(int &xxx,int &yyy)
     
     while (x==0 && y==0)    //especial code to pause the game(0,0)
     {
-        printf("ARE YOU SURE TO EXIT THE GAME?\n"
+        printf("ARE YOU SURE TO BACK TO MENU?\n"
                "     1-YES      2-NO\n");
         do
         {
@@ -113,7 +113,7 @@ int fire(int &xxx,int &yyy)
         }
         else if(command=='2') //resume the game 
         {
-            printf("Enter coordinates to shot ('row number' space 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n");
+            printf("Enter coordinates to shot ('row number' [SPACE] 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n");
             scanf("%i %i", &x, &y);
             X = x-1;
             Y = y-1;
@@ -283,7 +283,7 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
                     printf("ERROR: ");
                     setTextColor(WHITE2,BLACK);
                     }
-                    printf("Ship exists in this area.\nPlease enter position \"%i\" again ('row' space 'column' space 'h/v'):\n", shipname+1);
+                    printf("Ship exists in this area.\nPlease enter position \"%i\" again ('row' [SPACE] 'column' [SPACE] 'h/v'):\n", shipname+1);
                 }
                 else if(result == 2)
                 {
@@ -300,7 +300,7 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
                     setTextColor(WHITE2,BLACK);
                     }
                     printf("The ship is out of the range (the area is %ix%i)."
-                    "\nPlease enter position \"%i\" again ('row' space 'column' space 'h/v'):\n",setting.size_of_area,setting.size_of_area,shipname+1);
+                    "\nPlease enter position \"%i\" again ('row' [SPACE] 'column' [SPACE] 'h/v'):\n",setting.size_of_area,setting.size_of_area,shipname+1);
                 }
                 
         }

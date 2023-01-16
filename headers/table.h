@@ -12,9 +12,6 @@
 #define MISSED -1
 #define NAME_LIMIT 50
 
-//tools:
-
-
 //main functions:
 void printNames();
 void printBattlefields();
@@ -25,8 +22,8 @@ void printTable();
 //functions definitions:
 void printTable()
 {
-    if (setting.theme==0) setTextColor(BLACK, WHITE2);
-    else setTextColor(WHITE2, BLACK);
+    if (setting.theme==0) system("color F0");
+    else system("color 0F");
     //printing players name:
     printNames();
 

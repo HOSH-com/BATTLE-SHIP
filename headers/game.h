@@ -2,7 +2,8 @@
 کتابخانۀ مورد استفاده برای انجام بازی 
 شامل:...
 - new game settings
-- start the new game and running the rounds
+- start the new game
+- resume the last unfinished game
 - end of the game
 
 */
@@ -11,7 +12,7 @@
 
 //main functions:
 void new_game_settings();
-void start_new_game();
+void start_game();
 void resume_game();
 void end_game();
 
@@ -111,7 +112,7 @@ void new_game_settings()
     setting.nRound++;
 }
 
-void start_new_game()
+void start_game()
 {
     int x, y, result;
     if (setting.theme==0) setTextColor(BLACK, WHITE2);
@@ -206,7 +207,7 @@ void start_new_game()
     }    
 }
 
-void resume_game()      /*the same start_new_game but without nRound=1 */
+void resume_game()      /*the same start_game but without nRound=1 */
 {
     int x, y, result;
     if (setting.theme==0) setTextColor(BLACK, WHITE2);
@@ -309,14 +310,16 @@ void end_game()
     //player1 wins:
     else if (player1.remaining_ship) 
     {
-        printf("%s WONNNNNNNNN!\n", player1.name); 
+        printf("PLAYER \"%s\" WONNNNNNNNN!...\n", player1.name); 
         setting.status = 0;
+        save_last_movement_or_last_round();
     }
     //player2 wins:
     else if (player2.remaining_ship) 
     {
-        printf("%s WONNNNNNNNN!\n", player2.name);    
+        printf("PLAYER \"%s\" WONNNNNNNNN!...\n", player2.name);    
         setting.status = 0;
+        save_last_movement_or_last_round();
     }
     
     sleep(3000);

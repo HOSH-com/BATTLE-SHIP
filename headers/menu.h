@@ -71,7 +71,7 @@ void resume()
     else        //if the last game was finished
     {
         clearScreen();
-        printf("\n\n\n          NOT FOUND ANY UNFINISHED GAME.\n          Returning to menu...\n");
+        printf("\n\n\n          NOT FOUND ANY UNFINISHED MATCH.\n          Returning to menu...\n");
         sleep(5000);
     }
 }
@@ -102,7 +102,9 @@ void new_game()
     case '1':
         {
             setting.status = 1;
-            FILE *ftemp = fopen("replay.dat", "wb");    //rmove the last game replay
+            FILE *ftemp = fopen("replay.dat", "wb");    //remove the last game replay
+            fclose(ftemp);
+            ftemp = fopen("continue.dat", "wb");    //remove the last game continue
             fclose(ftemp);
             new_game_settings();
             break;
@@ -110,7 +112,9 @@ void new_game()
     case '2':
         {
             setting.status = 1;
-            FILE *ftemp = fopen("replay.dat", "wb");    //rmove the last game replay
+            FILE *ftemp = fopen("replay.dat", "wb");    //remove the last game replay
+            fclose(ftemp);
+            ftemp = fopen("continue.dat", "wb");    //remove the last game continue
             fclose(ftemp);
             file_game_setting();
             break;
@@ -120,7 +124,7 @@ void new_game()
         break;
     }
 
-    start_new_game();
+    start_game();
     end_game();
 }
 
