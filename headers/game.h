@@ -116,11 +116,11 @@ void start_new_game()
     int x, y, result;
     if (setting.theme==0) setTextColor(BLACK, WHITE2);
     else setTextColor(WHITE2, BLACK);
-
     clearScreen();
     //start the new game:
     for (setting.nRound=1; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
     {
+        save_last_movement_or_last_round();                     
         file_save_round();
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):"); //2- get the shot coord.
@@ -200,7 +200,6 @@ void start_new_game()
                     player1.battlefield[x-1][y-1] = 0;
             }      
         }
-                             
     printf("..."); //delay and clearScreen after each round:
     sleep(5000);
     clearScreen();
@@ -217,6 +216,7 @@ void resume_game()      /*the same start_new_game but without nRound=1 */
     //start the new game:
     for (; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
     {
+        save_last_movement_or_last_round();                             
         file_save_round();
         printTable(); //1- show PRE-attack table status
         printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):"); //2- get the shot coord.
@@ -293,7 +293,6 @@ void resume_game()      /*the same start_new_game but without nRound=1 */
                     player1.battlefield[x-1][y-1] = 0;
             }      
         }
-                             
     printf("..."); //delay and clearScreen after each round:
     sleep(5000);
     clearScreen();
@@ -319,6 +318,6 @@ void end_game()
         printf("%s WONNNNNNNNN!\n", player2.name);    
         setting.status = 0;
     }
-
+    
     sleep(3000);
 }
