@@ -20,6 +20,7 @@ int nShip;
 
 void new_game_settings()
 {
+    clean_battlefields();
     clearScreen();
     //ingredients:
     int x, y, sizeofship=3;
@@ -186,7 +187,7 @@ void start_game()
             printTable();     //3- show AFTER-attack table status
             if (result==2)
             {
-                if (setting.nRound == 1)
+                if (setting.nRound%2 == 1)
                     printf("One of %s's ships sank!\n", player2.name);    //ship SANK
                 else
                     printf("One of %s's ships sank!\n", player1.name);    //ship SANK

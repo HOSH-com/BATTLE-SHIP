@@ -18,6 +18,7 @@ void read_last_movement_or_last_round();
 
 void file_game_setting()
 {   
+    clean_battlefields();
     clearScreen();
     int nShip, x, y, result, length;
     char form, temp[11];
@@ -151,6 +152,16 @@ void file_replay()
     fread(&setting, sizeof(GAME_SETTING), 1, freplay);
     fread(&player1, sizeof(PLAYERS_INFO), 1, freplay);
     fread(&player2, sizeof(PLAYERS_INFO), 1, freplay);
+
+    //check if there is not any recorded match:
+    if (setting.nRound == 0)
+    {
+        clearScreen();
+        printf("\n\n\n          THERE IS NOTHING TO BE REPLAYED.\n          Returning to menu...\n");
+        sleep(5000);
+        return;
+    }
+    
     printTable();
     printf("\n\nPrevious[P], Next[N], End[E], Back[ESCAPE]\n");
     do

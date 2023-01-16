@@ -275,12 +275,12 @@ void printRemainingShips()
 {
     printf("\n");       //1- seperating it from last function
 
-    printf(" remaining ships: %i", player1.remaining_ship);   //2- p1 remainings
+    printf(" Remaining ships: %i", player1.remaining_ship);   //2- p1 remainings
     for (int i = 0; i <3*(setting.size_of_area+1)-3; i++)       //3- empty spaces before p2
     {
         printf(" ");
     }  
-    printf("remaining ships: %i\n", player2.remaining_ship); //4- p2 remainings
+    printf("Remaining ships: %i\n", player2.remaining_ship); //4- p2 remainings
     for (int i = 0; i <6*(setting.size_of_area+1)+14 ; i++)         //5- seperating it from incomings 
     {
         printf("=");    

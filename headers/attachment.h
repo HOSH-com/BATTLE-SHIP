@@ -3,6 +3,7 @@ void clearScreen();
 void sleep(unsigned int mseconds);
 void setTextColor(int textColor, int backColor);
 int tedad_char(const char p1[]);
+void clean_battlefields();
 
 void clearScreen()
 {
@@ -32,4 +33,16 @@ int tedad_char(const char pName[])
         }
     }
     return -1;      //name limit exeeded ERROR (-1)
+}
+
+void clean_battlefields()
+{
+    int i, j;
+    for ( i = 0; i < 15; i++)
+        for ( j = 0; j < 15; j++)
+        {
+            player1.battlefield[i][j] = 0;
+            player2.battlefield[i][j] = 0;
+        }
+    
 }

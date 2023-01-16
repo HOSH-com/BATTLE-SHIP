@@ -111,9 +111,21 @@ int fire(int &xxx,int &yyy)
             save_last_movement_or_last_round();
             return -3;      //back to MENU (-3)
         }
-        else if(command=='2') //resume the game 
+        else if(command=='2') //continue the game 
         {
-            printf("Enter coordinates to shot ('row number' [SPACE] 'column')\n<IF YOU WANT TO ESC PRESS 0 0>:\n");
+            printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):"); 
+            if (setting.theme == 0)
+            {
+                setTextColor(GREY, WHITE2);
+                printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
+                setTextColor(BLACK, WHITE2);
+            }
+            else if (setting.theme == 1)
+            {
+                setTextColor(GREY, BLACK);
+                printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
+                setTextColor(WHITE2, BLACK);
+            }
             scanf("%i %i", &x, &y);
             X = x-1;
             Y = y-1;
