@@ -1,8 +1,13 @@
 #define MAX_COOR 20
+#define BLACK 0
+#define GREY 8
+#define WHITE1 7
+#define WHITE2 15
+#define BLUE 3
+#define RED 4
+#define ESC 27
 int sizeofship=3;
 
-int player1_ship_Coordinates[20][4] = {0};
-int player2_ship_Coordinates[20][4] = {0};
 struct PLAYERS_INFO
 {
     char name[21];
@@ -10,11 +15,19 @@ struct PLAYERS_INFO
     int remaining_ship;
     int battlefield[15][15];
     int ship_coordinates[MAX_COOR][4];
-}player1[100],player2[100];
+}player1,player2;
 struct GAME_SETTING
 {
     int size_of_area;
     int max_element;
     int max_repair;
     int nRound;
+    int theme=0; //*code 0 for white background and 1 for dark background
+    int status;
 }setting;
+
+struct LAST_ROUND
+{
+    struct GAME_SETTING setting;
+    struct PLAYERS_INFO player1, player2;
+};
