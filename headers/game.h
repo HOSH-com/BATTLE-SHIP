@@ -62,7 +62,6 @@ void new_game_settings()
     printf("Enter number of ships:\n");
     scanf("%i", &nShip);        //2- ship amounts
 
-    player1.remaining_ship=player1.number_of_ship=player2.remaining_ship=player2.number_of_ship= nShip;
     printf("...");
     sleep(3000);
     clearScreen();
