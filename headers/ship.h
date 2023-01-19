@@ -36,7 +36,7 @@ int remainingShips(int x, int y)
             int count=0;
             for (int j = 0; j < sizeofship ; j++)
             {
-                if(player2.battlefield[X][Y+j] < -999) count++;
+                if(player2.battlefield[X][Y+j] < -99) count++;
             }
             if (count+1==sizeofship) return -2;       //player2 ship sank (-2)
         }
@@ -46,7 +46,7 @@ int remainingShips(int x, int y)
             int count=0;
             for (int j = 0; j <sizeofship ; j++)
             {
-                if(player2.battlefield[X+j][Y] < -999) count++;
+                if(player2.battlefield[X+j][Y] < -99) count++;
             }
             if (count+1==sizeofship) return -2;       //player2 ship sank (-2)
         }
@@ -67,7 +67,7 @@ int remainingShips(int x, int y)
                 int count=0;
                 for (int j = 0; j <sizeofship ; j++)
                 {
-                    if(player1.battlefield[X][Y+j] < -999) count++;
+                    if(player1.battlefield[X][Y+j] < -99) count++;
                 }
                 
                 if (count+1==sizeofship) return -1;   //player1 ship sank (-1)
@@ -78,7 +78,7 @@ int remainingShips(int x, int y)
                 int count=0;
                 for (int j = 0; j <sizeofship ; j++)
                 {
-                    if(player1.battlefield[X+j][Y] < -999) count++;
+                    if(player1.battlefield[X+j][Y] < -99) count++;
                 }
                 
                 if (count+1==sizeofship) return -1;       //player1 ship sank (-1)
@@ -141,7 +141,7 @@ int fire(int &xxx,int &yyy)
     //attacker player1:
     if(setting.nRound%2==1)
     {
-        if (player2.battlefield[X][Y] > 999)
+        if (player2.battlefield[X][Y] > 99)
         {
             result = remainingShips(x,y);
             if (result<0) 
@@ -170,7 +170,7 @@ int fire(int &xxx,int &yyy)
     //attacker player2:
     else if(setting.nRound%2==0)
     {
-        if (player1.battlefield[X][Y] > 999)
+        if (player1.battlefield[X][Y] > 99)
         {
             result = remainingShips(x,y);
             if (result<0) 
@@ -324,11 +324,11 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
         {
             if (setting.nRound%2==1)
             {
-                player1.battlefield[x][y+i]=sizeofship*1000+0+shipname;
+                player1.battlefield[x][y+i]=100+shipname;
             }
             else if (setting.nRound%2==0)
             {
-                player2.battlefield[x][y+i]=sizeofship*1000+0+shipname;
+                player2.battlefield[x][y+i]=100+shipname;
             }
         }
         if (setting.nRound%2==1)
@@ -353,11 +353,11 @@ int put_ship(int shipname)//*shipname is the name of the ship like ship1 or ship
         {
             if (setting.nRound%2==1)
             {
-                player1.battlefield[x+i][y]=sizeofship*1000+100+shipname;
+                player1.battlefield[x+i][y]=100+shipname;
             }
             else if (setting.nRound%2==0)
             {
-                player2.battlefield[x+i][y]=sizeofship*1000+100+shipname;
+                player2.battlefield[x+i][y]=100+shipname;
             }
         }
         if (setting.nRound%2==1)

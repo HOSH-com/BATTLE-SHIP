@@ -47,7 +47,7 @@ void file_game_setting()
         {
             for (int j = 0; j < sizeofship; j++)
             {
-                player1.battlefield[x][y+j]=sizeofship*1000+0+i;
+                player1.battlefield[x][y+j]=100+i;
             }
            
             player1.ship_coordinates[i][0]=x;
@@ -60,7 +60,7 @@ void file_game_setting()
         {
             for (int j = 0; j < sizeofship; j++)
             {
-                player1.battlefield[x+j][y]=sizeofship*1000+100+i;
+                player1.battlefield[x+j][y]=100+i;
             }
             
             player1.ship_coordinates[i][0]=x;
@@ -87,7 +87,7 @@ void file_game_setting()
         {
             for (int j = 0; j < sizeofship; j++)
             {
-                player2.battlefield[x][y+j]=sizeofship*1000+0+i;
+                player2.battlefield[x][y+j]=100+i;
             }
            
             player2.ship_coordinates[i][0]=x;
@@ -101,7 +101,7 @@ void file_game_setting()
         {
             for (int j = 0; j < sizeofship; j++)
             {
-                player2.battlefield[x+j][y]=sizeofship*1000+100+i;
+                player2.battlefield[x+j][y]=100+i;
             }
             
             player2.ship_coordinates[i][0]=x;

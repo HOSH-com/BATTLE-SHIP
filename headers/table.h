@@ -124,8 +124,8 @@ void printBattlefields()
                     break;
 
                 default:
-                    if (player1.battlefield[i][j] >= 1000) printf("%c  ", 254);    //show SHIPS
-                    if (player1.battlefield[i][j] <= -1000) printf("X  ");     //show DAMAGED ships
+                    if (player1.battlefield[i][j] >= 100) printf("%c  ", 254);    //show SHIPS
+                    if (player1.battlefield[i][j] <= -100) printf("X  ");     //show DAMAGED ships
                     break;
                 }
             }
@@ -155,7 +155,7 @@ void printBattlefields()
                     break;
 
                 default:
-                    if (player2.battlefield[i][j] >= 1000)//DON'T show ships!
+                    if (player2.battlefield[i][j] >= 100)//DON'T show ships!
                     {
                         if(setting.theme==0)
                         {
@@ -170,7 +170,7 @@ void printBattlefields()
                             setTextColor(WHITE2,BLACK);
                         }
                     }
-                    if (player2.battlefield[i][j] <= -1000) printf("X  ");     //show DAMAGED ships 
+                    if (player2.battlefield[i][j] <= -100) printf("X  ");     //show DAMAGED ships 
                     break;
                 }
             }
@@ -219,7 +219,7 @@ void printBattlefields()
                     break;
 
                 default:
-                    if (player1.battlefield[i][j] >= 1000)
+                    if (player1.battlefield[i][j] >= 100)
                     {
                         if(setting.theme==0)
                         {
@@ -234,7 +234,7 @@ void printBattlefields()
                             setTextColor(WHITE2,BLACK);
                         }
                     }
-                    if (player1.battlefield[i][j] <= -1000) printf("X  ");     //show DAMAGED ships 
+                    if (player1.battlefield[i][j] <= -100) printf("X  ");     //show DAMAGED ships 
                     break;
                 }
             }
@@ -260,8 +260,8 @@ void printBattlefields()
                     break;
 
                 default:
-                    if (player2.battlefield[i][j] >= 1000) printf("%c  ", 254);    //show SHIPS
-                    if (player2.battlefield[i][j] <= -1000) printf("X  ");     //show DAMAGED ships 
+                    if (player2.battlefield[i][j] >= 100) printf("%c  ", 254);    //show SHIPS
+                    if (player2.battlefield[i][j] <= -100) printf("X  ");     //show DAMAGED ships 
                         break;
                 }
             }
