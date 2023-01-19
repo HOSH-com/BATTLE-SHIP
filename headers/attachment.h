@@ -4,6 +4,7 @@ void sleep(unsigned int mseconds);
 void setTextColor(int textColor, int backColor);
 int tedad_char(const char p1[]);
 void clean_battlefields();
+void intSwap(int &a, int &b);
 
 void clearScreen()
 {
@@ -45,4 +46,11 @@ void clean_battlefields()
             player2.battlefield[i][j] = 0;
         }
     
+}
+
+void intSwap(int &a, int &b)
+{
+    int temp = a;
+    a = b;
+    b = temp;
 }

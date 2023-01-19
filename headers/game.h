@@ -23,14 +23,15 @@ void new_game_settings()
     clean_battlefields();
     clearScreen();
     //ingredients:
-    int x, y, sizeofship=3;
-    int i, result;
+    int x, y, sizeofship, length, width, nShip;
+    int i, result, sw = 1, counter;
     char form;
     char trash[40];  
     
-    //in common settings:
+    //1- area size:
     printf("Please enter size of map (3-15):\n");
-    scanf("%i", &setting.size_of_area);     //1- area size
+    scanf("%i", &setting.size_of_area);    
+
     while (setting.size_of_area > 15 || setting.size_of_area < 3)  //check for ERROR
     {
         if (setting.theme==0)
@@ -51,38 +52,40 @@ void new_game_settings()
         }
         
     }
-    if (setting.theme==0)
-    {
-        setTextColor(BLACK, 15);
-    }
-    else
-    {
-        setTextColor(15,BLACK);
-    }
-    printf("Enter number of ships:\n");
-    scanf("%i", &nShip);        //2- ship amounts
+
+    //2- house amounts:
+    printf("Enter maximum number of houses for putting ships:\n"); 
+    scanf("%i", &setting.max_element);  
 
     printf("...");
     sleep(3000);
     clearScreen();
 
-    //player 1:
+    //3- player1 name:
     printf("<PLAYER 1>\n\n"
     "Enter player1 name:\n");
     scanf("%c", &trash[0]);     //getting ready for next "scanf"
     for (i = 0; player1.name[i-1] != '\n'; i++)   
     {
-        scanf("%c", &player1.name[i]);//3- player1 name
+        scanf("%c", &player1.name[i]);
     }
     player1.name[i-1] = 0;
 
-    setting.nRound = 1;
-    //put && check ship in area for player 1:
-    for(int i =0;i<nShip;i++)     
+    //4- player1 ships:
+    counter = 0; // for naming ships
+    turn = PLAYER1;
+
+    printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order." // player must put ship, at least, for once
+    "('%i' house(s) is left):\n", player1.remaining_element);
+    scanf("%i%i%i", &width, &length, &nShip);
+
+    for (int i = 0; i < nShip; ++i)
     {
-        printf("Enter ship position \"%i\" ('row' [SPACE] 'column' [SPACE] 'h/v'):\n", i+1);
-        put_ship(i);
+        put_ship(counter, length, width);
+        ++counter;
     }
+
+    while (sw);
     
     printf("Type something then press [ENTER] to continue:\n");
     scanf("%s",&trash);         //5- next player
@@ -105,7 +108,7 @@ void new_game_settings()
     for(int i =0;i<nShip;i++)       
     {
         printf("Enter ship position \"%i\" ('row' [SPACE] 'column' [SPACE] 'h/v'):\n", i+1);
-        put_ship(i);
+        //put_ship(i);
     }
     printf("...");
     sleep(5000);
@@ -214,7 +217,7 @@ void resume_game()      /*the same start_game but without nRound=1 */
     else setTextColor(WHITE2, BLACK);
 
     clearScreen();
-    //start the new game:
+    //start the new game:q
     for (; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
     {
         save_last_movement_or_last_round();                             
