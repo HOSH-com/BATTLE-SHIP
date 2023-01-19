@@ -320,6 +320,8 @@ int put_ship(int shipNumber, int length, int width)//*shipname is the name of th
         player1.ship_coordinates[shipNumber][2] = length;
         player1.ship_coordinates[shipNumber][3] = width;
         player1.ship_coordinates[shipNumber][4] = form;
+
+        ++player1.number_of_ship;
     }
 
     else
@@ -334,6 +336,8 @@ int put_ship(int shipNumber, int length, int width)//*shipname is the name of th
         player2.ship_coordinates[shipNumber][2] = length;
         player2.ship_coordinates[shipNumber][3] = width;
         player2.ship_coordinates[shipNumber][4] = form;
+
+        ++player2.number_of_ship;
     }
 
     return 0;       //NO problem (0)
