@@ -25,7 +25,7 @@ void new_game_settings() // for setting new game settings manually
 
     //ingredients:
     int x, y, length, width, nShip;
-    int i, result, sw = 1, counter;
+    int i, result, sw, counter;
     char form;
     char trash[40];  
     
@@ -91,6 +91,8 @@ void new_game_settings() // for setting new game settings manually
         ++counter;
     }
 
+    sw = 1;
+
     while (sw)
     {
         printf("If you are done, type '---', else type '$$$' then press [ENTER] to continue:\n");
@@ -150,7 +152,7 @@ void new_game_settings() // for setting new game settings manually
     printf("<PLAYER 2>\n\n"
     "Enter player2 name:\n");
     scanf("%c", &trash[0]);     // get ready for next "scanf"
-    
+
     for (i = 0; player2.name[i-1] != '\n'; i++)   
         scanf("%c", &player2.name[i]);
     
@@ -182,6 +184,8 @@ void new_game_settings() // for setting new game settings manually
         ++counter;
     }
 
+    sw = 1;
+
     while (sw)
     {
         printf("If you are done, type '---', else type '$$$' then press [ENTER] to continue:\n");
@@ -212,7 +216,7 @@ void new_game_settings() // for setting new game settings manually
             {
                 printError();
                 printf("House limit exeeded! You have only '%i' house(s) left.\n"
-                "Enter your ships 'size' (x in y) and 'number of them' again:\n", player1.remaining_element);
+                "Enter your ships 'size' (x in y) and 'number of them' again:\n", player2.remaining_element);
                 scanf("%i%i%i", &width, &length, &nShip);
             }
 
