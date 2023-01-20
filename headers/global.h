@@ -8,13 +8,19 @@
 #define ESC 27
 int sizeofship=3;
 
+enum Turn
+{
+    PLAYER1,
+    PLAYER2,
+}turn;
+
 struct PLAYERS_INFO
 {
     char name[21];
-    int remainig_element = 0;
-    int remainig_repair;
     int number_of_ship = 0;
-    int remaining_ship = 0;
+    int remaining_element;
+    int remaining_repair;
+    int remaining_ship;
     int battlefield[15][15] = {};
     int ship_coordinates[MAX_COOR][5];
 }player1,player2;

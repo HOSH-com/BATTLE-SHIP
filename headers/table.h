@@ -17,6 +17,7 @@ void printNames();
 void printBattlefields();
 void printRemainingShips();
 void printTable();
+void printPreview();
 
 
 //functions definitions:
@@ -246,17 +247,17 @@ void printBattlefields()
                 {
                 case NO_SHIP:
                     if(setting.theme==0)
-                        {
-                            setTextColor(BLUE,WHITE2);
-                            printf("~  "); 
-                            setTextColor(BLACK,WHITE2);
-                        }
-                        else if(setting.theme==1)
-                        {
-                            setTextColor(BLUE,BLACK);
-                            printf("~  "); 
-                            setTextColor(WHITE2,BLACK);
-                        }
+                    {
+                        setTextColor(BLUE,WHITE2);
+                        printf("~  "); 
+                        setTextColor(BLACK,WHITE2);
+                    }
+                    else if(setting.theme==1)
+                    {
+                        setTextColor(BLUE,BLACK);
+                        printf("~  "); 
+                        setTextColor(WHITE2,BLACK);
+                    }
                     break;
 
                 default:
@@ -287,4 +288,107 @@ void printRemainingShips()
     }
 
     printf("\nRound %i\n\n", setting.nRound); //6- next line and 5)...
+}
+
+
+
+void printPreview()
+{
+    puts(""); // next line
+    
+    // print col. numbers:
+    printf("   ");
+    
+    for (int i = 0; i < setting.size_of_area; ++i)
+        printf("%3i", i + 1);
+
+    puts(""); // next line
+
+
+
+    // print battlefield:
+    if (turn == PLAYER1)
+    {
+
+        for (int i = 0; i < setting.size_of_area; ++i)
+        {
+            printf("%3i", i + 1);
+
+            for (int j = 0; j < setting.size_of_area; ++j)
+            {
+                switch (player1.battlefield[i][j])
+                {
+                case NO_SHIP: // show sea
+                    if (setting.theme == 0)
+                    {
+                        setTextColor(BLUE, WHITE2);
+                        printf("%3c", '~');
+                        setTextColor(BLACK, WHITE2);
+                    }
+                    else if (setting.theme == 1)
+                    {
+                        setTextColor(BLUE, BLACK);
+                        printf("%3c", '~');
+                        setTextColor(WHITE2, BLACK);
+                    }
+                    break;
+
+                default: // show ships
+                    if (player1.battlefield[i][j] > 99) 
+                        printf("%3c", 254);
+                    
+                    break;
+                }
+
+            }
+
+            puts(""); // next line
+
+        }
+        
+    }
+
+    else if (turn == PLAYER2)
+    {
+
+        for (int i = 0; i < setting.size_of_area; ++i)
+        {
+            printf("%3i", i + 1);
+
+            for (int j = 0; j < setting.size_of_area; ++j)
+            {
+                switch (player2.battlefield[i][j])
+                {
+                case NO_SHIP: // show sea
+                    if (setting.theme == 0)
+                    {
+                        setTextColor(BLUE, WHITE2);
+                        printf("%3c", '~');
+                        setTextColor(BLACK, WHITE2);
+                    }
+                    else if (setting.theme == 1)
+                    {
+                        setTextColor(BLUE, BLACK);
+                        printf("%3c", '~');
+                        setTextColor(WHITE2, BLACK);
+                    }
+                    break;
+
+                default: // show ships
+                    if (player2.battlefield[i][j] > 99) 
+                        printf("%3c", 254);
+                    
+                    break;
+                }
+
+            }
+
+            puts(""); // next line
+
+        }
+        
+    }
+
+    puts("");
+
 }
