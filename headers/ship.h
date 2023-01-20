@@ -21,6 +21,61 @@ int fire(int &xxx, int &yyy);
 int check_ship(int x, int y, int length, int width);
 int put_ship(int number, int length, int width);
 
+int repair_ship()
+{
+
+    while(1)
+    {
+        printf("\nEnter coordinates to repair your ship ('row num' [SPACE] 'column num'):");
+        int x,y;
+        scanf("%d %d",&x,&y);
+        if (setting.nRound%2==1)
+        {
+            if (player1.battlefield[x-1][y-1]<0)
+            {
+                setting.nRound++;
+                if (remainingShips(x,y)<0)
+                {
+                    player1.remaining_ship++;
+                }
+                setting.nRound--;
+                player1.battlefield[x-1][y-1]*=-1;
+                return 0;
+            }
+            else if (player1.battlefield[x-1][y-1]==0)
+            {
+                printf("\nTHERE ISNT ANY SHIP HERE");
+            }
+            else if (player1.battlefield[x-1][y-1]>0)
+            {
+                printf("\nTHIS SHIP DIDNT GET ANY DAMAGE TO REPAIR");
+            }
+            
+        }
+        else
+        {
+            if (player2.battlefield[x-1][y-1]<0)
+            {
+                setting.nRound++;
+                if (remainingShips(x,y)<0)
+                {
+                    player2.remaining_ship++;
+                }
+                setting.nRound--;
+                player2.battlefield[x-1][y-1]*=-1;
+                return 0;
+            }
+            else if (player2.battlefield[x-1][y-1]==0)
+            {
+                printf("\nTHERE ISNT ANY SHIP HERE");
+            }
+            else if (player2.battlefield[x-1][y-1]>0)
+            {
+                printf("\nTHIS SHIP DIDNT GET ANY DAMAGE TO REPAIR");
+            }
+        }
+    }
+}
 int remainingShips(int x, int y)
 {
     //attacker player1:
@@ -29,29 +84,19 @@ int remainingShips(int x, int y)
         int shipName = player2.battlefield[x-1][y-1]%100;
         int X = player2.ship_coordinates[shipName][0]; 
         int Y = player2.ship_coordinates[shipName][1];
-        int sizeofship = player2.ship_coordinates[shipName][2];
-        int form = player2.ship_coordinates[shipName][3];
-        
-        //Hoizental:
-        if (form==0)
-        {
+        int tool = player2.ship_coordinates[shipName][2];
+        int arze = player2.ship_coordinates[shipName][3];
+        int form = player2.ship_coordinates[shipName][4];
+
             int count=0;
-            for (int j = 0; j < sizeofship ; j++)
+            for (int j = 0; j < arze; j++)
             {
-                if(player2.battlefield[X][Y+j] < -99) count++;
+                for (int i = 0; i < tool ; i++)
+                {
+                    if(player2.battlefield[X+j][Y+i] < -99) count++;
+                }
+                if (count+1==tool*arze) return -2;       //player2 ship sank (-2)    
             }
-            if (count+1==sizeofship) return -2;       //player2 ship sank (-2)
-        }
-        //Vertical:
-        else if (form==1)
-        {
-            int count=0;
-            for (int j = 0; j <sizeofship ; j++)
-            {
-                if(player2.battlefield[X+j][Y] < -99) count++;
-            }
-            if (count+1==sizeofship) return -2;       //player2 ship sank (-2)
-        }
     }
 
     //attacker player2:
@@ -60,30 +105,18 @@ int remainingShips(int x, int y)
         int shipName = player1.battlefield[x-1][y-1]%100;
         int X = player1.ship_coordinates[shipName][0];
         int Y = player1.ship_coordinates[shipName][1];
-        int sizeofship = player1.ship_coordinates[shipName][2];
-        int form = player1.ship_coordinates[shipName][3];
+        int tool = player1.ship_coordinates[shipName][2];
+        int arze = player1.ship_coordinates[shipName][3];
+        int form = player1.ship_coordinates[shipName][4];
         
-        //Horizental:
-        if (form==0)
+       int count=0;
+            for (int j = 0; j < arze; j++)
             {
-                int count=0;
-                for (int j = 0; j <sizeofship ; j++)
+                for (int i = 0; i < tool ; i++)
                 {
-                    if(player1.battlefield[X][Y+j] < -99) count++;
+                    if(player1.battlefield[X+j][Y+i] < -99) count++;
                 }
-                
-                if (count+1==sizeofship) return -1;   //player1 ship sank (-1)
-            }
-        //Vertical:
-        else if (form==1)
-            {
-                int count=0;
-                for (int j = 0; j <sizeofship ; j++)
-                {
-                    if(player1.battlefield[X+j][Y] < -99) count++;
-                }
-                
-                if (count+1==sizeofship) return -1;       //player1 ship sank (-1)
+                if (count+1==tool*arze) return -1;       //player2 ship sank (-2)    
             }
     }
     return 0;       //DIDN'T sank (0)
@@ -94,6 +127,25 @@ int fire(int &xxx,int &yyy)
     int result;
     int x,y;
     int command;
+
+    printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):"); //2- get the shot coord.
+
+    if (setting.theme == 0)
+    {
+        setTextColor(GREY, WHITE2);
+        printf("\n<IF YOU WANT TO EXIT, ENTER 0 0>");
+        if (setting.nRound!=1)
+        printf("\n<IF YOU WANT TO REPAIR YOUR SHIP, ENTER -1 -1>\n");
+        setTextColor(BLACK, WHITE2);
+    }
+    else if (setting.theme == 1)
+    {
+        setTextColor(GREY, BLACK);
+        printf("\n<IF YOU WANT TO EXIT, ENTER 0 0>");
+        if (setting.nRound!=1)
+        printf("\n<IF YOU WANT TO REPAIR YOUR SHIP, ENTER -1 -1>\n");
+        setTextColor(WHITE2, BLACK);
+    }
     
     scanf("%i %i", &x, &y);
     int X = x-1;
@@ -119,13 +171,17 @@ int fire(int &xxx,int &yyy)
             if (setting.theme == 0)
             {
                 setTextColor(GREY, WHITE2);
-                printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
+                printf("\n<IF YOU WANT TO EXIT, ENTER 0 0>");
+                if (setting.nRound!=1)
+                printf("\n<IF YOU WANT TO REPAIR YOUR SHIP, ENTER -1 -1>\n");
                 setTextColor(BLACK, WHITE2);
             }
             else if (setting.theme == 1)
             {
                 setTextColor(GREY, BLACK);
-                printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
+                printf("\n<IF YOU WANT TO EXIT, ENTER 0 0>");
+                if (setting.nRound!=1)
+                printf("\n<IF YOU WANT TO REPAIR YOUR SHIP, ENTER -1 -1>\n");
                 setTextColor(WHITE2, BLACK);
             }
             scanf("%i %i", &x, &y);
@@ -133,7 +189,23 @@ int fire(int &xxx,int &yyy)
             Y = y-1;
         }
     }
-    
+
+    if (x==-1 && y==-1 && setting.nRound!=1)
+    {
+        if (setting.nRound%2==1 && player1.repair!=0)
+        {
+            repair_ship();
+            player1.repair--;
+        }
+        else if (setting.nRound%2==0 && player2.repair!=0)
+        {
+            repair_ship();
+            player2.repair--;
+        }
+        else
+        printf("YOU DONT HAVE ANY REPAIR ITEM");
+        return 3;
+    }
 
     if (x>setting.size_of_area || x<1 || y>setting.size_of_area || y<1 )
     {
