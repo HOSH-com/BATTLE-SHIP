@@ -16,101 +16,251 @@ void start_game();
 void resume_game();
 void end_game();
 
-int nShip;
 
-void new_game_settings()
+
+void new_game_settings() // for setting new game settings manually
 {
     clean_battlefields();
     clearScreen();
+
     //ingredients:
-    int x, y, sizeofship=3;
-    int i, result;
+    int x, y, length, width, nShip;
+    int i, result, sw, counter;
     char form;
     char trash[40];  
     
-    //in common settings:
+
+
+    //1- area size:
     printf("Please enter size of map (3-15):\n");
-    scanf("%i", &setting.size_of_area);     //1- area size
-    while (setting.size_of_area > 15 || setting.size_of_area < 3)  //check for ERROR
+    scanf("%i", &setting.size_of_area);    
+
+    while (setting.size_of_area > 15 || setting.size_of_area < 3)  //check for error
     {
-        if (setting.theme==0)
-        {
-        setTextColor(RED, 15);
-        printf("ERROR: ");
-        setTextColor(BLACK, 15);
+        printError();
         printf("Enter size of map again (from 3 to 15):\n");
         scanf("%i", &setting.size_of_area);
-        }
-        else if (setting.theme==1)
-        {
-        setTextColor(RED,0);
-        printf("ERROR: ");
-        setTextColor(15,0);
-        printf("Enter size of map again (from 3 to 15):\n");
-        scanf("%i", &setting.size_of_area);
-        }
-        
     }
-    if (setting.theme==0)
-    {
-        setTextColor(BLACK, 15);
-    }
-    else
-    {
-        setTextColor(15,BLACK);
-    }
-    printf("Enter number of ships:\n");
-    scanf("%i", &nShip);        //2- ship amounts
+
+    //2- house amounts:
+    printf("Enter maximum number of houses for putting ships:\n"); 
+    scanf("%i", &setting.max_element);  
+    player1.remaining_element = player2.remaining_element = setting.max_element;
+
+
 
     printf("...");
     sleep(3000);
     clearScreen();
 
-    //player 1:
+
+
+    //3- player1 name:
     printf("<PLAYER 1>\n\n"
     "Enter player1 name:\n");
-    scanf("%c", &trash[0]);     //getting ready for next "scanf"
+    scanf("%c", &trash[0]);     // get ready for next "scanf"
+
     for (i = 0; player1.name[i-1] != '\n'; i++)   
-    {
-        scanf("%c", &player1.name[i]);//3- player1 name
-    }
+        scanf("%c", &player1.name[i]);
+    
     player1.name[i-1] = 0;
 
-    setting.nRound = 1;
-    //put && check ship in area for player 1:
-    for(int i =0;i<nShip;i++)     
+    //4- player1 ships:
+    counter = 0; // for naming ships
+    turn = PLAYER1;
+
+    printPreview();
+    printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order " // player must put ship, at least, once
+    "('%i' house(s) is left):\n", player1.remaining_element);
+    scanf("%i%i%i", &width, &length, &nShip);
+
+    while (width * length * nShip > player1.remaining_element) // check for error
     {
-        printf("Enter ship position \"%i\" ('row' [SPACE] 'column' [SPACE] 'h/v'):\n", i+1);
-        put_ship(i);
+        printError();
+        printf("House limit exeeded! You have only '%i' house(s) left.\n"
+        "Enter your ships 'size' (x in y) and 'number of them' again:\n", player1.remaining_element);
+        scanf("%i%i%i", &width, &length, &nShip);
+    }
+
+    player1.remaining_element -= width * length * nShip; // subtract used houses from remainings
+
+    for (int i = 0; i < nShip; ++i)
+    {
+        put_ship(counter, length, width);
+        printPreview();
+        ++counter;
+    }
+
+    sw = 1;
+
+    while (sw)
+    {
+        printf("If you are done, type '---', else type '$$$' then press [ENTER] to continue:\n");
+        result = 0;
+
+        do // make decision
+        {
+            scanf("%s", trash);
+
+            if (strcmp(trash, "$$$") == 0)
+                result = 1;
+
+            else if (strcmp(trash, "---") == 0)
+            {
+                result = 2;
+                sw = 0;
+            }    
+
+        } while (!result);
+
+        if (result == 1) // next ship placement
+        {
+            printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order "
+            "('%i' house(s) is left):\n", player1.remaining_element);
+            scanf("%i%i%i", &width, &length, &nShip);
+
+            while (width * length * nShip > player1.remaining_element) // check for error
+            {
+                printError();
+                printf("House limit exeeded! You have only '%i' house(s) left.\n"
+                "Enter your ships 'size' (x in y) and 'number of them' again:\n", player1.remaining_element);
+                scanf("%i%i%i", &width, &length, &nShip);
+            }
+
+            player1.remaining_element -= width * length * nShip; // subtract used houses from remainings
+
+            for (int i = 0; i < nShip; ++i)
+            {
+                put_ship(counter, length, width);
+                printPreview();
+                ++counter;
+            }
+
+        }
+        
     }
     
-    printf("Type something then press [ENTER] to continue:\n");
-    scanf("%s",&trash);         //5- next player
+    player1.remaining_ship = player1.number_of_ship;
+
+
+
     clearScreen();
 
-    //player 2:
+
+
+    // 5- player2 name:
     printf("<PLAYER 2>\n\n"
     "Enter player2 name:\n");
-    scanf("%c", &trash[0]);     //getting ready for next "scanf"
+    scanf("%c", &trash[0]);     // get ready for next "scanf"
 
-    for (i = 0; player2.name[i-1] != '\n'; i++)
-    {
-        scanf("%c", &player2.name[i]);    //6- player2 name
-    }
+    for (i = 0; player2.name[i-1] != '\n'; i++)   
+        scanf("%c", &player2.name[i]);
+    
     player2.name[i-1] = 0;
 
-    setting.nRound++;
+    // 6- player2 ships:
+    counter = 0; // for naming ships
+    turn = PLAYER2;
 
-    //put && check ship in area for player 2:
-    for(int i =0;i<nShip;i++)       
+    printPreview();
+    printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order " // player must put ship, at least, once
+    "('%i' house(s) is left):\n", player2.remaining_element);
+    scanf("%i%i%i", &width, &length, &nShip);
+
+    while (width * length * nShip > player2.remaining_element) // check for error
     {
-        printf("Enter ship position \"%i\" ('row' [SPACE] 'column' [SPACE] 'h/v'):\n", i+1);
-        put_ship(i);
+        printError();
+        printf("House limit exeeded! You have only '%i' house(s) left.\n"
+        "Enter your ships 'size' (x in y) and 'number of them' again:\n", player2.remaining_element);
+        scanf("%i%i%i", &width, &length, &nShip);
     }
+
+    player2.remaining_element -= width * length * nShip; // subtract used houses from remainings
+
+    for (int i = 0; i < nShip; ++i)
+    {
+        put_ship(counter, length, width);
+        printPreview();
+        ++counter;
+    }
+
+    sw = 1;
+
+    while (sw)
+    {
+        printf("If you are done, type '---', else type '$$$' then press [ENTER] to continue:\n");
+        result = 0;
+
+        do // make decision
+        {
+            scanf("%s", trash);
+
+            if (strcmp(trash, "$$$") == 0)
+                result = 1;
+
+            else if (strcmp(trash, "---") == 0)
+            {
+                result = 2;
+                sw = 0;
+            }    
+
+        } while (!result);
+
+        if (result == 1) // next ship placement
+        {
+            printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order "
+            "('%i' house(s) is left):\n", player2.remaining_element);
+            scanf("%i%i%i", &width, &length, &nShip);
+
+            while (width * length * nShip > player2.remaining_element) // check for error
+            {
+                printError();
+                printf("House limit exeeded! You have only '%i' house(s) left.\n"
+                "Enter your ships 'size' (x in y) and 'number of them' again:\n", player2.remaining_element);
+                scanf("%i%i%i", &width, &length, &nShip);
+            }
+
+            player2.remaining_element -= width * length * nShip; // subtract used houses from remainings
+
+            for (int i = 0; i < nShip; ++i)
+            {
+                put_ship(counter, length, width);
+                printPreview();
+                ++counter;
+            }
+            
+        }
+        
+    }
+
+    player2.remaining_ship = player2.number_of_ship;
+
+
+
+    clearScreen();
+
+
+    
+    // 7- number of repairs:
+    puts("Enter number of house repairs:");
+    scanf("%i", &setting.max_repair);
+
+    while (setting.max_repair < 0) // check for error
+    {
+        printError();
+        printf("Your input cannot be smaller than zero!\nEnter number of house repairs again:");
+        scanf("%i", &setting.max_repair);
+    }
+    
+    player1.remaining_repair = player2.remaining_repair = setting.max_repair;
+
+
+
     printf("...");
     sleep(5000);
-    setting.nRound++;
 }
+
+
 
 void start_game()
 {
@@ -214,7 +364,7 @@ void resume_game()      /*the same start_game but without nRound=1 */
     else setTextColor(WHITE2, BLACK);
 
     clearScreen();
-    //start the new game:
+    //start the new game:q
     for (; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
     {
         save_last_movement_or_last_round();                             

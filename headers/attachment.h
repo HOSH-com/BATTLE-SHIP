@@ -4,6 +4,8 @@ void sleep(unsigned int mseconds);
 void setTextColor(int textColor, int backColor);
 int tedad_char(const char p1[]);
 void clean_battlefields();
+void intSwap(int &a, int &b);
+void printError();
 
 void clearScreen()
 {
@@ -46,3 +48,26 @@ void clean_battlefields()
         }
     
 }
+
+void intSwap(int &a, int &b)
+{
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+void printError()
+{
+    if (setting.theme == 0)
+    {
+        setTextColor(RED, WHITE2);
+        printf("ERROR: ");
+        setTextColor(BLACK, WHITE2);
+    }
+    else if (setting.theme == 1)
+    {
+        setTextColor(RED, WHITE2);
+        printf("ERROR: ");
+        setTextColor(BLACK, WHITE2);
+    }
+}    
