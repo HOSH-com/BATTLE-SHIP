@@ -76,6 +76,9 @@ int repair_ship()
         }
     }
 }
+
+
+
 int remainingShips(int x, int y)
 {
     //attacker player1:
@@ -88,15 +91,15 @@ int remainingShips(int x, int y)
         int arze = player2.ship_coordinates[shipName][3];
         int form = player2.ship_coordinates[shipName][4];
 
-            int count=0;
-            for (int j = 0; j < arze; j++)
+        int count=0;
+        for (int j = 0; j < arze; j++)
+        {
+            for (int i = 0; i < tool ; i++)
             {
-                for (int i = 0; i < tool ; i++)
-                {
-                    if(player2.battlefield[X+j][Y+i] < -99) count++;
-                }
-                if (count+1==tool*arze) return -2;       //player2 ship sank (-2)    
+                if(player2.battlefield[X+j][Y+i] < -99) count++;
             }
+            if (count+1==tool*arze) return -2;       //player2 ship sank (-2)    
+        }
     }
 
     //attacker player2:
@@ -109,15 +112,15 @@ int remainingShips(int x, int y)
         int arze = player1.ship_coordinates[shipName][3];
         int form = player1.ship_coordinates[shipName][4];
         
-       int count=0;
-            for (int j = 0; j < arze; j++)
+        int count=0;
+        for (int j = 0; j < arze; j++)
+        {
+            for (int i = 0; i < tool ; i++)
             {
-                for (int i = 0; i < tool ; i++)
-                {
-                    if(player1.battlefield[X+j][Y+i] < -99) count++;
-                }
-                if (count+1==tool*arze) return -1;       //player2 ship sank (-2)    
+                if(player1.battlefield[X+j][Y+i] < -99) count++;
             }
+            if (count+1==tool*arze) return -1;       //player2 ship sank (-1)    
+        }
     }
     return 0;       //DIDN'T sank (0)
 }
@@ -192,18 +195,18 @@ int fire(int &xxx,int &yyy)
 
     if (x==-1 && y==-1 && setting.nRound!=1)
     {
-        if (setting.nRound%2==1 && player1.repair!=0)
+        if (setting.nRound%2==1 && player1.remaining_repair!=0)
         {
             repair_ship();
-            player1.repair--;
+            player1.remaining_repair--;
         }
-        else if (setting.nRound%2==0 && player2.repair!=0)
+        else if (setting.nRound%2==0 && player2.remaining_repair!=0)
         {
             repair_ship();
-            player2.repair--;
+            player2.remaining_repair--;
         }
-        else
-        printf("YOU DONT HAVE ANY REPAIR ITEM");
+        else if (!player2.remaining_repair || !player1.remaining_repair)
+            printf("YOU DONT HAVE ANY REPAIR ITEM");
         return 3;
     }
 
@@ -270,7 +273,7 @@ int fire(int &xxx,int &yyy)
             return -2;     //already damaged ERROR (-2)
         }
     }
-    return 3;           //EXTRA (3)
+    return 4;           //EXTRA (4)
 }
 
 
