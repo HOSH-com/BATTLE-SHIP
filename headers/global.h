@@ -11,8 +11,8 @@ int sizeofship=3;
 struct PLAYERS_INFO
 {
     char name[21];
-    int element = 0;
-    int repair;
+    int remainig_element = 0;
+    int remainig_repair;
     int number_of_ship = 0;
     int remaining_ship = 0;
     int battlefield[15][15] = {};

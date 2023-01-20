@@ -124,19 +124,7 @@ void start_game()
         save_last_movement_or_last_round();                     
         file_save_round();
         printTable(); //1- show PRE-attack table status
-        printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):"); //2- get the shot coord.
-        if (setting.theme == 0)
-        {
-            setTextColor(GREY, WHITE2);
-            printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
-            setTextColor(BLACK, WHITE2);
-        }
-        else if (setting.theme == 1)
-        {
-            setTextColor(GREY, BLACK);
-            printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
-            setTextColor(WHITE2, BLACK);
-        }
+        
         result = fire(x,y);
 
         while (result < 0)   //check for ERRORS
@@ -179,7 +167,7 @@ void start_game()
             result = fire(x,y);
         }
 
-        if (result == 0 || result == 1 || result==2)     //it's OK
+        if (result == 0 || result == 1 || result==2 || result==3)     //it's OK
         {
             clearScreen();
             file_save_round();
@@ -199,7 +187,11 @@ void start_game()
                 }
                 else
                     player1.battlefield[x-1][y-1] = 0;
-            }      
+            }
+            else if (result==3)//ship repaired
+            {
+                printf("\nyour ship repaired\n");
+            }
         }
     printf("..."); //delay and clearScreen after each round:
     sleep(5000);
