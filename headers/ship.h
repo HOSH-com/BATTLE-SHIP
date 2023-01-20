@@ -205,17 +205,23 @@ int fire(int &xxx,int &yyy)
 
 int check_ship(int x, int y, int length, int width)
 {    
+    ++x;
+    ++y;
+
     // check range limit:
     if ((y + (length - 1) > setting.size_of_area) || (x + (width - 1) > setting.size_of_area))
     {
         return -2; // ship out of range ERROR (-2)
     }
 
+    --x;
+    --y;
+
     // check ship existance:
     if (turn == PLAYER1)
     {
-        for (int i = x; i <= width + x; ++i)
-            for (int j = y; j <= length + y; ++j)
+        for (int i = x; i < width + x; ++i)
+            for (int j = y; j < length + y; ++j)
                 if (player1.battlefield[i][j] > 99)
                 {
                     return -1; // ship existance ERROR (-1)
@@ -224,8 +230,8 @@ int check_ship(int x, int y, int length, int width)
 
     else
     {
-        for (int i = x; i <= width + x; ++i)
-            for (int j = y; j <= length + y; ++j)
+        for (int i = x; i < width + x; ++i)
+            for (int j = y; j < length + y; ++j)
                 if (player2.battlefield[i][j] > 99)
                 {
                     return -1; // ship existance ERROR (-1)
@@ -288,8 +294,8 @@ int put_ship(int shipNumber, int length, int width)//*shipname is the name of th
     // put ships in battlefield:
     if (turn == PLAYER1)
     {
-        for (int i = x; i <= width + x; ++i)
-            for (int j = y; j <= length + y; ++j)
+        for (int i = x; i < width + x; ++i)
+            for (int j = y; j < length + y; ++j)
                 player1.battlefield[i][j] = 100 + shipNumber; 
 
         // initialize ship coor. array:
@@ -304,8 +310,8 @@ int put_ship(int shipNumber, int length, int width)//*shipname is the name of th
 
     else if (turn == PLAYER2)
     {
-        for (int i = x; i <= width + x; ++i)
-            for (int j = y; j <= length + y; ++j)
+        for (int i = x; i < width + x; ++i)
+            for (int j = y; j < length + y; ++j)
                 player2.battlefield[i][j] = 100 + shipNumber;  
                 
         // initialize ship coor. array:

@@ -59,16 +59,17 @@ void new_game_settings() // for setting new game settings manually
     printf("<PLAYER 1>\n\n"
     "Enter player1 name:\n");
     scanf("%c", &trash[0]);     // get ready for next "scanf"
+
     for (i = 0; player1.name[i-1] != '\n'; i++)   
-    {
         scanf("%c", &player1.name[i]);
-    }
+    
     player1.name[i-1] = 0;
 
     //4- player1 ships:
     counter = 0; // for naming ships
     turn = PLAYER1;
 
+    printPreview();
     printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order " // player must put ship, at least, once
     "('%i' house(s) is left):\n", player1.remaining_element);
     scanf("%i%i%i", &width, &length, &nShip);
@@ -86,6 +87,7 @@ void new_game_settings() // for setting new game settings manually
     for (int i = 0; i < nShip; ++i)
     {
         put_ship(counter, length, width);
+        printPreview();
         ++counter;
     }
 
@@ -128,6 +130,7 @@ void new_game_settings() // for setting new game settings manually
             for (int i = 0; i < nShip; ++i)
             {
                 put_ship(counter, length, width);
+                printPreview();
                 ++counter;
             }
 
@@ -147,16 +150,17 @@ void new_game_settings() // for setting new game settings manually
     printf("<PLAYER 2>\n\n"
     "Enter player2 name:\n");
     scanf("%c", &trash[0]);     // get ready for next "scanf"
+    
     for (i = 0; player2.name[i-1] != '\n'; i++)   
-    {
         scanf("%c", &player2.name[i]);
-    }
+    
     player2.name[i-1] = 0;
 
     // 6- player2 ships:
     counter = 0; // for naming ships
     turn = PLAYER2;
 
+    printPreview();
     printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order " // player must put ship, at least, once
     "('%i' house(s) is left):\n", player2.remaining_element);
     scanf("%i%i%i", &width, &length, &nShip);
@@ -174,6 +178,7 @@ void new_game_settings() // for setting new game settings manually
     for (int i = 0; i < nShip; ++i)
     {
         put_ship(counter, length, width);
+        printPreview();
         ++counter;
     }
 
@@ -216,6 +221,7 @@ void new_game_settings() // for setting new game settings manually
             for (int i = 0; i < nShip; ++i)
             {
                 put_ship(counter, length, width);
+                printPreview();
                 ++counter;
             }
             
