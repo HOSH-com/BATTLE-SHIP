@@ -214,8 +214,8 @@ int check_ship(int x, int y, int length, int width)
     // check ship existance:
     if (turn == PLAYER1)
     {
-        for (int i = 0; i < width; ++i)
-            for (int j = 0; j < length; ++j)
+        for (int i = x; i <= width + x; ++i)
+            for (int j = y; j <= length + y; ++j)
                 if (player1.battlefield[i][j] > 99)
                 {
                     return -1; // ship existance ERROR (-1)
@@ -224,8 +224,8 @@ int check_ship(int x, int y, int length, int width)
 
     else
     {
-        for (int i = 0; i < width; ++i)
-            for (int j = 0; j < length; ++j)
+        for (int i = x; i <= width + x; ++i)
+            for (int j = y; j <= length + y; ++j)
                 if (player2.battlefield[i][j] > 99)
                 {
                     return -1; // ship existance ERROR (-1)
@@ -265,38 +265,16 @@ int put_ship(int shipNumber, int length, int width)//*shipname is the name of th
 
         if (result == -1 || result == -2)  
         {
-            if(result == -1)
+            if (result == -1)
             {
-                if (setting.theme==0)
-                {
-                setTextColor(RED, 15);
-                printf("ERROR: ");
-                setTextColor(BLACK, 15);
-                }
-                else
-                {
-                setTextColor(RED, BLACK);
-                printf("ERROR: ");
-                setTextColor(WHITE2,BLACK);
-                }
+                printError();
                 printf("Ship exists in this area.\n"
                 "Place ship number '%i' again ('row' [SPACE] 'column' [SPACE] 'h/v form'):\n", shipNumber + 1);
             }
 
-            else if(result == -2)
+            else if (result == -2)
             {
-                if (setting.theme==0)
-                {
-                setTextColor(RED, WHITE2);
-                printf("ERROR: ");
-                setTextColor(BLACK, WHITE2);
-                }
-                else
-                {
-                setTextColor(RED, BLACK);
-                printf("ERROR: ");
-                setTextColor(WHITE2,BLACK);
-                }
+                printError();
                 printf("The ship is out of the range (the area is %ix%i).\n"
                 "Place ship number '%i' again ('row' [SPACE] 'column' [SPACE] 'h/v form'):\n", setting.size_of_area, setting.size_of_area, shipNumber + 1);
             }
@@ -310,8 +288,8 @@ int put_ship(int shipNumber, int length, int width)//*shipname is the name of th
     // put ships in battlefield:
     if (turn == PLAYER1)
     {
-        for (int i = 0; i < width; ++i)
-            for (int j = 0; j < length; ++j)
+        for (int i = x; i <= width + x; ++i)
+            for (int j = y; j <= length + y; ++j)
                 player1.battlefield[i][j] = 100 + shipNumber; 
 
         // initialize ship coor. array:
@@ -324,11 +302,11 @@ int put_ship(int shipNumber, int length, int width)//*shipname is the name of th
         ++player1.number_of_ship;
     }
 
-    else
+    else if (turn == PLAYER2)
     {
-        for (int i = 0; i < width; ++i)
-            for (int j = 0; j < length; ++j)
-                player2.battlefield[i][j] = 100 + shipNumber; 
+        for (int i = x; i <= width + x; ++i)
+            for (int j = y; j <= length + y; ++j)
+                player2.battlefield[i][j] = 100 + shipNumber;  
                 
         // initialize ship coor. array:
         player2.ship_coordinates[shipNumber][0] = x;
