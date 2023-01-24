@@ -26,26 +26,38 @@ void new_game_settings() // for setting new game settings manually
     //ingredients:
     int x, y, length, width, nShip;
     int i, result, sw, counter;
-    char form;
-    char trash[40];  
+    char str[100] , *strPtr;
+    char form;  
     
 
 
     //1- area size:
     printf("Please enter size of map (3-15):\n");
-    scanf("%i", &setting.size_of_area);    
+    fgets(str, 100, stdin);
+    setting.size_of_area = strtol(str, &strPtr, 0);   
 
-    while (setting.size_of_area > 15 || setting.size_of_area < 3)  //check for error
+    while (setting.size_of_area > 15 || setting.size_of_area < 3) // check for error
     {
         printError();
         printf("Enter size of map again (from 3 to 15):\n");
-        scanf("%i", &setting.size_of_area);
+        fgets(str, 100, stdin);
+        setting.size_of_area = strtol(str, &strPtr, 0);    
     }
 
     //2- house amounts:
     printf("Enter maximum number of houses for putting ships:\n"); 
-    scanf("%i", &setting.max_element);  
-    player1.remaining_element = player2.remaining_element = setting.max_element;
+    fgets(str, 100, stdin);
+    setting.max_element = strtol(str, &strPtr, 0);
+
+    while (!(setting.max_element > 0 && setting.max_element <= setting.size_of_area * setting.size_of_area / 2)) // check for error
+    {
+        printError();
+        printf("Enter maximum number of houses again (from 1 to %i):\n", setting.size_of_area * setting.size_of_area / 2);
+        fgets(str, 100, stdin);
+        setting.max_element = strtol(str, &strPtr, 0);
+    }
+    
+    player1.remaining_element = player2.remaining_element = setting.max_element; // initializing
 
 
 
@@ -58,8 +70,7 @@ void new_game_settings() // for setting new game settings manually
     //3- player1 name:
     printf("<PLAYER 1>\n\n"
     "Enter player1 name:\n");
-    scanf("%c", &trash[0]);     // get ready for next "scanf"
-
+    scanf("%c", &str[0]);     // get ready for next "scanf"
     fgets(player1.name, 21, stdin);
     player1.name[strlen(player1.name - 2)] = 0; // remove \n
 
@@ -98,12 +109,12 @@ void new_game_settings() // for setting new game settings manually
 
         do // make decision
         {
-            scanf("%s", trash);
+            scanf("%s", str);
 
-            if (strcmp(trash, "$$$") == 0)
+            if (strcmp(str, "$$$") == 0)
                 result = 1;
 
-            else if (strcmp(trash, "---") == 0)
+            else if (strcmp(str, "---") == 0)
             {
                 result = 2;
                 sw = 0;
@@ -149,8 +160,7 @@ void new_game_settings() // for setting new game settings manually
     // 5- player2 name:
     printf("<PLAYER 2>\n\n"
     "Enter player2 name:\n");
-    scanf("%c", &trash[0]);     // get ready for next "scanf"
-
+    scanf("%c", &str[0]);     // get ready for next "scanf"
     fgets(player2.name, 21, stdin);
     player2.name[strlen(player1.name - 2)] = 0; // remove \n
 
@@ -189,12 +199,12 @@ void new_game_settings() // for setting new game settings manually
 
         do // make decision
         {
-            scanf("%s", trash);
+            scanf("%s", str);
 
-            if (strcmp(trash, "$$$") == 0)
+            if (strcmp(str, "$$$") == 0)
                 result = 1;
 
-            else if (strcmp(trash, "---") == 0)
+            else if (strcmp(str, "---") == 0)
             {
                 result = 2;
                 sw = 0;
