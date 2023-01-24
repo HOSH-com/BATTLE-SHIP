@@ -60,10 +60,8 @@ void new_game_settings() // for setting new game settings manually
     "Enter player1 name:\n");
     scanf("%c", &trash[0]);     // get ready for next "scanf"
 
-    for (i = 0; player1.name[i-1] != '\n'; i++)   
-        scanf("%c", &player1.name[i]);
-    
-    player1.name[i-1] = 0;
+    fgets(player1.name, 21, stdin);
+    player1.name[strlen(player1.name - 2)] = 0; // remove \n
 
     //4- player1 ships:
     counter = 0; // for naming ships
@@ -153,10 +151,8 @@ void new_game_settings() // for setting new game settings manually
     "Enter player2 name:\n");
     scanf("%c", &trash[0]);     // get ready for next "scanf"
 
-    for (i = 0; player2.name[i-1] != '\n'; i++)   
-        scanf("%c", &player2.name[i]);
-    
-    player2.name[i-1] = 0;
+    fgets(player2.name, 21, stdin);
+    player2.name[strlen(player1.name - 2)] = 0; // remove \n
 
     // 6- player2 ships:
     counter = 0; // for naming ships
@@ -343,11 +339,13 @@ void start_game()
                 printf("\nyour ship repaired\n");
             }
         }
-    printf("..."); //delay and clearScreen after each round:
-    sleep(5000);
-    clearScreen();
+        printf("..."); //delay and clearScreen after each round:
+        sleep(5000);
+        clearScreen();
     }    
 }
+
+
 
 void resume_game()      /*the same start_game but without nRound=1 */
 {
@@ -356,7 +354,7 @@ void resume_game()      /*the same start_game but without nRound=1 */
     else setTextColor(WHITE2, BLACK);
 
     clearScreen();
-    //start the new game:q
+    //start the new game:
     for (; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
     {
         save_last_movement_or_last_round();                             
@@ -466,3 +464,5 @@ void end_game()
     
     sleep(3000);
 }
+
+
