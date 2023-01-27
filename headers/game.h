@@ -312,12 +312,11 @@ void start_game()
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
             else if (result == -3) return;      //back to MENU
-            printf("Enter your shot again('row number' [SPACE] 'column'):\n");
-
+            
             result = fire(x,y);
         }
 
-        if (result == 0 || result == 1 || result==2 || result==3)     //it's OK
+        if (result == 0 || result == 1 || result==2 || result==3 ||result==4)     //it's OK
         {
             clearScreen();
             file_save_round();
@@ -341,6 +340,14 @@ void start_game()
             else if (result==3)//ship repaired
             {
                 printf("\nyour ship repaired\n");
+            }
+            else if (result==4)
+            {
+                printf("YOU DONT HAVE ANY REPAIR ITEM\n");
+                sleep(1000);
+                setting.nRound--;
+                clearScreen();
+                continue;
             }
         }
     printf("..."); //delay and clearScreen after each round:
