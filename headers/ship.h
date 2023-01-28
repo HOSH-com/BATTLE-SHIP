@@ -99,7 +99,7 @@ int remainingShips(int x, int y)
             {
                 if(player2.battlefield[X+j][Y+i] < -99) count++;
             }
-            if (count+1==tool*arze) return -2;       //player2 ship sank (-2)    
+            if (count==tool*arze) return -2;       //player2 ship sank (-2)    
         }
     }
 
@@ -120,7 +120,7 @@ int remainingShips(int x, int y)
             {
                 if(player1.battlefield[X+j][Y+i] < -99) count++;
             }
-            if (count+1==tool*arze) return -1;       //player1 ship sank (-1)    
+            if (count==tool*arze) return -1;       //player1 ship sank (-1)    
         }
     }
     return 0;       //DIDN'T sank (0)
@@ -197,14 +197,13 @@ int fire(int &xxx,int &yyy)
     {
         if (player2.battlefield[X][Y] > 99)
         {
+            player2.battlefield[X][Y]=player2.battlefield[X][Y]*(-1);
             result = remainingShips(x,y);
             if (result<0) 
             {
                 player2.remaining_ship --;
-                player2.battlefield[X][Y]=player2.battlefield[X][Y]*(-1);
                 return 2;   //ship SANK (2)
             }
-            player2.battlefield[X][Y]=player2.battlefield[X][Y]*(-1);
             return 1;        //got shot (1)
         }
         
@@ -226,14 +225,13 @@ int fire(int &xxx,int &yyy)
     {
         if (player1.battlefield[X][Y] > 99)
         {
+            player1.battlefield[X][Y]=player1.battlefield[X][Y]*(-1);
             result = remainingShips(x,y);
             if (result<0) 
             {
                 player1.remaining_ship --;
-                player1.battlefield[X][Y]=player1.battlefield[X][Y]*(-1);
                 return 2;   //ship SANK (2)
             }
-            player1.battlefield[X][Y]=player1.battlefield[X][Y]*(-1);
             return 1;        //got shot (1)
         }
         

@@ -340,7 +340,7 @@ void start_game()
             else if (result==4)
             {
                 printf("YOU DONT HAVE ANY REPAIR ITEM\n");
-                sleep(1000);
+                sleep(3000);
                 setting.nRound--;
                 clearScreen();
                 continue;
