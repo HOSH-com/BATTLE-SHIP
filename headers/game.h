@@ -60,8 +60,10 @@ void new_game_settings() // for setting new game settings manually
     "Enter player1 name:\n");
     scanf("%c", &trash[0]);     // get ready for next "scanf"
 
-    fgets(player1.name, 21, stdin);
-    player1.name[strlen(player1.name - 2)] = 0; // remove \n
+    for (i = 0; player1.name[i-1] != '\n'; i++)   
+        scanf("%c", &player1.name[i]);
+    
+    player1.name[i-1] = 0;
 
     //4- player1 ships:
     counter = 0; // for naming ships
@@ -151,8 +153,10 @@ void new_game_settings() // for setting new game settings manually
     "Enter player2 name:\n");
     scanf("%c", &trash[0]);     // get ready for next "scanf"
 
-    fgets(player2.name, 21, stdin);
-    player2.name[strlen(player1.name - 2)] = 0; // remove \n
+    for (i = 0; player2.name[i-1] != '\n'; i++)   
+        scanf("%c", &player2.name[i]);
+    
+    player2.name[i-1] = 0;
 
     // 6- player2 ships:
     counter = 0; // for naming ships
@@ -447,6 +451,8 @@ void resume_game()      /*the same start_game but without nRound=1 */
     }     
 }
 
+
+
 void end_game()
 {
     if (setting.theme==0) setTextColor(BLACK, WHITE2);
@@ -455,19 +461,21 @@ void end_game()
     if (player1.remaining_ship && player2.remaining_ship)
         printf("Returning to menu...\n");
     //player1 wins:
-    else if (player1.remaining_ship) 
+    else if (player1.remaining_ship && !player2.remaining_ship) 
     {
         printf("PLAYER \"%s\" WONNNNNNNNN!...\n", player1.name); 
         setting.status = 0;
         save_last_movement_or_last_round();
     }
     //player2 wins:
-    else if (player2.remaining_ship) 
+    else if (player2.remaining_ship && !player1.remaining_ship) 
     {
         printf("PLAYER \"%s\" WONNNNNNNNN!...\n", player2.name);    
         setting.status = 0;
         save_last_movement_or_last_round();
     }
+
+    else exit (EXIT_FAILURE);
     
     sleep(3000);
 }

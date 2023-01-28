@@ -21,6 +21,9 @@ int fire(int &xxx, int &yyy);
 int check_ship(int x, int y, int length, int width);
 int put_ship(int number, int length, int width);
 int exit(int &x,int &y);
+int repair_ship();
+
+
 
 int repair_ship()
 {
@@ -35,7 +38,7 @@ int repair_ship()
             if (player1.battlefield[x-1][y-1]<0)
             {
                 setting.nRound++;
-                if (remainingShips(x,y)<0)
+                if (remainingShips(x,y)<0) // if the ship was sunk
                 {
                     player1.remaining_ship++;
                 }
@@ -125,6 +128,8 @@ int remainingShips(int x, int y)
     }
     return 0;       //DIDN'T sank (0)
 }
+
+
 
 int fire(int &xxx,int &yyy)
 {       
@@ -249,6 +254,7 @@ int fire(int &xxx,int &yyy)
         }
     }
 
+    return 4; // extra
 }
 
 
@@ -376,6 +382,9 @@ int put_ship(int shipNumber, int length, int width)//*shipname is the name of th
 
     return 0;       //NO problem (0)
 }
+
+
+
 int  exit(int &x,int &y)
 {
      int command;
@@ -416,4 +425,5 @@ int  exit(int &x,int &y)
         }
     }
 
+    return 0; // extra
 }
