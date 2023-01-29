@@ -14,7 +14,7 @@ void menu()
     {
         clearScreen();
         char choice;
-        if (setting.theme==0) system("color F0"); //apply the default theme
+        if (theme == 0) system("color F0"); //apply the default theme
         else system("color 0F");
 
         printf(
@@ -79,7 +79,7 @@ void resume()
 void new_game()
 {
     clearScreen();
-    if (setting.theme==0) system("color F0");
+    if (theme == 0) system("color F0");
     else system("color 0F");
     char mode;
     
@@ -135,14 +135,14 @@ void replay()
 
 void change_theme()     /*کد تغییر زمینه */
 {
-    if (setting.theme==0)       //if white, change it to black
+    if (theme == 0)       //if white, change it to black
     {
-        setting.theme = 1;
+        theme = 1;
         system("color 0F");
     }
     else                        //if black, change it to white
     {
-        setting.theme = 0;
+        theme = 0;
         system("color F0");
     }
 }

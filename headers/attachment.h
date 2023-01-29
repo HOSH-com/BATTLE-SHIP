@@ -58,16 +58,16 @@ void intSwap(int &a, int &b)
 
 void printError()
 {
-    if (setting.theme == 0)
+    if (theme == 0)
     {
         setTextColor(RED, WHITE2);
         printf("ERROR: ");
         setTextColor(BLACK, WHITE2);
     }
-    else if (setting.theme == 1)
+    else if (theme == 1)
     {
-        setTextColor(RED, WHITE2);
+        setTextColor(RED, BLACK);
         printf("ERROR: ");
-        setTextColor(BLACK, WHITE2);
+        setTextColor(WHITE2, BLACK);
     }
 }    

@@ -139,7 +139,7 @@ int fire(int &xxx,int &yyy)
 
     printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):\n"); //2- get the shot coord.
 
-    if (setting.theme == 0)
+    if (theme == 0)
     {
         setTextColor(GREY, WHITE2);
         printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
@@ -147,7 +147,7 @@ int fire(int &xxx,int &yyy)
         printf("<IF YOU WANT TO REPAIR YOUR SHIP, ENTER -1 -1>\n");
         setTextColor(BLACK, WHITE2);
     }
-    else if (setting.theme == 1)
+    else if (theme == 1)
     {
         setTextColor(GREY, BLACK);
         printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
@@ -405,7 +405,7 @@ int  exit(int &x,int &y)
         else if(command=='2') //continue the game 
         {
             printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):\n"); 
-            if (setting.theme == 0)
+            if (theme == 0)
             {
                 setTextColor(GREY, WHITE2);
                 printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
@@ -413,7 +413,7 @@ int  exit(int &x,int &y)
                 printf("<IF YOU WANT TO REPAIR YOUR SHIP, ENTER -1 -1>\n");
                 setTextColor(BLACK, WHITE2);
             }
-            else if (setting.theme == 1)
+            else if (theme == 1)
             {
                 setTextColor(GREY, BLACK);
                 printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");

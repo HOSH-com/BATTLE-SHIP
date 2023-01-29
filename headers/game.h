@@ -41,7 +41,8 @@ void new_game_settings() // for setting new game settings manually
     {
         printError();
         printf("Enter size of map again (from 3 to 15):\n");
-        scanf("%i", &setting.size_of_area);
+        fgets(str, 100, stdin);
+        setting.size_of_area = strtol(str, &strPtr, 0);
     }
 
     //2- house amounts:
@@ -277,7 +278,7 @@ void new_game_settings() // for setting new game settings manually
 void start_game()
 {
     int x, y, result, doSave = 1;
-    if (setting.theme==0) setTextColor(BLACK, WHITE2);
+    if (theme == 0) setTextColor(BLACK, WHITE2);
     else setTextColor(WHITE2, BLACK);
     clearScreen();
     
@@ -291,38 +292,16 @@ void start_game()
         
         result = fire(x,y);
 
-        while (result < 0)   //check for ERRORS
+        while (result < 0)   //check for ERRORS or exit
         {
             if (result == -2)
             {
-                if (setting.theme==0)
-                {
-                    setTextColor(RED, WHITE2);
-                    printf("ERROR: ");
-                    setTextColor(BLACK, WHITE2);
-                }
-                else
-                {
-                    setTextColor(RED, BLACK);
-                    printf("ERROR: ");
-                    setTextColor(WHITE2,BLACK);
-                }
+                printError();
                 printf("The ship in this area is damaged already.\n");
             }
             else if (result == -1)
             {
-                if (setting.theme==0)
-                {
-                    setTextColor(RED, WHITE2);
-                    printf("ERROR: ");
-                    setTextColor(BLACK, WHITE2);
-                }
-                else
-                {
-                    setTextColor(RED, BLACK);
-                    printf("ERROR: ");
-                    setTextColor(WHITE2,BLACK);
-                }
+                printError();
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
             else if (result == -3) return;      //back to MENU
@@ -384,7 +363,7 @@ void start_game()
 void resume_game()      /*the same start_game but without nRound=1 and an exception for file_save_round*/
 {
     int x, y, result, doSave = 0;
-    if (setting.theme==0) setTextColor(BLACK, WHITE2);
+    if (theme == 0) setTextColor(BLACK, WHITE2);
     else setTextColor(WHITE2, BLACK);
     clearScreen();
 
@@ -402,34 +381,12 @@ void resume_game()      /*the same start_game but without nRound=1 and an except
         {
             if (result == -2)
             {
-                if (setting.theme==0)
-                {
-                    setTextColor(RED, WHITE2);
-                    printf("ERROR: ");
-                    setTextColor(BLACK, WHITE2);
-                }
-                else
-                {
-                    setTextColor(RED, BLACK);
-                    printf("ERROR: ");
-                    setTextColor(WHITE2,BLACK);
-                }
+                printError();
                 printf("The ship in this area is damaged already.\n");
             }
             else if (result == -1)
             {
-                if (setting.theme==0)
-                {
-                    setTextColor(RED, WHITE2);
-                    printf("ERROR: ");
-                    setTextColor(BLACK, WHITE2);
-                }
-                else
-                {
-                    setTextColor(RED, BLACK);
-                    printf("ERROR: ");
-                    setTextColor(WHITE2,BLACK);
-                }
+                printError();
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
             else if (result == -3) return;      //back to MENU
@@ -490,7 +447,7 @@ void resume_game()      /*the same start_game but without nRound=1 and an except
 
 void end_game()
 {
-    if (setting.theme==0) setTextColor(BLACK, WHITE2);
+    if (theme == 0) setTextColor(BLACK, WHITE2);
     else setTextColor(WHITE2, BLACK);
     //no winner:
     if (player1.remaining_ship && player2.remaining_ship)

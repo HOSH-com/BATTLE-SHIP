@@ -23,7 +23,7 @@ void printPreview();
 //functions definitions:
 void printTable()
 {
-    if (setting.theme==0) system("color F0");
+    if (theme == 0) system("color F0");
     else system("color 0F");
     //printing players name:
     printNames();
@@ -110,13 +110,13 @@ void printBattlefields()
                 switch (player1.battlefield[i][j]) 
                 {
                 case NO_SHIP:
-                    if(setting.theme==0)
+                    if(theme == 0)
                     {
                         setTextColor(BLUE,WHITE2);
                         printf("~  "); 
                         setTextColor(BLACK,WHITE2);
                     }
-                    else if(setting.theme==1)
+                    else if(theme == 1)
                     {
                         setTextColor(BLUE,BLACK);
                         printf("~  "); 
@@ -137,13 +137,13 @@ void printBattlefields()
                 switch (player2.battlefield[i][j]) 
                 {
                 case NO_SHIP:
-                    if(setting.theme==0)
+                    if(theme == 0)
                     {
                         setTextColor(BLUE,WHITE2);
                         printf("~  "); 
                         setTextColor(BLACK,WHITE2);
                     }
-                    else if(setting.theme==1)
+                    else if(theme == 1)
                     {
                         setTextColor(BLUE,BLACK);
                         printf("~  "); 
@@ -158,13 +158,13 @@ void printBattlefields()
                 default:
                     if (player2.battlefield[i][j] >= 100)//DON'T show ships!
                     {
-                        if(setting.theme==0)
+                        if(theme == 0)
                         {
                             setTextColor(BLUE,WHITE2);
                             printf("~  "); 
                             setTextColor(BLACK,WHITE2);
                         }
-                        else if(setting.theme==1)
+                        else if(theme == 1)
                         {
                             setTextColor(BLUE,BLACK);
                             printf("~  "); 
@@ -201,13 +201,13 @@ void printBattlefields()
                 switch (player1.battlefield[i][j]) 
                 {
                 case NO_SHIP://DON'T show ships!
-                    if(setting.theme==0)
+                    if(theme == 0)
                     {
                         setTextColor(BLUE,WHITE2);
                         printf("~  "); 
                         setTextColor(BLACK,WHITE2);
                     }
-                    else if(setting.theme==1)
+                    else if(theme == 1)
                     {
                         setTextColor(BLUE,BLACK);
                         printf("~  "); 
@@ -222,13 +222,13 @@ void printBattlefields()
                 default:
                     if (player1.battlefield[i][j] >= 100)
                     {
-                        if(setting.theme==0)
+                        if(theme == 0)
                         {
                             setTextColor(BLUE,WHITE2);
                             printf("~  "); 
                             setTextColor(BLACK,WHITE2);
                         }
-                        else if(setting.theme==1)
+                        else if(theme == 1)
                         {
                             setTextColor(BLUE,BLACK);
                             printf("~  "); 
@@ -246,13 +246,13 @@ void printBattlefields()
                 switch (player2.battlefield[i][j]) 
                 {
                 case NO_SHIP:
-                    if(setting.theme==0)
+                    if(theme == 0)
                     {
                         setTextColor(BLUE,WHITE2);
                         printf("~  "); 
                         setTextColor(BLACK,WHITE2);
                     }
-                    else if(setting.theme==1)
+                    else if(theme == 1)
                     {
                         setTextColor(BLUE,BLACK);
                         printf("~  "); 
@@ -319,13 +319,13 @@ void printPreview()
                 switch (player1.battlefield[i][j])
                 {
                 case NO_SHIP: // show sea
-                    if (setting.theme == 0)
+                    if (theme == 0)
                     {
                         setTextColor(BLUE, WHITE2);
                         printf("%3c", '~');
                         setTextColor(BLACK, WHITE2);
                     }
-                    else if (setting.theme == 1)
+                    else if (theme == 1)
                     {
                         setTextColor(BLUE, BLACK);
                         printf("%3c", '~');
@@ -360,13 +360,13 @@ void printPreview()
                 switch (player2.battlefield[i][j])
                 {
                 case NO_SHIP: // show sea
-                    if (setting.theme == 0)
+                    if (theme == 0)
                     {
                         setTextColor(BLUE, WHITE2);
                         printf("%3c", '~');
                         setTextColor(BLACK, WHITE2);
                     }
-                    else if (setting.theme == 1)
+                    else if (theme == 1)
                     {
                         setTextColor(BLUE, BLACK);
                         printf("%3c", '~');
