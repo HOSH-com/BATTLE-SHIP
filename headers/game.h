@@ -26,8 +26,9 @@ void new_game_settings() // for setting new game settings manually
     //ingredients:
     int x, y, length, width, nShip;
     int i, result, sw, counter;
+    char form;
+    char trash[40];  
     char str[100] , *strPtr;
-    char form;  
     
 
 
@@ -35,13 +36,12 @@ void new_game_settings() // for setting new game settings manually
     printf("Please enter size of map (3-15):\n");
     fgets(str, 100, stdin);
     setting.size_of_area = strtol(str, &strPtr, 0);   
-
-    while (setting.size_of_area > 15 || setting.size_of_area < 3) // check for error
+    
+    while (setting.size_of_area > 15 || setting.size_of_area < 3)  //check for error
     {
         printError();
         printf("Enter size of map again (from 3 to 15):\n");
-        fgets(str, 100, stdin);
-        setting.size_of_area = strtol(str, &strPtr, 0);    
+        scanf("%i", &setting.size_of_area);
     }
 
     //2- house amounts:
@@ -55,9 +55,9 @@ void new_game_settings() // for setting new game settings manually
         printf("Enter maximum number of houses again (from 1 to %i):\n", setting.size_of_area * setting.size_of_area / 2);
         fgets(str, 100, stdin);
         setting.max_element = strtol(str, &strPtr, 0);
-    }
-    
-    player1.remaining_element = player2.remaining_element = setting.max_element; // initializing
+    } 
+
+    player1.remaining_element = player2.remaining_element = setting.max_element;
 
 
 
@@ -70,9 +70,12 @@ void new_game_settings() // for setting new game settings manually
     //3- player1 name:
     printf("<PLAYER 1>\n\n"
     "Enter player1 name:\n");
-    scanf("%c", &str[0]);     // get ready for next "scanf"
-    fgets(player1.name, 21, stdin);
-    player1.name[strlen(player1.name - 2)] = 0; // remove \n
+    scanf("%c", &trash[0]);     // get ready for next "scanf"
+
+    for (i = 0; player1.name[i-1] != '\n'; i++)   
+        scanf("%c", &player1.name[i]);
+    
+    player1.name[i-1] = 0;
 
     //4- player1 ships:
     counter = 0; // for naming ships
@@ -109,12 +112,12 @@ void new_game_settings() // for setting new game settings manually
 
         do // make decision
         {
-            scanf("%s", str);
+            scanf("%s", trash);
 
-            if (strcmp(str, "$$$") == 0)
+            if (strcmp(trash, "$$$") == 0)
                 result = 1;
 
-            else if (strcmp(str, "---") == 0)
+            else if (strcmp(trash, "---") == 0)
             {
                 result = 2;
                 sw = 0;
@@ -160,9 +163,12 @@ void new_game_settings() // for setting new game settings manually
     // 5- player2 name:
     printf("<PLAYER 2>\n\n"
     "Enter player2 name:\n");
-    scanf("%c", &str[0]);     // get ready for next "scanf"
-    fgets(player2.name, 21, stdin);
-    player2.name[strlen(player1.name - 2)] = 0; // remove \n
+    scanf("%c", &trash[0]);     // get ready for next "scanf"
+
+    for (i = 0; player2.name[i-1] != '\n'; i++)   
+        scanf("%c", &player2.name[i]);
+    
+    player2.name[i-1] = 0;
 
     // 6- player2 ships:
     counter = 0; // for naming ships
@@ -199,12 +205,12 @@ void new_game_settings() // for setting new game settings manually
 
         do // make decision
         {
-            scanf("%s", str);
+            scanf("%s", trash);
 
-            if (strcmp(str, "$$$") == 0)
+            if (strcmp(trash, "$$$") == 0)
                 result = 1;
 
-            else if (strcmp(str, "---") == 0)
+            else if (strcmp(trash, "---") == 0)
             {
                 result = 2;
                 sw = 0;
@@ -270,15 +276,17 @@ void new_game_settings() // for setting new game settings manually
 
 void start_game()
 {
-    int x, y, result;
+    int x, y, result, doSave = 1;
     if (setting.theme==0) setTextColor(BLACK, WHITE2);
     else setTextColor(WHITE2, BLACK);
     clearScreen();
+    
     //start the new game:
     for (setting.nRound=1; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
     {
         save_last_movement_or_last_round();                     
-        file_save_round();
+        if (doSave) // avoid saving no-actions round
+            file_save_round();
         printTable(); //1- show PRE-attack table status
         
         result = fire(x,y);
@@ -318,24 +326,25 @@ void start_game()
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
             else if (result == -3) return;      //back to MENU
-            printf("Enter your shot again('row number' [SPACE] 'column'):\n");
-
+            
             result = fire(x,y);
         }
 
-        if (result == 0 || result == 1 || result==2 || result==3)     //it's OK
+        if (result == 0 || result == 1 || result==2 || result==3 ||result==4)     //it's OK
         {
             clearScreen();
             file_save_round();
             printTable();     //3- show AFTER-attack table status
-            if (result==2)
+
+            if (result==2) // ship SANK
             {
                 if (setting.nRound%2 == 1)
-                    printf("One of %s's ships sank!\n", player2.name);    //ship SANK
+                    printf("One of %s's ships sank!\n", player2.name);
                 else
-                    printf("One of %s's ships sank!\n", player1.name);    //ship SANK
+                    printf("One of %s's ships sank!\n", player1.name);    
             }
-            else if (result==0)
+
+            else if (result==0) // MISSED shot
             {
                 if(setting.nRound%2==1)
                 {
@@ -344,11 +353,26 @@ void start_game()
                 else
                     player1.battlefield[x-1][y-1] = 0;
             }
-            else if (result==3)//ship repaired
+
+            else if (result==3) // ship repaired
             {
-                printf("\nyour ship repaired\n");
+                printf("\nYour ship repaired\n");
             }
+
+            else if (result==4)
+            {
+                printf("YOU DONT HAVE ANY REPAIR ITEM...\n");
+                sleep(3000);
+                setting.nRound--;
+                doSave = 0; // dont save the round
+                clearScreen();
+                continue;
+            }
+
+            if (result != 4) // let the round be saved
+                doSave = 1;
         }
+
         printf("..."); //delay and clearScreen after each round:
         sleep(5000);
         clearScreen();
@@ -357,32 +381,21 @@ void start_game()
 
 
 
-void resume_game()      /*the same start_game but without nRound=1 */
+void resume_game()      /*the same start_game but without nRound=1 and an exception for file_save_round*/
 {
-    int x, y, result;
+    int x, y, result, doSave = 0;
     if (setting.theme==0) setTextColor(BLACK, WHITE2);
     else setTextColor(WHITE2, BLACK);
-
     clearScreen();
+
     //start the new game:
-    for (; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
+    for ( ; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
     {
-        save_last_movement_or_last_round();                             
-        file_save_round();
+        save_last_movement_or_last_round();                     
+        if (doSave) // avoid saving no-actions round
+            file_save_round();
         printTable(); //1- show PRE-attack table status
-        printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):"); //2- get the shot coord.
-        if (setting.theme == 0)
-        {
-            setTextColor(GREY, WHITE2);
-            printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
-            setTextColor(BLACK, WHITE2);
-        }
-        else if (setting.theme == 1)
-        {
-            setTextColor(GREY, BLACK);
-            printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
-            setTextColor(WHITE2, BLACK);
-        }
+        
         result = fire(x,y);
 
         while (result < 0)   //check for ERRORS
@@ -420,21 +433,25 @@ void resume_game()      /*the same start_game but without nRound=1 */
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
             else if (result == -3) return;      //back to MENU
-            printf("Enter your shot again('row number' [SPACE] 'column'):\n");
-
+            
             result = fire(x,y);
         }
 
-        if (result == 0 || result == 1 || result==2)     //it's OK
+        if (result == 0 || result == 1 || result==2 || result==3 ||result==4)     //it's OK
         {
             clearScreen();
             file_save_round();
             printTable();     //3- show AFTER-attack table status
-            if (result==2)
+
+            if (result==2) // ship SANK
             {
-                printf("One of %s's ships sank!\n", player2.name);    //ship SANK
+                if (setting.nRound%2 == 1)
+                    printf("One of %s's ships sank!\n", player2.name);
+                else
+                    printf("One of %s's ships sank!\n", player1.name);    
             }
-            else if (result==0)
+
+            else if (result==0) // MISSED shot
             {
                 if(setting.nRound%2==1)
                 {
@@ -442,13 +459,34 @@ void resume_game()      /*the same start_game but without nRound=1 */
                 }
                 else
                     player1.battlefield[x-1][y-1] = 0;
-            }      
+            }
+
+            else if (result==3) // ship repaired
+            {
+                printf("\nYour ship repaired\n");
+            }
+
+            else if (result==4)
+            {
+                printf("YOU DONT HAVE ANY REPAIR ITEM...\n");
+                sleep(3000);
+                setting.nRound--;
+                doSave = 0; // dont save the round
+                clearScreen();
+                continue;
+            }
+
+            if (result != 4) // let the round be saved
+                doSave = 1;
         }
-    printf("..."); //delay and clearScreen after each round:
-    sleep(5000);
-    clearScreen();
-    }     
+
+        printf("..."); //delay and clearScreen after each round:
+        sleep(5000);
+        clearScreen();
+    }    
 }
+
+
 
 void end_game()
 {
@@ -458,19 +496,21 @@ void end_game()
     if (player1.remaining_ship && player2.remaining_ship)
         printf("Returning to menu...\n");
     //player1 wins:
-    else if (player1.remaining_ship) 
+    else if (player1.remaining_ship && !player2.remaining_ship) 
     {
         printf("PLAYER \"%s\" WONNNNNNNNN!...\n", player1.name); 
         setting.status = 0;
         save_last_movement_or_last_round();
     }
     //player2 wins:
-    else if (player2.remaining_ship) 
+    else if (player2.remaining_ship && !player1.remaining_ship) 
     {
         printf("PLAYER \"%s\" WONNNNNNNNN!...\n", player2.name);    
         setting.status = 0;
         save_last_movement_or_last_round();
     }
+
+    else exit (EXIT_FAILURE);
     
     sleep(3000);
 }
