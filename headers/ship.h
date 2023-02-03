@@ -27,14 +27,15 @@ int repair_ship();
 
 int repair_ship()
 {
+    printf("        <-REPAIR->\n");
 
     while(1)
     {
-        printf("\nEnter coordinates to repair your ship ('row num' [SPACE] 'column num'):\n");
         int x,y;
-        scanf("%d %d",&x,&y);
         if (setting.nRound%2==1)
         {
+            printf("Enter coordinates to repair your ship ('%i' repair items are left):\n", player1.remaining_repair);
+            scanf("%d %d",&x,&y);
             if (player1.battlefield[x-1][y-1]<0)
             {
                 setting.nRound++;
@@ -48,16 +49,20 @@ int repair_ship()
             }
             else if (player1.battlefield[x-1][y-1]==0)
             {
-                printf("THERE ISNT ANY SHIP HERE\n");
+                printError();
+                printf("There is not any ship here.\n");
             }
             else if (player1.battlefield[x-1][y-1]>0)
             {
-                printf("THIS SHIP DIDNT GET ANY DAMAGE TO REPAIR\n");
+                printError();
+                printf("This house is not damaged.\n");
             }
             
         }
         else
         {
+            printf("Enter coordinates to repair your ship ('%i' repair items are left):\n", player2.remaining_repair);
+            scanf("%d %d",&x,&y);
             if (player2.battlefield[x-1][y-1]<0)
             {
                 setting.nRound++;
@@ -71,11 +76,13 @@ int repair_ship()
             }
             else if (player2.battlefield[x-1][y-1]==0)
             {
-                printf("THERE ISNT ANY SHIP HERE\n");
+                printError();
+                printf("There is not any ship here.\n");
             }
             else if (player2.battlefield[x-1][y-1]>0)
             {
-                printf("THIS SHIP DIDNT GET ANY DAMAGE TO REPAIR\n");
+                printError();
+                printf("This house is not damaged.\n");
             }
         }
     }
@@ -137,22 +144,18 @@ int fire(int &xxx,int &yyy)
     int x,y;
     int command;
 
-    printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):\n"); //2- get the shot coord.
+    printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):"); //2- get the shot coord.
 
     if (theme == 0)
     {
         setTextColor(GREY, WHITE2);
-        printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
-        if (setting.nRound!=1)
-        printf("<IF YOU WANT TO REPAIR YOUR SHIP, ENTER -1 -1>\n");
+        printf("<ENTER 0 0 TO EXIT, -1 -1 TO REPAIR YOUR SHIP>\n");
         setTextColor(BLACK, WHITE2);
     }
     else if (theme == 1)
     {
         setTextColor(GREY, BLACK);
-        printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
-        if (setting.nRound!=1)
-        printf("<IF YOU WANT TO REPAIR YOUR SHIP, ENTER -1 -1>\n");
+        printf("<ENTER 0 0 TO EXIT, -1 -1 TO REPAIR YOUR SHIP>\n");
         setTextColor(WHITE2, BLACK);
     }
     
@@ -160,33 +163,40 @@ int fire(int &xxx,int &yyy)
     int X = x-1;
     int Y = y-1;
     
-    if (x==0 && y==0)    //especial code to pause the game(0,0)
+    if (x==0 && y==0)    //especial code to pause the game(0 0)
     {
-       if(exit(x,y)==-3)
-       {
-        return -3;
-       }
+        if(exit(x,y)==-3)
+            return -3; // back to MENU (-3)
+       
        X=x-1;
        Y=y-1;
     }
 
-    if (x==-1 && y==-1 && setting.nRound!=1)
+    if (x==-1 && y==-1 ) // especial code to repair(-1 -1)
     {
         if (setting.nRound%2==1 && player1.remaining_repair!=0)
         {
+            if (player1.number_of_elements - player1.remaining_element == 0) // if all of ships were intact (-5)
+                return -5;
+
             repair_ship();
             player1.remaining_repair--;
-            return 3;
+            ++player1.remaining_element;
+            return 3; // REPAIRED (3)
         }
         else if (setting.nRound%2==0 && player2.remaining_repair!=0)
         {
+            if (player2.number_of_elements - player2.remaining_element == 0) // if all of ships were intact (-5)
+                return -5;
+
             repair_ship();
             player2.remaining_repair--;
-            return 3;
+            ++player2.remaining_element;
+            return 3; // REPAIRED (3)
         }
         else
         {
-            return 4;
+            return -4; // no repair item (-4)
         }
     }
 
@@ -202,6 +212,7 @@ int fire(int &xxx,int &yyy)
     {
         if (player2.battlefield[X][Y] > 99)
         {
+            --player2.remaining_element;
             player2.battlefield[X][Y]=player2.battlefield[X][Y]*(-1);
             result = remainingShips(x,y);
             if (result<0) 
@@ -230,6 +241,7 @@ int fire(int &xxx,int &yyy)
     {
         if (player1.battlefield[X][Y] > 99)
         {
+            --player1.remaining_element;
             player1.battlefield[X][Y]=player1.battlefield[X][Y]*(-1);
             result = remainingShips(x,y);
             if (result<0) 
@@ -387,11 +399,12 @@ int put_ship(int shipNumber, int length, int width)//*shipname is the name of th
 
 int  exit(int &x,int &y)
 {
-     int command;
-     while (x==0 && y==0)    //especial code to pause the game(0,0)
+    int command;
+    while (x==0 && y==0)    //especial code to pause the game(0,0)
     {
-        printf("ARE YOU SURE TO BACK TO MENU?\n"
-               "     1-YES      2-NO\n");
+        printf(
+            "         <-EXIT->\n"
+            "ARE YOU SURE TO BACK TO MENU?     1-YES      2-NO\n");
         do
         {
             command = getch();
@@ -404,21 +417,18 @@ int  exit(int &x,int &y)
         }
         else if(command=='2') //continue the game 
         {
-            printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):\n"); 
+            printf("         <-FIRE->\n");
+            printf("Enter coordinates to shot ('row num' [SPACE] 'column num'):"); 
             if (theme == 0)
             {
                 setTextColor(GREY, WHITE2);
-                printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
-                if (setting.nRound!=1)
-                printf("<IF YOU WANT TO REPAIR YOUR SHIP, ENTER -1 -1>\n");
+                printf("<ENTER 0 0 TO EXIT, -1 -1 TO REPAIR YOUR SHIP>\n");
                 setTextColor(BLACK, WHITE2);
             }
             else if (theme == 1)
             {
                 setTextColor(GREY, BLACK);
-                printf("<IF YOU WANT TO EXIT, ENTER 0 0>\n");
-                if (setting.nRound!=1)
-                printf("<IF YOU WANT TO REPAIR YOUR SHIP, ENTER -1 -1>\n");
+                printf("<ENTER 0 0 TO EXIT, -1 -1 TO REPAIR YOUR SHIP>\n");
                 setTextColor(WHITE2, BLACK);
             }
             scanf("%i %i", &x, &y);

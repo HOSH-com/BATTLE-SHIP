@@ -24,7 +24,7 @@ void new_game_settings() // for setting new game settings manually
     clearScreen();
 
     //ingredients:
-    int x, y, length, width, nShip;
+    int x, y, length, width, nShip, nElement, elementLeft;
     int i, result, sw, counter;
     char form;
     char trash[40];  
@@ -58,8 +58,6 @@ void new_game_settings() // for setting new game settings manually
         setting.max_element = strtol(str, &strPtr, 0);
     } 
 
-    player1.remaining_element = player2.remaining_element = setting.max_element;
-
 
 
     printf("...");
@@ -80,23 +78,26 @@ void new_game_settings() // for setting new game settings manually
 
     //4- player1 ships:
     counter = 0; // for naming ships
+    elementLeft = setting.max_element;
+    nElement = 0;
     turn = PLAYER1;
 
     clearScreen();
     printPreview(player1.name);
     printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order " // player must put ship, at least, once
-    "('%i' house(s) is left):\n", player1.remaining_element);
+    "('%i' house(s) is left):\n", elementLeft);
     scanf("%i%i%i", &width, &length, &nShip);
 
-    while (width * length * nShip > player1.remaining_element) // check for error
+    while (width * length * nShip > elementLeft) // check for error
     {
         printError();
         printf("House limit exeeded! You have only '%i' house(s) left.\n"
-        "Enter your ships 'size' (x in y) and 'number of them' again:\n", player1.remaining_element);
+        "Enter your ships 'size' (x in y) and 'number of them' again:\n", elementLeft);
         scanf("%i%i%i", &width, &length, &nShip);
     }
 
-    player1.remaining_element -= width * length * nShip; // subtract used houses from remainings
+    elementLeft -= width * length * nShip; // subtract used houses from remaining elements
+    nElement += length * width; // add used houses to player elements
 
     for (int i = 0; i < nShip; ++i)
     {
@@ -131,18 +132,19 @@ void new_game_settings() // for setting new game settings manually
         if (result == 1) // next ship placement
         {
             printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order "
-            "('%i' house(s) is left):\n", player1.remaining_element);
+            "('%i' house(s) is left):\n", elementLeft);
             scanf("%i%i%i", &width, &length, &nShip);
 
-            while (width * length * nShip > player1.remaining_element) // check for error
+            while (width * length * nShip > elementLeft) // check for error
             {
                 printError();
                 printf("House limit exeeded! You have only '%i' house(s) left.\n"
-                "Enter your ships 'size' (x in y) and 'number of them' again:\n", player1.remaining_element);
+                "Enter your ships 'size' (x in y) and 'number of them' again:\n", elementLeft);
                 scanf("%i%i%i", &width, &length, &nShip);
             }
 
-            player1.remaining_element -= width * length * nShip; // subtract used houses from remainings
+            elementLeft -= width * length * nShip; // subtract used houses from remainings
+            nElement += length * width; // add used houses to player elements
 
             for (int i = 0; i < nShip; ++i)
             {
@@ -157,6 +159,7 @@ void new_game_settings() // for setting new game settings manually
     }
     
     player1.remaining_ship = player1.number_of_ship;
+    player1.number_of_elements = player1.remaining_element = nElement;
 
 
 
@@ -176,23 +179,26 @@ void new_game_settings() // for setting new game settings manually
 
     // 6- player2 ships:
     counter = 0; // for naming ships
+    elementLeft = setting.max_element;
+    nElement = 0;
     turn = PLAYER2;
 
     clearScreen();
     printPreview(player2.name);
     printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order " // player must put ship, at least, once
-    "('%i' house(s) is left):\n", player2.remaining_element);
+    "('%i' house(s) is left):\n", elementLeft);
     scanf("%i%i%i", &width, &length, &nShip);
 
-    while (width * length * nShip > player2.remaining_element) // check for error
+    while (width * length * nShip > elementLeft) // check for error
     {
         printError();
         printf("House limit exeeded! You have only '%i' house(s) left.\n"
-        "Enter your ships 'size' (x in y) and 'number of them' again:\n", player2.remaining_element);
+        "Enter your ships 'size' (x in y) and 'number of them' again:\n", elementLeft);
         scanf("%i%i%i", &width, &length, &nShip);
     }
 
-    player2.remaining_element -= width * length * nShip; // subtract used houses from remainings
+    elementLeft -= width * length * nShip; // subtract used houses from remainings
+    nElement += length * width; // add used houses to player elements
 
     for (int i = 0; i < nShip; ++i)
     {
@@ -227,18 +233,19 @@ void new_game_settings() // for setting new game settings manually
         if (result == 1) // next ship placement
         {
             printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order "
-            "('%i' house(s) is left):\n", player2.remaining_element);
+            "('%i' house(s) is left):\n", elementLeft);
             scanf("%i%i%i", &width, &length, &nShip);
 
-            while (width * length * nShip > player2.remaining_element) // check for error
+            while (width * length * nShip > elementLeft) // check for error
             {
                 printError();
                 printf("House limit exeeded! You have only '%i' house(s) left.\n"
-                "Enter your ships 'size' (x in y) and 'number of them' again:\n", player2.remaining_element);
+                "Enter your ships 'size' (x in y) and 'number of them' again:\n", elementLeft);
                 scanf("%i%i%i", &width, &length, &nShip);
             }
 
-            player2.remaining_element -= width * length * nShip; // subtract used houses from remainings
+            elementLeft -= width * length * nShip; // subtract used houses from remainings
+            nElement += length * width; // add used houses to player elements
 
             for (int i = 0; i < nShip; ++i)
             {
@@ -253,6 +260,7 @@ void new_game_settings() // for setting new game settings manually
     }
 
     player2.remaining_ship = player2.number_of_ship;
+    player2.number_of_elements = player2.remaining_element = nElement;
 
 
 
@@ -283,7 +291,7 @@ void new_game_settings() // for setting new game settings manually
 
 void start_game()
 {
-    int x, y, result, doSave = 1;
+    int x, y, result;
     if (theme == 0) setTextColor(BLACK, WHITE2);
     else setTextColor(WHITE2, BLACK);
     clearScreen();
@@ -292,71 +300,75 @@ void start_game()
     for (setting.nRound=1; player1.remaining_ship && player2.remaining_ship; setting.nRound++)
     {
         save_last_movement_or_last_round();                     
-        if (doSave) // avoid saving no-actions round
-            file_save_round();
+        file_save_round();
         printTable(); //1- show PRE-attack table status
         
+        printf("         <-FIRE->\n");
         result = fire(x,y);
 
         while (result < 0)   //check for ERRORS or exit
         {
-            if (result == -2)
+            if (result == -2) // invalid shot
             {
                 printError();
                 printf("The ship in this area is damaged already.\n");
             }
-            else if (result == -1)
+
+            else if (result == -1) // invalid shot
             {
                 printError();
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
-            else if (result == -3) return;      //back to MENU
+
+            else if (result == -3) //back to MENU 
+                return;      
+
+            else if (result == -4) // repair item == 0
+            {
+                printError();
+                printf("You don't have any repair item!\n");
+            }
+            
+            else if (result == -5) // ships are intact
+            {
+                printError();
+                printf("Your ships are not damaged yet!\n");
+            }
             
             result = fire(x,y);
         }
 
-        if (result == 0 || result == 1 || result==2 || result==3 ||result==4)     //it's OK
+
+
+        // fire or repair: (result == 0 || 1 || 2 || 3)
+        clearScreen();
+        file_save_round();
+        printTable();     //3- show AFTER-attack table status
+
+        if (result==2) // ship SANK
         {
-            clearScreen();
-            file_save_round();
-            printTable();     //3- show AFTER-attack table status
-
-            if (result==2) // ship SANK
-            {
-                if (setting.nRound%2 == 1)
-                    printf("One of %s's ships sank!\n", player2.name);
-                else
-                    printf("One of %s's ships sank!\n", player1.name);    
-            }
-
-            else if (result==0) // MISSED shot
-            {
-                if(setting.nRound%2==1)
-                {
-                    player2.battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
-                }
-                else
-                    player1.battlefield[x-1][y-1] = 0;
-            }
-
-            else if (result==3) // ship repaired
-            {
-                printf("\nYour ship repaired\n");
-            }
-
-            else if (result==4)
-            {
-                printf("YOU DONT HAVE ANY REPAIR ITEM...\n");
-                sleep(3000);
-                setting.nRound--;
-                doSave = 0; // dont save the round
-                clearScreen();
-                continue;
-            }
-
-            if (result != 4) // let the round be saved
-                doSave = 1;
+            if (setting.nRound%2 == 1)
+                printf("One of %s's ships sank!\n", player2.name);
+            else
+                printf("One of %s's ships sank!\n", player1.name);    
         }
+
+        else if (result==0) // MISSED shot
+        {
+            if(setting.nRound%2==1)
+            {
+                player2.battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
+            }
+            else
+                player1.battlefield[x-1][y-1] = 0;
+        }
+
+        else if (result==3) // ship repaired
+        {
+            printf("\nYour ship repaired!\n");
+        }
+        
+
 
         printf("..."); //delay and clearScreen after each round:
         sleep(5000);
@@ -381,67 +393,73 @@ void resume_game()      /*the same start_game but without nRound=1 and an except
             file_save_round();
         printTable(); //1- show PRE-attack table status
         
+        printf("         <-FIRE->\n");
         result = fire(x,y);
 
-        while (result < 0)   //check for ERRORS
+        while (result < 0)   //check for ERRORS or exit
         {
-            if (result == -2)
+            if (result == -2) // invalid shot
             {
                 printError();
                 printf("The ship in this area is damaged already.\n");
             }
-            else if (result == -1)
+
+            else if (result == -1) // invalid shot
             {
                 printError();
                 printf("The shot is out of the range (min=1, max=%i).\n", setting.size_of_area);
             }
-            else if (result == -3) return;      //back to MENU
+
+            else if (result == -3) //back to MENU 
+                return;      
+
+            else if (result == -4) // repair item == 0
+            {
+                printError();
+                printf("You don't have any repair item...\n");
+            }
+            
+            else if (result == -5) // ships are intact
+            {
+                printError();
+                printf("Your ships are not damaged yet...\n");
+            }
             
             result = fire(x,y);
         }
 
-        if (result == 0 || result == 1 || result==2 || result==3 ||result==4)     //it's OK
+
+
+        // fire or repair: (result == 0 || 1 || 2 || 3)
+        clearScreen();
+        file_save_round();
+        printTable();     //3- show AFTER-attack table status
+
+        if (result==2) // ship SANK
         {
-            clearScreen();
-            file_save_round();
-            printTable();     //3- show AFTER-attack table status
-
-            if (result==2) // ship SANK
-            {
-                if (setting.nRound%2 == 1)
-                    printf("One of %s's ships sank!\n", player2.name);
-                else
-                    printf("One of %s's ships sank!\n", player1.name);    
-            }
-
-            else if (result==0) // MISSED shot
-            {
-                if(setting.nRound%2==1)
-                {
-                    player2.battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
-                }
-                else
-                    player1.battlefield[x-1][y-1] = 0;
-            }
-
-            else if (result==3) // ship repaired
-            {
-                printf("\nYour ship repaired\n");
-            }
-
-            else if (result==4)
-            {
-                printf("YOU DONT HAVE ANY REPAIR ITEM...\n");
-                sleep(3000);
-                setting.nRound--;
-                doSave = 0; // dont save the round
-                clearScreen();
-                continue;
-            }
-
-            if (result != 4) // let the round be saved
-                doSave = 1;
+            if (setting.nRound%2 == 1)
+                printf("One of %s's ships sank!\n", player2.name);
+            else
+                printf("One of %s's ships sank!\n", player1.name);    
         }
+
+        else if (result==0) // MISSED shot
+        {
+            if(setting.nRound%2==1)
+            {
+                player2.battlefield[x-1][y-1] = 0;          //DON'T show it in next rounds
+            }
+            else
+                player1.battlefield[x-1][y-1] = 0;
+        }
+
+        else if (result==3) // ship repaired
+        {
+            printf("\nYour ship repaired!\n");
+        }
+
+        doSave = 1;
+
 
         printf("..."); //delay and clearScreen after each round:
         sleep(5000);

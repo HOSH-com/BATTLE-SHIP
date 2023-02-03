@@ -287,7 +287,7 @@ void printRemainingShips()
         printf("=");    
     }
 
-    printf("\nRound %i\n\n", setting.nRound); //6- next line and 5)...
+    printf("\nRound %i\n", setting.nRound); //6- next line and 5)...
 }
 
 
@@ -311,7 +311,7 @@ void printPreview(char *pName)
 
     // seperate name from battlefield:
     printf("  ");
-    
+
     for (int i = 0; i < 3 * setting.size_of_area + 1; i++)
         printf("=");
     

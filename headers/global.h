@@ -15,6 +15,7 @@ struct PLAYERS_INFO
 {
     char name[21];
     int number_of_ship = 0;
+    int number_of_elements;
     int remaining_element;
     int remaining_repair;
     int remaining_ship;

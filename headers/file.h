@@ -20,7 +20,7 @@ void file_game_setting()
 {   
     clean_battlefields(); // set battlefields to default
     clearScreen();
-    int nShip, x, y, result, length, width, height, shipNumber, sw;
+    int nShip, x, y, result, length, width, height, shipNumber, sw, nElement, elementLeft;
     char form, temp[11];
     
     FILE *finput = fopen("input.txt", "rt");
@@ -33,7 +33,6 @@ void file_game_setting()
 
     fscanf(finput, "%i", &setting.size_of_area); // 1- area size
     fscanf(finput, "%i", &setting.max_element); // 2- element amounts
-    player1.remaining_element = player2.remaining_element = setting.max_element;
 
     
     
@@ -44,9 +43,12 @@ void file_game_setting()
 
     // 4- p1 putting ships:
     shipNumber = 0; // for naming ships
+    elementLeft = setting.max_element;
+    nElement = 0;
     fscanf(finput, "%i%i%i", &width, &length, &nShip);
     
-    player1.remaining_element -= width * length * nShip; // subtract used houses from remainings
+    elementLeft -= width * length * nShip; // subtract used houses from remaining elements
+    nElement += length * width; // add used houses to player elements
 
     for (int i = 0; i < nShip; ++i)
     {
@@ -101,7 +103,8 @@ void file_game_setting()
         if (result == 1) // next ship placement
         {
             fscanf(finput, "%i %i %i", &width, &length, &nShip);
-            player1.remaining_element -= width * length * nShip; // subtract used houses from remainings
+            elementLeft -= width * length * nShip; // subtract used houses from remaining elements
+            nElement += length * width; // add used houses to player elements
 
             for (int i = 0; i < nShip; ++i)
             {
@@ -137,10 +140,11 @@ void file_game_setting()
     }
     
     player1.remaining_ship = player1.number_of_ship;
+    player1.number_of_elements = player1.remaining_element = nElement;
 
     if (player1.remaining_element < 0) // error
     {
-        printf("incorrect inputs!");
+        printf("invalid inputs!");
         exit(EXIT_FAILURE);
     }
 
@@ -153,8 +157,11 @@ void file_game_setting()
 
     // 6- p2 putting ships:
     shipNumber = 0; // for naming ships
+    elementLeft = setting.max_element;
+    nElement = 0;
     fscanf(finput, "%i %i %i", &width, &length, &nShip);
-    player2.remaining_element -= width * length * nShip; // subtract used houses from remainings
+    elementLeft -= width * length * nShip; // subtract used houses from remainings
+    nElement += length * width; // add used houses to player elements
 
     for (int i = 0; i < nShip; ++i)
     {
@@ -209,7 +216,8 @@ void file_game_setting()
         if (result == 1) // next ship placement
         {
             fscanf(finput, "%i %i %i", &width, &length, &nShip);
-            player2.remaining_element -= width * length * nShip; // subtract used houses from remainings
+            elementLeft -= width * length * nShip; // subtract used houses from remainings
+            nElement += length * width; // add used houses to player elements
 
             for (int i = 0; i < nShip; ++i)
             {
@@ -245,10 +253,11 @@ void file_game_setting()
     }
     
     player2.remaining_ship = player2.number_of_ship;
+    player2.number_of_elements = player2.remaining_element = nElement;
 
     if (player2.remaining_element < 0) // error
     {
-        printf("incorrect inputs!");
+        printf("Invalid inputs!");
         exit(EXIT_FAILURE);
     }
 
