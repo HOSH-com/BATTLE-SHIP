@@ -26,7 +26,9 @@ void file_game_setting()
     FILE *finput = fopen("input.txt", "rt");
     if (!finput)
     {
-        printf("ERROR: can't open the file!\n");
+        clearScreen();
+        printError();
+        printf("Can't open or find \"input.txt\"!");
         sleep(5000);
         exit (1);
     }
@@ -300,7 +302,7 @@ void file_replay()
     {
         clearScreen();
         printError();
-        printf("Can't open or find \"replay.dat\"\n");
+        printf("Can't open or find \"replay.dat\"!");
         exit (-1);
     }
 
@@ -402,7 +404,7 @@ void read_last_movement_or_last_round()
     {
         clearScreen();
         printError();
-        printf("Can't open or find \"continue.dat\"");
+        printf("Can't open or find \"continue.dat\"!");
         exit (-1);
     }
     fread(&setting,sizeof(GAME_SETTING),1,openfile);
