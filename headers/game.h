@@ -82,7 +82,8 @@ void new_game_settings() // for setting new game settings manually
     counter = 0; // for naming ships
     turn = PLAYER1;
 
-    printPreview();
+    clearScreen();
+    printPreview(player1.name);
     printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order " // player must put ship, at least, once
     "('%i' house(s) is left):\n", player1.remaining_element);
     scanf("%i%i%i", &width, &length, &nShip);
@@ -100,7 +101,8 @@ void new_game_settings() // for setting new game settings manually
     for (int i = 0; i < nShip; ++i)
     {
         put_ship(counter, length, width);
-        printPreview();
+        clearScreen();
+        printPreview(player1.name);
         ++counter;
     }
 
@@ -145,7 +147,8 @@ void new_game_settings() // for setting new game settings manually
             for (int i = 0; i < nShip; ++i)
             {
                 put_ship(counter, length, width);
-                printPreview();
+                clearScreen();
+                printPreview(player1.name);
                 ++counter;
             }
 
@@ -175,7 +178,8 @@ void new_game_settings() // for setting new game settings manually
     counter = 0; // for naming ships
     turn = PLAYER2;
 
-    printPreview();
+    clearScreen();
+    printPreview(player2.name);
     printf("Enter your ships 'size' (x in y) and 'number of them' in the mentioned order " // player must put ship, at least, once
     "('%i' house(s) is left):\n", player2.remaining_element);
     scanf("%i%i%i", &width, &length, &nShip);
@@ -193,7 +197,8 @@ void new_game_settings() // for setting new game settings manually
     for (int i = 0; i < nShip; ++i)
     {
         put_ship(counter, length, width);
-        printPreview();
+        clearScreen();
+        printPreview(player2.name);
         ++counter;
     }
 
@@ -238,7 +243,8 @@ void new_game_settings() // for setting new game settings manually
             for (int i = 0; i < nShip; ++i)
             {
                 put_ship(counter, length, width);
-                printPreview();
+                clearScreen();
+                printPreview(player2.name);
                 ++counter;
             }
             

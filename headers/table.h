@@ -17,7 +17,7 @@ void printNames();
 void printBattlefields();
 void printRemainingShips();
 void printTable();
-void printPreview();
+void printPreview(const char *pName);
 
 
 //functions definitions:
@@ -292,10 +292,31 @@ void printRemainingShips()
 
 
 
-void printPreview()
+void printPreview(char *pName)
 {
-    puts(""); // next line
+    int length;
     
+    // print name:
+    if (turn == PLAYER1)
+        puts("<PLAYER 1>\n");
+    else
+        puts("<PLAYER 2>\n");
+    
+    length = strlen(pName);
+
+    for (int i = 0; i < (4 + (3 * setting.size_of_area - length) / 2); i++)
+        printf(" ");
+    
+    printf("%s\n", pName);    
+
+    // seperate name from battlefield:
+    printf("  ");
+    
+    for (int i = 0; i < 3 * setting.size_of_area + 1; i++)
+        printf("=");
+    
+    puts("");
+
     // print col. numbers:
     printf("   ");
     
@@ -303,8 +324,6 @@ void printPreview()
         printf("%3i", i + 1);
 
     puts(""); // next line
-
-
 
     // print battlefield:
     if (turn == PLAYER1)

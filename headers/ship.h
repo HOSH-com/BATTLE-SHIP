@@ -306,7 +306,7 @@ int put_ship(int shipNumber, int length, int width)//*shipname is the name of th
 
 
 
-    printf("Place ship number '%i' ('row' [SPACE] 'column' [SPACE] 'h/v form')\n", shipNumber + 1);
+    printf("Place ship number '%i' ('row' [SPACE] 'column' [SPACE] 'h/v form'):\n", shipNumber + 1);
 
     do
     {
