@@ -298,7 +298,9 @@ void file_replay()
     FILE* freplay = fopen("replay.dat", "rb");
     if (!freplay)
     {
-        printf("ERROR: can't open replay.dat\n");
+        clearScreen();
+        printError();
+        printf("Can't open or find \"replay.dat\"\n");
         exit (-1);
     }
 
@@ -398,7 +400,9 @@ void read_last_movement_or_last_round()
     FILE *openfile=fopen("continue.dat","rb");
     if (!openfile)
     {
-        printf("ERROR:We cant open save FILE");
+        clearScreen();
+        printError();
+        printf("Can't open or find \"continue.dat\"");
         exit (-1);
     }
     fread(&setting,sizeof(GAME_SETTING),1,openfile);
