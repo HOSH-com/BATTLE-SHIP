@@ -345,15 +345,7 @@ void start_game()
         file_save_round();
         printTable();     //3- show AFTER-attack table status
 
-        if (result==2) // ship SANK
-        {
-            if (setting.nRound%2 == 1)
-                printf("One of %s's ships sank!\n", player2.name);
-            else
-                printf("One of %s's ships sank!\n", player1.name);    
-        }
-
-        else if (result==0) // MISSED shot
+        if (result==0) // MISSED shot
         {
             if(setting.nRound%2==1)
             {
@@ -361,7 +353,22 @@ void start_game()
             }
             else
                 player1.battlefield[x-1][y-1] = 0;
+            printf("\nMissed!\n");
         }
+
+        else if (result == 1) // ship targeted
+        {
+            puts("\nNice shot!");
+        }
+        
+        else if (result==2) // ship SANK
+        {
+            if (setting.nRound%2 == 1)
+                printf("\nOne of %s's ships sank!\n", player2.name);
+            else
+                printf("\nOne of %s's ships sank!\n", player1.name);    
+        }
+
 
         else if (result==3) // ship repaired
         {
@@ -416,13 +423,13 @@ void resume_game()      /*the same start_game but without nRound=1 and an except
             else if (result == -4) // repair item == 0
             {
                 printError();
-                printf("You don't have any repair item...\n");
+                printf("You don't have any repair item!\n");
             }
             
             else if (result == -5) // ships are intact
             {
                 printError();
-                printf("Your ships are not damaged yet...\n");
+                printf("Your ships are not damaged yet!\n");
             }
             
             result = fire(x,y);
@@ -435,15 +442,7 @@ void resume_game()      /*the same start_game but without nRound=1 and an except
         file_save_round();
         printTable();     //3- show AFTER-attack table status
 
-        if (result==2) // ship SANK
-        {
-            if (setting.nRound%2 == 1)
-                printf("One of %s's ships sank!\n", player2.name);
-            else
-                printf("One of %s's ships sank!\n", player1.name);    
-        }
-
-        else if (result==0) // MISSED shot
+        if (result==0) // MISSED shot
         {
             if(setting.nRound%2==1)
             {
@@ -451,7 +450,22 @@ void resume_game()      /*the same start_game but without nRound=1 and an except
             }
             else
                 player1.battlefield[x-1][y-1] = 0;
+            printf("\nMissed!\n");
         }
+
+        else if (result == 1) // ship targeted
+        {
+            puts("\nNice shot!");
+        }
+        
+        else if (result==2) // ship SANK
+        {
+            if (setting.nRound%2 == 1)
+                printf("\nOne of %s's ships sank!\n", player2.name);
+            else
+                printf("\nOne of %s's ships sank!\n", player1.name);    
+        }
+
 
         else if (result==3) // ship repaired
         {
