@@ -18,98 +18,254 @@ void read_last_movement_or_last_round();
 
 void file_game_setting()
 {   
-    clean_battlefields();
+    clean_battlefields(); // set battlefields to default
     clearScreen();
-    int nShip, x, y, result, length;
+    int nShip, x, y, result, length, width, height, shipNumber, sw, nElement, elementLeft;
     char form, temp[11];
+    
     FILE *finput = fopen("input.txt", "rt");
     if (!finput)
     {
-        printf("ERROR: can't open the file!\n");
+        clearScreen();
+        printError();
+        printf("Can't open or find \"input.txt\"!");
         sleep(5000);
         exit (1);
     }
-    fscanf(finput, "%i", &setting.size_of_area);
-    fscanf(finput, "%i", &player1.number_of_ship);
-    nShip = player1.remaining_ship = player2.remaining_ship = player2.number_of_ship = player1.number_of_ship;
 
+    fscanf(finput, "%i", &setting.size_of_area); // 1- area size
+    fscanf(finput, "%i", &setting.max_element); // 2- element amounts
+
+    
+    
     fgets(temp, 2, finput);                 //scaning '\n'
-    fgets(player1.name, 100, finput);     
+    fgets(player1.name, 100, finput); // 3- p1 name
     length = strlen(player1.name);       //deleting '\n'
     player1.name[length-1] = 0;
 
-    //putting ships for player1:
-    for (int i = 0; i < nShip; i++)
+    // 4- p1 putting ships:
+    shipNumber = 0; // for naming ships
+    elementLeft = setting.max_element;
+    nElement = 0;
+    fscanf(finput, "%i%i%i", &width, &length, &nShip);
+    
+    elementLeft -= width * length * nShip; // subtract used houses from remaining elements
+    nElement += length * width; // add used houses to player elements
+
+    for (int i = 0; i < nShip; ++i)
     {
-        fscanf(finput, "%i %i %c", &x, &y, &form);    
-        x--; y--;
-        if (form=='H' || form=='h')     //Horizental
-        {
-            for (int j = 0; j < sizeofship; j++)
-            {
-                player1.battlefield[x][y+j]=sizeofship*1000+0+i;
-            }
-           
-            player1.ship_coordinates[i][0]=x;
-            player1.ship_coordinates[i][1]=y;
-            player1.ship_coordinates[i][2]=sizeofship;
-            player1.ship_coordinates[i][3]=0;
-        }
+        fscanf(finput, "%d %d %c", &x, &y, &form);
 
-        else if (form=='v' || form=='V')    //Vertical
-        {
-            for (int j = 0; j < sizeofship; j++)
-            {
-                player1.battlefield[x+j][y]=sizeofship*1000+100+i;
-            }
-            
-            player1.ship_coordinates[i][0]=x;
-            player1.ship_coordinates[i][1]=y;
-            player1.ship_coordinates[i][2]=sizeofship;
-            player1.ship_coordinates[i][3]=1;
-        }
+        // correct user possible misplaced input:
+        if ((form == 'h' || form == 'H') && !(length >= width)) 
+            intSwap(length, width);
 
+        else if ((form == 'v' || form == 'V') && !(width >= length))
+            intSwap(length, width);
+
+        x = x-1; // decrement for initializing battlefields
+        y = y-1;
+
+        for (int i = x; i < width + x; ++i)
+            for (int j = y; j < length + y; ++j)
+                player1.battlefield[i][j] = 100 + shipNumber; 
+
+        // initialize ship coor. array:
+        player1.ship_coordinates[shipNumber][0] = x;
+        player1.ship_coordinates[shipNumber][1] = y;
+        player1.ship_coordinates[shipNumber][2] = length;
+        player1.ship_coordinates[shipNumber][3] = width;
+        player1.ship_coordinates[shipNumber][4] = form;
+
+        ++player1.number_of_ship;
+        ++shipNumber;
     }
 
-    fscanf(finput, "%s", temp);
+    sw = 1;
 
-    fgets(temp, 2, finput);
-    fgets(player2.name, 100, finput);     
+    while (sw)
+    {
+        result = 0;
+
+        do // make decision
+        {
+            fscanf(finput, "%s", temp);
+
+            if (strcmp(temp, "$$$") == 0)
+                result = 1;
+
+            else if (strcmp(temp, "---") == 0)
+            {
+                result = 2;
+                sw = 0;
+            }    
+
+        } while (!result);
+
+        if (result == 1) // next ship placement
+        {
+            fscanf(finput, "%i %i %i", &width, &length, &nShip);
+            elementLeft -= width * length * nShip; // subtract used houses from remaining elements
+            nElement += length * width; // add used houses to player elements
+
+            for (int i = 0; i < nShip; ++i)
+            {
+                fscanf(finput, "%d %d %c", &x, &y, &form);
+
+                // correct user possible misplaced input:
+                if ((form == 'h' || form == 'H') && !(length >= width)) 
+                    intSwap(length, width);
+
+                else if ((form == 'v' || form == 'V') && !(width >= length))
+                    intSwap(length, width);
+
+                x = x-1; // decrement for initializing battlefields
+                y = y-1;
+
+                for (int i = x; i < width + x; ++i)
+                    for (int j = y; j < length + y; ++j)
+                        player1.battlefield[i][j] = 100 + shipNumber; 
+
+                // initialize ship coor. array:
+                player1.ship_coordinates[shipNumber][0] = x;
+                player1.ship_coordinates[shipNumber][1] = y;
+                player1.ship_coordinates[shipNumber][2] = length;
+                player1.ship_coordinates[shipNumber][3] = width;
+                player1.ship_coordinates[shipNumber][4] = form;
+
+                ++player1.number_of_ship;
+                ++shipNumber;
+            }
+
+        }
+        
+    }
+    
+    player1.remaining_ship = player1.number_of_ship;
+    player1.number_of_elements = player1.remaining_element = nElement;
+
+    if (player1.remaining_element < 0) // error
+    {
+        printf("invalid inputs!");
+        exit(EXIT_FAILURE);
+    }
+
+
+
+    fgets(temp, 2, finput);                 //scaning '\n'
+    fgets(player2.name, 100, finput); // 5- p2 name
     length = strlen(player2.name);       //deleting '\n'
     player2.name[length-1] = 0;
 
-    //putting ships for player2:
-    for (int i = 0; i < nShip; i++)
-    {
-        fscanf(finput, "%i %i %c", &x, &y, &form);    
-        x--; y--;
-        if (form=='H' || form=='h')     //Horizental
-        {
-            for (int j = 0; j < sizeofship; j++)
-            {
-                player2.battlefield[x][y+j]=sizeofship*1000+0+i;
-            }
-           
-            player2.ship_coordinates[i][0]=x;
-            player2.ship_coordinates[i][1]=y;
-            player2.ship_coordinates[i][2]=sizeofship;
-            player2.ship_coordinates[i][3]=0;
-            
-        }
+    // 6- p2 putting ships:
+    shipNumber = 0; // for naming ships
+    elementLeft = setting.max_element;
+    nElement = 0;
+    fscanf(finput, "%i %i %i", &width, &length, &nShip);
+    elementLeft -= width * length * nShip; // subtract used houses from remainings
+    nElement += length * width; // add used houses to player elements
 
-        else if (form=='v' || form=='V')    //Vertical
-        {
-            for (int j = 0; j < sizeofship; j++)
-            {
-                player2.battlefield[x+j][y]=sizeofship*1000+100+i;
-            }
-            
-            player2.ship_coordinates[i][0]=x;
-            player2.ship_coordinates[i][1]=y;
-            player2.ship_coordinates[i][2]=sizeofship;
-            player2.ship_coordinates[i][3]=1;
-        }
+    for (int i = 0; i < nShip; ++i)
+    {
+        fscanf(finput, "%d %d %c", &x, &y, &form);
+
+        // correct user possible misplaced input:
+        if ((form == 'h' || form == 'H') && !(length >= width)) 
+            intSwap(length, width);
+
+        else if ((form == 'v' || form == 'V') && !(width >= length))
+            intSwap(length, width);
+
+        x = x-1; // decrement for initializing battlefields
+        y = y-1;
+
+        for (int i = x; i < width + x; ++i)
+            for (int j = y; j < length + y; ++j)
+                player2.battlefield[i][j] = 100 + shipNumber; 
+
+        // initialize ship coor. array:
+        player2.ship_coordinates[shipNumber][0] = x;
+        player2.ship_coordinates[shipNumber][1] = y;
+        player2.ship_coordinates[shipNumber][2] = length;
+        player2.ship_coordinates[shipNumber][3] = width;
+        player2.ship_coordinates[shipNumber][4] = form;
+
+        ++player2.number_of_ship;
+        ++shipNumber;
     }
+
+    sw = 1;
+
+    while (sw)
+    {
+        result = 0;
+
+        do // make decision
+        {
+            fscanf(finput, "%s", temp);
+
+            if (strcmp(temp, "$$$") == 0)
+                result = 1;
+
+            else if (strcmp(temp, "---") == 0)
+            {
+                result = 2;
+                sw = 0;
+            }    
+
+        } while (!result);
+
+        if (result == 1) // next ship placement
+        {
+            fscanf(finput, "%i %i %i", &width, &length, &nShip);
+            elementLeft -= width * length * nShip; // subtract used houses from remainings
+            nElement += length * width; // add used houses to player elements
+
+            for (int i = 0; i < nShip; ++i)
+            {
+                fscanf(finput, "%d %d %c", &x, &y, &form);
+
+                // correct user possible misplaced input:
+                if ((form == 'h' || form == 'H') && !(length >= width)) 
+                    intSwap(length, width);
+
+                else if ((form == 'v' || form == 'V') && !(width >= length))
+                    intSwap(length, width);
+
+                x = x-1; // decrement for initializing battlefields
+                y = y-1;
+
+                for (int i = x; i < width + x; ++i)
+                    for (int j = y; j < length + y; ++j)
+                        player2.battlefield[i][j] = 100 + shipNumber; 
+
+                // initialize ship coor. array:
+                player2.ship_coordinates[shipNumber][0] = x;
+                player2.ship_coordinates[shipNumber][1] = y;
+                player2.ship_coordinates[shipNumber][2] = length;
+                player2.ship_coordinates[shipNumber][3] = width;
+                player2.ship_coordinates[shipNumber][4] = form;
+
+                ++player2.number_of_ship;
+                ++shipNumber;
+            }
+
+        }
+        
+    }
+    
+    player2.remaining_ship = player2.number_of_ship;
+    player2.number_of_elements = player2.remaining_element = nElement;
+
+    if (player2.remaining_element < 0) // error
+    {
+        printf("Invalid inputs!");
+        exit(EXIT_FAILURE);
+    }
+
+
+    fscanf(finput, "%i", &setting.max_repair);
+    player1.remaining_repair = player2.remaining_repair = setting.max_repair;
 
     result = fclose(finput);
     if (result == EOF)
@@ -144,7 +300,9 @@ void file_replay()
     FILE* freplay = fopen("replay.dat", "rb");
     if (!freplay)
     {
-        printf("ERROR: can't open replay.dat\n");
+        clearScreen();
+        printError();
+        printf("Can't open or find \"replay.dat\"!");
         exit (-1);
     }
 
@@ -244,7 +402,9 @@ void read_last_movement_or_last_round()
     FILE *openfile=fopen("continue.dat","rb");
     if (!openfile)
     {
-        printf("ERROR:We cant open save FILE");
+        clearScreen();
+        printError();
+        printf("Can't open or find \"continue.dat\"!");
         exit (-1);
     }
     fread(&setting,sizeof(GAME_SETTING),1,openfile);

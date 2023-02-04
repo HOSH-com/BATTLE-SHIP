@@ -6,25 +6,31 @@
 #define BLUE 3
 #define RED 4
 #define ESC 27
-int sizeofship=3;
+
+int theme = 0; // light background is considered as default theme (0 for white, 1 for black)
+
+enum Turn {PLAYER1, PLAYER2} turn;
 
 struct PLAYERS_INFO
 {
     char name[21];
-    int number_of_ship;
+    int number_of_ship = 0;
+    int number_of_elements;
+    int remaining_element;
+    int remaining_repair;
     int remaining_ship;
     int battlefield[15][15] = {};
-    int ship_coordinates[MAX_COOR][4];
-}player1,player2;
+    int ship_coordinates[MAX_COOR][5];
+} player1, player2;
+
 struct GAME_SETTING
 {
     int size_of_area;
     int max_element;
     int max_repair;
     int nRound;
-    int theme=0; //*code 0 for white background and 1 for dark background
     int status;
-}setting;
+} setting;
 
 struct LAST_ROUND
 {
