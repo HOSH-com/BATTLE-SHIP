@@ -50,7 +50,7 @@ void file_game_setting()
     fscanf(finput, "%i%i%i", &width, &length, &nShip);
     
     elementLeft -= width * length * nShip; // subtract used houses from remaining elements
-    nElement += length * width; // add used houses to player elements
+    nElement += length * width * nShip; // add used houses to player elements
 
     for (int i = 0; i < nShip; ++i)
     {
@@ -106,7 +106,7 @@ void file_game_setting()
         {
             fscanf(finput, "%i %i %i", &width, &length, &nShip);
             elementLeft -= width * length * nShip; // subtract used houses from remaining elements
-            nElement += length * width; // add used houses to player elements
+            nElement += length * width * nShip; // add used houses to player elements
 
             for (int i = 0; i < nShip; ++i)
             {
@@ -163,7 +163,7 @@ void file_game_setting()
     nElement = 0;
     fscanf(finput, "%i %i %i", &width, &length, &nShip);
     elementLeft -= width * length * nShip; // subtract used houses from remainings
-    nElement += length * width; // add used houses to player elements
+    nElement += length * width * nShip; // add used houses to player elements
 
     for (int i = 0; i < nShip; ++i)
     {
@@ -219,7 +219,7 @@ void file_game_setting()
         {
             fscanf(finput, "%i %i %i", &width, &length, &nShip);
             elementLeft -= width * length * nShip; // subtract used houses from remainings
-            nElement += length * width; // add used houses to player elements
+            nElement += length * width * nShip; // add used houses to player elements
 
             for (int i = 0; i < nShip; ++i)
             {

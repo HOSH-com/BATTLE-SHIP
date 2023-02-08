@@ -46,6 +46,11 @@ void clean_battlefields()
             player1.battlefield[i][j] = 0;
             player2.battlefield[i][j] = 0;
         }
+    player1.number_of_ship = 0;
+    player2.number_of_ship = 0;
+    player1.remaining_repair = 0;
+    player2.remaining_repair = 0;
+
     
 }
 

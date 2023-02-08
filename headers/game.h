@@ -97,7 +97,7 @@ void new_game_settings() // for setting new game settings manually
     }
 
     elementLeft -= width * length * nShip; // subtract used houses from remaining elements
-    nElement += length * width; // add used houses to player elements
+    nElement += length * width * nShip; // add used houses to player elements
 
     for (int i = 0; i < nShip; ++i)
     {
@@ -144,7 +144,7 @@ void new_game_settings() // for setting new game settings manually
             }
 
             elementLeft -= width * length * nShip; // subtract used houses from remainings
-            nElement += length * width; // add used houses to player elements
+            nElement += length * width * nShip; // add used houses to player elements
 
             for (int i = 0; i < nShip; ++i)
             {
@@ -198,7 +198,7 @@ void new_game_settings() // for setting new game settings manually
     }
 
     elementLeft -= width * length * nShip; // subtract used houses from remainings
-    nElement += length * width; // add used houses to player elements
+    nElement += length * width * nShip; // add used houses to player elements
 
     for (int i = 0; i < nShip; ++i)
     {
@@ -245,7 +245,7 @@ void new_game_settings() // for setting new game settings manually
             }
 
             elementLeft -= width * length * nShip; // subtract used houses from remainings
-            nElement += length * width; // add used houses to player elements
+            nElement += length * width * nShip; // add used houses to player elements
 
             for (int i = 0; i < nShip; ++i)
             {
